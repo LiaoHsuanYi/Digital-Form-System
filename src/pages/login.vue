@@ -3,7 +3,7 @@
   <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card p-4" style="width: 100%; max-width: 400px;">
         <div class="card-body">
-            <img src="../assets/1.jpg" class="w-100">
+            <img src="../assets/logo.jpg" class="w-100">
             <form> <!--to be modified for login function-->
                 <div class="row mb-3">
                     <label class="lglabel">使用者登入</label>

@@ -1,13 +1,13 @@
 <template>
 <div class="container text-center">
-        <img src="../assets/1.jpg" class="img-fluid w-50">
+        <img src="../assets/logo.jpg" class="img-fluid w-50">
 </div>
 <Navbar />
 <form>
     <section>
         <div class="container">
             <div class="row">
-                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">作業自主巡迴檢查表 - 參數與設備檢查</span>
+                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">作業自主巡迴檢查表 - 外觀檢視</span>
             </div>
         </div>
         <div class="container">
@@ -18,16 +18,16 @@
                     <input type="datetime-local" class="form-control" v-model="form.date">
                 </div>
                 <div class="col-3">
-                    <label class="label">機台編號</label> <!--Barcode-->
-                    <input type="text" class="form-control" v-model="form.machine_num">
+                    <label class="label">機器編號</label> <!--Barcode-->
+                    <input type="text" class="form-control" v-model="form.machine_num" required>
                 </div>
                 <div class="col-3">
                     <label class="label">機種</label> <!--Barcode slice-->
-                    <input type="text" class="form-control" v-model="form.machine_type">
+                    <input type="text" class="form-control" v-model="form.machine_type" required>
                 </div>
                 <div class="col-3">
                     <label class="label">模號</label>
-                    <input type="text" class="form-control" v-model="form.mold_id">
+                    <input type="text" class="form-control" v-model="form.mold_id" required>
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@ const defectType = [
     {key: 'dent', label: '起泡、凹陷'},
     {key: 'deform', label: '變形'},
     {key: 'stamp', label: '週期章無打點'},
-    {key: 'tool', label: '檢具NG'},
+    {key: 'tool_ng', label: '檢具NG'},
     {key: 'oil', label: '油汙、手套痕'},
     {key: 'stick', label: '模具黏模'},
 ]

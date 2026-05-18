@@ -1,7 +1,7 @@
 <template>
 
     <div class="container text-center">
-        <img src="../assets/1.jpg" class="img-fluid w-50">
+        <img src="../assets/logo.jpg" class="img-fluid w-50">
     </div>
 
     <Navbar />
