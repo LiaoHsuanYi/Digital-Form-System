@@ -3,7 +3,7 @@
         <img src="../assets/logo.jpg" class="img-fluid w-50">
 </div>
 <Navbar />
-<form>
+<form ref="checkRequired" @submit.prevent="submitAppearance">
     <section>
         <div class="container">
             <div class="row">
@@ -74,9 +74,11 @@
 <script setup>
 import Navbar from '../components/navbar.vue'
 import Footer from '../components/footer.vue'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { formatNow } from '../utils/date.js'
 
+//initialization
+const checkRequired = ref();
 const form = reactive({
   date: formatNow('minute'),
   machine_num: '',
@@ -85,6 +87,16 @@ const form = reactive({
   defects: []
 })
 
+//clear & reset
+const resetform = () => {
+  form.date = formatNow('minute')
+  form.machine_num = ''
+  form.machine_type = ''
+  form.mold_id = ''
+  form.defects = []
+}
+
+//value assignment
 const items = [1, 2, 3, 4]
 const defectType = [
     {key: 'crack', label: '拉模、裂紋'},
@@ -99,6 +111,8 @@ const defectType = [
     {key: 'oil', label: '油汙、手套痕'},
     {key: 'stick', label: '模具黏模'},
 ]
+
+//pack checkbox defects
 const isChecked = (item, type) => {
   return form.defects.some(x => x.item === item && x.type === type);
 }
@@ -118,5 +132,28 @@ const packDefect = (item, type, checked) => {
   }
 }
 
+const checkLook = () => {
+    if (!checkRequired.value.checkValidity()) //check required
+    {
+        checkRequired.value.reportValidity();
+        return false;
+    }
+
+    const count = form.defects.length;
+    if(count === 0) 
+    {
+        return confirm("目前沒有勾選任何異狀，確認資料無誤後，完成送出");
+    }
+    else
+    {
+        return confirm("偵測到" + `${count}` + "項異狀，確認資料無誤後，完成送出");
+    }
+}
+const submitAppearance = async() => {
+    if(!checkLook())
+        return;
+
+    resetform();
+}
 
 </script>

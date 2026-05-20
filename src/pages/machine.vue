@@ -214,7 +214,7 @@ import { formatNow } from '../utils/date.js'
 
 //initialization
 const checkRequired = ref();
-const fileInput = ref(null);
+const fileInput = ref('');
 const fileError = ref('');
 const form = reactive({ 
   date: formatNow('minute'),
@@ -264,7 +264,7 @@ const checkSet = () => {
         return false;
     }
 
-    if (form.issues.length === 0) //real submit
+    if (form.issues.length === 0) 
     {
         return confirm("目前沒有勾選任何異狀。\n確定全機正常後，接下來請記得填寫外觀檢視表單");
     }
@@ -282,7 +282,7 @@ const checkSet = () => {
                 fileError.value = "檔案大小超過限制，請重新上傳";
                 return false;
             }
-            else //real submit
+            else 
             {
                 fileError.value = "";
                 return true;
