@@ -1,7 +1,5 @@
 <template>
-<div class="container text-center">
-        <img src="../assets/logo.jpg" class="img-fluid w-50">
-</div>
+<Header />
 <Navbar />
 <form ref="checkRequired" @submit.prevent="submitMachine">
     <section>
@@ -11,21 +9,25 @@
             </div>
         </div>
         <div class="container">
-            <h3><span class="badge bg-success mb-3">基本資料</span></h3>
+            <h3><span class="badge bg-success mb-3">機器資料</span></h3>
             <div class="row mb-4">
-                <div class="col-3">
+                <div class="col">
                     <label class="label">日期和時間</label>
                     <input type="datetime-local" class="form-control" v-model="form.date">
                 </div>
-                <div class="col-3">
-                    <label class="label">機器編號</label> <!--Barcode-->
-                    <input type="text" class="form-control" v-model="form.machine_num" required>
+                <div class="col">
+                    <label class="label">機器編號</label> 
+                    <input type="text" class="form-control" v-model="form.machine_no" required>
                 </div>
-                <div class="col-3">
-                    <label class="label">機種</label> <!--Barcode slice-->
-                    <input type="text" class="form-control" v-model="form.machine_type" required>
+                <div class="col">
+                    <label class="label">料號</label>
+                    <input type="text" class="form-control" v-model="form.material_no" required>
                 </div>
-                <div class="col-3">
+                <div class="col">
+                    <label class="label">機種代碼</label> 
+                    <input type="text" class="form-control" v-model="form.material_type" required>
+                </div>
+                <div class="col">
                     <label class="label">模號</label>
                     <input type="text" class="form-control" v-model="form.mold_id" required>
                 </div>
@@ -101,7 +103,7 @@
             </div>
             <div class="row mb-4">
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="請填寫原因..." v-model="form.reason">
+                    <input type="text" class="form-control" placeholder="請填寫原因@." v-model="form.reason">
                 </div>
             </div>
         </div>
@@ -111,65 +113,20 @@
         <div class="container">
             <h3><span class="badge bg-success mb-4">鑄件砂孔預防確認</span></h3>
             <div class="row">
-                <div class="col">
+                <div
+                    class="col-4 mb-3"
+                    v-for="issue in issueType"
+                    :key="issue.key"
+                >
                     <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="1">
-                    鑄塞漏水
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            v-model="form.issues"
+                            :value="issue.key"
+                        >
+                        {{ issue.label }}
                     </label>
-                </div>
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="2">
-                    料管漏水
-                    </label>            
-                </div>
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="3">
-                    模具漏水
-                    </label>            
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="4">
-                    離型劑過多
-                    </label>            
-                </div>
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="5">
-                    排氣閥阻塞
-                    </label>            
-                </div>
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="6">
-                    離型劑噴頭漏水
-                    </label>            
-                </div>  
-            </div>
-            <br>
-            <div class="row mb-4">
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="7">
-                    料管沒潤滑
-                    </label>            
-                </div>
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="8">
-                    輸送機風扇沒運轉
-                    </label>            
-                </div>
-                <div class="col">
-                    <label class="h5">
-                    <input class="form-check-input" type="checkbox" v-model="form.issues" value="9">
-                    模具循環水沒開啟
-                    </label>            
                 </div>
             </div>
         </div>
@@ -183,7 +140,7 @@
             <div class="row mb-5">
                 <div class="col-6">
                     <input type="file" class="form-control" accept=".jpg, .png" @change="fileconvert" ref="fileInput">
-                    <p class="red2 mt-3">{{ fileError }}</p>
+                    <p class="red mt-3">{{ fileError }}</p>
                 </div>
             </div>
         </div>
@@ -207,10 +164,11 @@
 </style>
 
 <script setup>
-import Navbar from '../components/navbar.vue'
-import Footer from '../components/footer.vue'
+import Navbar from '@/components/navbar.vue'
+import Header from '@/components/header.vue';
+import Footer from '@/components/footer.vue'
 import { reactive, ref } from 'vue'
-import { formatNow } from '../utils/date.js'
+import { formatNow } from '@/utils/date.js'
 
 //initialization
 const checkRequired = ref();
@@ -218,8 +176,9 @@ const fileInput = ref('');
 const fileError = ref('');
 const form = reactive({ 
   date: formatNow('minute'),
-  machine_num: '',
-  machine_type: '',
+  machine_no: '',
+  material_no: '',
+  material_type: '',
   mold_id: '',
   /*material: 'ADC12',
   n2_press: '',
@@ -240,13 +199,27 @@ const form = reactive({
 //clear & reset
 const resetform = () => { 
     form.date = formatNow('minute');
-    form.machine_num = '';
-    form.machine_type = '';
+    form.machine_no = '';
+    form.material_no = '';
+    form.material_type = '';
     form.mold_id = '';
     form.issues = [];
     form.files = [];
     fileInput.value.value = '';
 }
+
+//value assignment
+const issueType = [
+    { key: '1', label: '鑄塞漏水' },
+    { key: '2', label: '料管漏水' },
+    { key: '3', label: '模具漏水' },
+    { key: '4', label: '離型劑過多' },
+    { key: '5', label: '排氣閥阻塞' },
+    { key: '6', label: '離型劑噴頭漏水' },
+    { key: '7', label: '料管沒潤滑' },
+    { key: '8', label: '輸送機風扇沒運轉' },
+    { key: '9', label: '模具循環水沒開啟' }
+]
 
 //file convert
 const fileconvert = (e) => {

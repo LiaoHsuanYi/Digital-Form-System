@@ -1,36 +1,21 @@
-a{
-  text-decoration: none; 
-  color: inherit;        
-}
 li{
   font-size: large;
 }
-/*.container{
-    padding: 20px;
-    position: relative;
-}*/
-.btncontainer{
-  display: flex; 
-  flex-direction: column;         
-  justify-content: center; 
-  align-items: center;     
-  height: 60vh;
+.top-btn{
+  position: absolute;
+  outline: black solid 1px;
+  top: 30px;
+  right: 50px;
 }
-
-.dropdown-menu{
-    min-width: 150px;
-}
-
 .label{
-    font-size: x-large;
-    font-weight: bolder;
+  font-size: x-large;
+  font-weight: bolder;
 }
 .h3{
   font-size: 40px;
   font-weight: bolder;
   text-align: center;
 }
-
 .h6{
   font-size: 20px;
 }
@@ -39,33 +24,27 @@ li{
   font-weight: bold;
   text-align: center;
 }
-
-.red2{
+.red{
   font-size: x-large;
   font-weight: bold;
   color: red;
   text-align: left;
 }
-
 .look {
   width: 100%;
   border-collapse: collapse; 
   text-align: center;
   font-size: larger;    
 }
-
 .look th, .look td {
   border: 1px solid;
   padding: 12px;
   font-weight: bold;
 }
-
 .look th {
   background-color:#F2FFFA;
   font-weight: bold;
 }
-
-
 .appearance td:first-child {
   text-align: left;
   font-weight: bold;

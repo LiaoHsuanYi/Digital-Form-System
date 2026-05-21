@@ -1,7 +1,5 @@
 <template>
-<div class="container text-center">
-        <img src="../assets/logo.jpg" class="img-fluid w-50">
-</div>
+<Header />
 <Navbar />
 <form ref="checkRequired" @submit.prevent="submitAppearance">
     <section>
@@ -11,21 +9,25 @@
             </div>
         </div>
         <div class="container">
-            <h3><span class="badge bg-success mb-3">基本資料</span></h3>
+            <h3><span class="badge bg-success mb-3">機器資料</span></h3>
             <div class="row mb-4">
-                <div class="col-3">
+                <div class="col">
                     <label class="label">日期和時間</label>
                     <input type="datetime-local" class="form-control" v-model="form.date">
                 </div>
-                <div class="col-3">
-                    <label class="label">機器編號</label> <!--Barcode-->
-                    <input type="text" class="form-control" v-model="form.machine_num" required>
+                <div class="col">
+                    <label class="label">機器編號</label> 
+                    <input type="text" class="form-control" v-model="form.machine_no" required>
                 </div>
-                <div class="col-3">
-                    <label class="label">機種</label> <!--Barcode slice-->
-                    <input type="text" class="form-control" v-model="form.machine_type" required>
+                <div class="col">
+                    <label class="label">料號</label>
+                    <input type="text" class="form-control" v-model="form.material_no" required>
                 </div>
-                <div class="col-3">
+                <div class="col">
+                    <label class="label">機種代碼</label> 
+                    <input type="text" class="form-control" v-model="form.material_type" required>
+                </div>
+                <div class="col">
                     <label class="label">模號</label>
                     <input type="text" class="form-control" v-model="form.mold_id" required>
                 </div>
@@ -72,28 +74,31 @@
 </template>
 
 <script setup>
-import Navbar from '../components/navbar.vue'
-import Footer from '../components/footer.vue'
+import Navbar from '@/components/navbar.vue'
+import Header from '@/components/header.vue';
+import Footer from '@/components/footer.vue'
 import { reactive, ref } from 'vue'
-import { formatNow } from '../utils/date.js'
+import { formatNow } from '@/utils/date.js'
 
 //initialization
 const checkRequired = ref();
 const form = reactive({
-  date: formatNow('minute'),
-  machine_num: '',
-  machine_type: '',
-  mold_id: '',
-  defects: []
+    date: formatNow('minute'),
+    machine_no: '',
+    material_no: '',
+    material_type: '',
+    mold_id: '',
+    defects: []
 })
 
 //clear & reset
 const resetform = () => {
-  form.date = formatNow('minute')
-  form.machine_num = ''
-  form.machine_type = ''
-  form.mold_id = ''
-  form.defects = []
+    form.date = formatNow('minute');
+    form.machine_no = '';
+    form.material_no = '';
+    form.material_type = '';
+    form.mold_id = '';
+    form.defects = [];
 }
 
 //value assignment
@@ -132,6 +137,7 @@ const packDefect = (item, type, checked) => {
   }
 }
 
+//validation
 const checkLook = () => {
     if (!checkRequired.value.checkValidity()) //check required
     {
@@ -149,6 +155,8 @@ const checkLook = () => {
         return confirm("偵測到" + `${count}` + "項異狀，確認資料無誤後，完成送出");
     }
 }
+
+//submit
 const submitAppearance = async() => {
     if(!checkLook())
         return;

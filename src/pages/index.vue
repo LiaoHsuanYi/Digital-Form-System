@@ -10,10 +10,10 @@
         </div>
         <div class="row">
              <div class="col">
-                <router-link to="/mbx"class="btn btn-warning idxbtn">壓鑄</router-link>
+                <router-link to="/mbx"class="btn btn-warning idxbtn">零件製造部</router-link>
             </div>
             <div class="col">
-                <button class="btn btn-warning idxbtn">加工</button>
+                <button class="btn btn-warning idxbtn">機械加工部</button>
             </div>
         </div>
     </div>

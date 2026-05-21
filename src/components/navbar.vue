@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <div class="d-flex align-items-center ms-5"> 
-                <router-link to="/mbx" class="navbar-brand"  style="font-size: x-large; font-weight: bolder;">壓鑄</router-link>
+                <router-link to="/mbx" class="navbar-brand"  style="font-size: x-large; font-weight: bolder;">製造</router-link>
             <div class="dropdown ms-2">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,9 @@
                             <router-link to="/appearance" class="dropdown-item">2. 外觀檢查</router-link>
                         </ul>
                         </li>
-
+                        <li class="nav-item">
+                            <router-link to="/dailysheet" class="nav-link">壓鑄工作日報表</router-link>
+                        </li>
                     </ul>
                 </div>
             </div> 
