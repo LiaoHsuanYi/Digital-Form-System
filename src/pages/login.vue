@@ -10,10 +10,10 @@
                     <label class="lglabel">User Login</label>
                 </div>
                 <div class="row mb-3">
-                    <input type="text" class="form-control" placeholder="帳號">
+                    <input type="text" class="form-control" placeholder="帳號 Username">
                 </div>
                 <div class="row mb-4">
-                    <input type="password" class="form-control" placeholder="密碼">
+                    <input type="password" class="form-control" placeholder="密碼 Password">
                 </div>
                 <div class="row">
                     <button type="button" class="btn btn-success" @click="router.push('/index')">登入</button>

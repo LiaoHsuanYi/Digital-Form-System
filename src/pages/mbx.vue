@@ -8,17 +8,17 @@
             <label class="h3">{{ $t('common.lngset') }}</label>
         </div>
         <div class="row"> <!--need to revise if function-->
-            <div class="col" v-if="locale == 'zh'">
+            <div class="col" v-if="locale != 'zh'">
                 <button type="button" class="btn btn-warning btn1" @click="changeLang('zh')">
                 {{ $t('common.zh') }} </button>
             </div>
 
-            <div class="col" v-if="locale !== 'th'">
+            <div class="col" v-if="locale != 'th'">
                 <button type="button" class="btn btn-warning btn1" @click="changeLang('th')">
                 {{ $t('common.th') }} </button>
             </div>
 
-            <div class="col" v-if="locale !== 'id'">
+            <div class="col" v-if="locale != 'id'">
                 <button type="button" class="btn btn-warning btn1" @click="changeLang('id')">
                 {{ $t('common.id') }} </button>
             </div>      
@@ -52,11 +52,13 @@
 
 <script setup>
 import Footer from '@/components/footer.vue'
-import Header from '@/components/header.vue';
+import Header from '@/components/header.vue'
 import Navbar from '@/components/navbar.vue'
+import { useI18n } from 'vue-i18n'
+const { locale } = useI18n()
 
 const changeLang = (lang) => {
-  locale.value = lang;
+    locale.value = lang;
     localStorage.setItem('lang', lang);
 }
 </script>

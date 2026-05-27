@@ -27,6 +27,13 @@ import Footer from '../components/footer.vue'
 </script>
 
 <style scoped>
+.btncontainer{
+  display: flex; 
+  flex-direction: column;         
+  justify-content: center; 
+  align-items: center;     
+  height: 60vh;
+}
 .h1{
   font-size: 70px;
   font-weight: bolder;

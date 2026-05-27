@@ -5,30 +5,30 @@
     <section>
         <div class="container">
             <div class="row">
-                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">作業自主巡迴檢查表 - 參數與設備檢查</span>
+                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">{{ $t('machine.title') }}</span>
             </div>
         </div>
         <div class="container">
-            <h3><span class="badge bg-success mb-3">機器資料</span></h3>
+            <h3><span class="badge bg-success mb-3">{{  $t('machine.labels[0]') }}</span></h3>
             <div class="row mb-4">
                 <div class="col">
-                    <label class="label">日期和時間</label>
+                    <label class="label">{{ $t('machine.date') }}</label>
                     <input type="datetime-local" class="form-control" v-model="form.date">
                 </div>
                 <div class="col">
-                    <label class="label">機器編號</label> 
+                    <label class="label">{{ $t('machine.machine_no') }}</label> 
                     <input type="text" class="form-control" v-model="form.machine_no" required>
                 </div>
                 <div class="col">
-                    <label class="label">料號</label>
+                    <label class="label">{{ $t('machine.material_no') }}</label>
                     <input type="text" class="form-control" v-model="form.material_no" required>
                 </div>
                 <div class="col">
-                    <label class="label">機種代碼</label> 
+                    <label class="label">{{ $t('machine.material_type') }}</label> 
                     <input type="text" class="form-control" v-model="form.material_type" required>
                 </div>
                 <div class="col">
-                    <label class="label">模號</label>
+                    <label class="label">{{ $t('machine.mold_id') }}</label>
                     <input type="text" class="form-control" v-model="form.mold_id" required>
                 </div>
             </div>
@@ -111,7 +111,7 @@
 
     <section> <!-- name to be modified-->
         <div class="container">
-            <h3><span class="badge bg-success mb-4">鑄件砂孔預防確認</span></h3>
+            <h3><span class="badge bg-success mb-4">{{ $t('machine.labels[1]') }}</span></h3>
             <div class="row">
                 <div
                     class="col-4 mb-3"
@@ -135,7 +135,7 @@
     <section>
         <div class="container">
             <div class="row-3">
-            <h3><span class="badge bg-success mb-3">檔案上傳</span></h3>
+            <h3><span class="badge bg-success mb-3">{{ $t('machine.labels[2]') }}</span></h3>
             </div>
             <div class="row mb-5">
                 <div class="col-6">
@@ -169,6 +169,8 @@ import Header from '@/components/header.vue';
 import Footer from '@/components/footer.vue'
 import { reactive, ref } from 'vue'
 import { formatNow } from '@/utils/date.js'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 //initialization
 const checkRequired = ref();
@@ -210,15 +212,15 @@ const resetform = () => {
 
 //value assignment
 const issueType = [
-    { key: '1', label: '鑄塞漏水' },
-    { key: '2', label: '料管漏水' },
-    { key: '3', label: '模具漏水' },
-    { key: '4', label: '離型劑過多' },
-    { key: '5', label: '排氣閥阻塞' },
-    { key: '6', label: '離型劑噴頭漏水' },
-    { key: '7', label: '料管沒潤滑' },
-    { key: '8', label: '輸送機風扇沒運轉' },
-    { key: '9', label: '模具循環水沒開啟' }
+    { key: '1', label: t('machine.checklist[0]') },
+    { key: '2', label: t('machine.checklist[1]') },
+    { key: '3', label: t('machine.checklist[2]') },
+    { key: '4', label: t('machine.checklist[3]') },
+    { key: '5', label: t('machine.checklist[4]') },
+    { key: '6', label: t('machine.checklist[5]') },
+    { key: '7', label: t('machine.checklist[6]') },
+    { key: '8', label: t('machine.checklist[7]') },
+    { key: '9', label: t('machine.checklist[8]') }
 ]
 
 //file convert
@@ -239,20 +241,20 @@ const checkSet = () => {
 
     if (form.issues.length === 0) 
     {
-        return confirm("目前沒有勾選任何異狀。\n確定全機正常後，接下來請記得填寫外觀檢視表單");
+        return confirm(t('machine.set_ok'));
     }
     else
     {
         if (form.files.length === 0) 
         {      
-            fileError.value = "請上傳檔案";
+            fileError.value = t('machine.file_ng');
             return false;
         }
         else
         {
             if(form.files[0].size > 5 *1024 * 1024) //size to be modified
             {
-                fileError.value = "檔案大小超過限制，請重新上傳";
+                fileError.value = t('machine.file_limit');
                 return false;
             }
             else 
