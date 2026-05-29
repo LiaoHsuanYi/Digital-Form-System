@@ -1,46 +1,46 @@
 <template>
-<Header />
 <Navbar />
-<form ref="checkRequired" @submit.prevent="submitMachine">
-    <section>
-        <div class="container">
-            <div class="row">
-                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">作業自主巡迴檢查表 - 參數與設備檢查</span>
+<div class="form-bg">
+    <div class="form-body">
+    <form ref="checkRequired" @submit.prevent="submitMachine">
+        <section>
+            <div class="form-hero">
+                {{ $t('machine.title') }}
             </div>
-        </div>
-        <div class="container">
-            <h3><span class="badge bg-success mb-3">機器資料</span></h3>
-            <div class="row mb-4">
-                <div class="col">
-                    <label class="label">日期和時間</label>
-                    <input type="datetime-local" class="form-control" v-model="form.date">
+            <div class="sec-head">
+                <div class="sec-bar"></div>
+                <div class="sec-lbl">{{  $t('machine.labels[0]') }}</div>
+            </div>
+            <div class="field-grid">
+                <div class="field-group">
+                    <label class="field-label">{{ $t('machine.date') }}</label>
+                    <input type="datetime-local" class="field-input" v-model="form.date">
                 </div>
-                <div class="col">
-                    <label class="label">機器編號</label> 
-                    <input type="text" class="form-control" v-model="form.machine_no" required>
+                <div class="field-group">
+                    <label class="field-label">{{ $t('machine.machine_no') }}</label> 
+                    <input type="text" class="field-input" v-model="form.machine_no" required>
                 </div>
-                <div class="col">
-                    <label class="label">料號</label>
-                    <input type="text" class="form-control" v-model="form.material_no" required>
+                <div class="field-group">
+                    <label class="field-label">{{ $t('machine.material_no') }}</label>
+                    <input type="text" class="field-input" v-model="form.material_no" required>
                 </div>
-                <div class="col">
-                    <label class="label">機種代碼</label> 
-                    <input type="text" class="form-control" v-model="form.material_type" required>
+                <div class="field-group">
+                    <label class="field-label">{{ $t('machine.material_type') }}</label> 
+                    <input type="text" class="field-input" v-model="form.material_type" required>
                 </div>
-                <div class="col">
-                    <label class="label">模號</label>
-                    <input type="text" class="form-control" v-model="form.mold_id" required>
+                <div class="field-group">
+                    <label class="field-label">{{ $t('machine.mold_id') }}</label>
+                    <input type="text" class="field-input" v-model="form.mold_id" required>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-
-
-    <!--<section>
-        <div class="container">
-            <h3><span class="badge bg-success mb-3">機器參數</span></h3>
-            <div class="row mb-4">
+        <!--<section>
+            <div class="sec-head">
+                <div class="sec-bar"></div>
+                <div class="sec-lbl">機器參數</div>
+            </div>
+            <div class="field-group mb-4">
                 <div class="col">
                     <label class="label">合金材料</label>
                     <div class="form-check">
@@ -94,64 +94,79 @@
                     <input type="number" class="form-control" v-model.number="form.inject_press">
                 </div>  
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="d-flex justify-content-center">
-                    <h2><span class="badge bg-danger rounded-pill mb-3">原因說明</span></h2>
+            
+            <div class="container">
+                <div class="row">
+                    <div class="d-flex justify-content-center">
+                        <h2><span class="badge bg-danger rounded-pill mb-3">原因說明</span></h2>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="請填寫原因@." v-model="form.reason">
+                    </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="請填寫原因@." v-model="form.reason">
-                </div>
-            </div>
-        </div>
-    </section>-->
+        </section>-->
 
-    <section> <!-- name to be modified-->
-        <div class="container">
-            <h3><span class="badge bg-success mb-4">鑄件砂孔預防確認</span></h3>
-            <div class="row">
-                <div
-                    class="col-4 mb-3"
-                    v-for="issue in issueType"
+        <section> <!-- name to be modified-->
+            <div class="sec-head">
+                <div class="sec-bar"></div>
+                <div class="sec-lbl">{{  $t('machine.labels[1]') }}</div>
+            </div>
+            <div class="check-panel">
+                <div class="check-grid">
+                    <label 
+                    class="check-item" 
+                    v-for="issue in issueType" 
                     :key="issue.key"
-                >
-                    <label class="h5">
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            v-model="form.issues"
-                            :value="issue.key"
-                        >
-                        {{ issue.label }}
+                    >
+                        <input 
+                            type="checkbox" 
+                            class="form-check-input" 
+                            v-model="form.issues" 
+                            :value="issue.key" 
+                        />
+                        <span>{{ issue.label }}</span>
                     </label>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section>
-        <div class="container">
-            <div class="row-3">
-            <h3><span class="badge bg-success mb-3">檔案上傳</span></h3>
+        <section> <!--remember to modify error message-->
+            <div class="sec-head">
+                <div class="sec-bar"></div>
+                <label class="sec-lbl">{{  $t('machine.labels[2]') }}</label>
             </div>
-            <div class="row mb-5">
-                <div class="col-6">
-                    <input type="file" class="form-control" accept=".jpg, .png" @change="fileconvert" ref="fileInput">
-                    <p class="red mt-3">{{ fileError }}</p>
+            <div class="upload-zone" @click="triggerUpload">
+                <div class="upload-content">
+                    <div class="upload-icon">📁</div>
+                    <div class="upload-text">
+                        <span v-if="fileError" class="file-error"  style="font-weight: bold; color: red;">
+                            {{ fileError }}
+                        </span>
+                        <span v-else-if="fileName" class="file-selected">{{ fileName }}</span>
+                        <span v-else>{{  $t('machine.file_upload') }}</span>
+                    </div>
                 </div>
+
+                <input 
+                    type="file" 
+                    ref="fileInput" 
+                    style="display: none" 
+                    @change="handleFileChange" 
+                    accept=".jpg, .png"
+                />
             </div>
+        </section>
+
+
+        <div class="submit-wrap">
+            <button type="submit" class="submit-btn">Submit</button>
         </div>
-    </section>
-
-
-    <div class="container text-center">
-        <button type="submit" class="btn btn-outline-success btn-lg col-4 mb-4">Submit</button>
+    </form>
     </div>
-</form>
-
+</div>
 <Footer />
 
 </template>
@@ -165,14 +180,16 @@
 
 <script setup>
 import Navbar from '@/components/navbar.vue'
-import Header from '@/components/header.vue';
 import Footer from '@/components/footer.vue'
 import { reactive, ref } from 'vue'
 import { formatNow } from '@/utils/date.js'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 //initialization
 const checkRequired = ref();
 const fileInput = ref('');
+const fileName = ref('');
 const fileError = ref('');
 const form = reactive({ 
   date: formatNow('minute'),
@@ -206,63 +223,71 @@ const resetform = () => {
     form.issues = [];
     form.files = [];
     fileInput.value.value = '';
+    fileName.value = '';
+    fileError.value ='';
 }
 
 //value assignment
 const issueType = [
-    { key: '1', label: '鑄塞漏水' },
-    { key: '2', label: '料管漏水' },
-    { key: '3', label: '模具漏水' },
-    { key: '4', label: '離型劑過多' },
-    { key: '5', label: '排氣閥阻塞' },
-    { key: '6', label: '離型劑噴頭漏水' },
-    { key: '7', label: '料管沒潤滑' },
-    { key: '8', label: '輸送機風扇沒運轉' },
-    { key: '9', label: '模具循環水沒開啟' }
+    { key: '1', label: t('machine.checklist[0]') },
+    { key: '2', label: t('machine.checklist[1]') },
+    { key: '3', label: t('machine.checklist[2]') },
+    { key: '4', label: t('machine.checklist[3]') },
+    { key: '5', label: t('machine.checklist[4]') },
+    { key: '6', label: t('machine.checklist[5]') },
+    { key: '7', label: t('machine.checklist[6]') },
+    { key: '8', label: t('machine.checklist[7]') },
+    { key: '9', label: t('machine.checklist[8]') }
 ]
 
-//file convert
-const fileconvert = (e) => {
+//file processing
+const triggerUpload = () => {
+    fileInput.value.click();
+};
 
-  form.files = Array.from(e.target.files)
+const handleFileChange = (event) => {
 
-}
+    const file = event.target.files[0];
+    fileName.value = '';
+    fileError.value = '';
+    form.files = [];
+
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) 
+    {
+        fileError.value = t('machine.file_limit');
+        event.target.value = '';
+        return;
+    }
+
+    fileName.value = file.name;
+    form.files = [file];
+};
 
 //validation
 const checkSet = () => {
-    
-    if (!checkRequired.value.checkValidity()) //check required
+    if (!checkRequired.value.checkValidity()) 
     {
         checkRequired.value.reportValidity();
         return false;
     }
 
+    fileError.value = '';
+
     if (form.issues.length === 0) 
     {
-        return confirm("目前沒有勾選任何異狀。\n確定全機正常後，接下來請記得填寫外觀檢視表單");
+        return confirm(t('machine.set_ok'));
     }
-    else
+
+    if (form.files.length === 0) 
     {
-        if (form.files.length === 0) 
-        {      
-            fileError.value = "請上傳檔案";
-            return false;
-        }
-        else
-        {
-            if(form.files[0].size > 5 *1024 * 1024) //size to be modified
-            {
-                fileError.value = "檔案大小超過限制，請重新上傳";
-                return false;
-            }
-            else 
-            {
-                fileError.value = "";
-                return true;
-            }
-        }
+        fileError.value = t('machine.file_ng');
+        return false;
     }
-}
+    
+    return true;
+};
 
 //form submit
 const submitMachine = async() => {

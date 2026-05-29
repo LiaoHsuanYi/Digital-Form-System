@@ -1,34 +1,33 @@
 <template>
-<Header />
 <Navbar />
 <form ref="checkRequired" @submit.prevent="submitAppearance">
     <section>
         <div class="container">
             <div class="row">
-                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">作業自主巡迴檢查表 - 外觀檢視</span>
+                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">{{ $t('appearance.title') }}</span>
             </div>
         </div>
         <div class="container">
-            <h3><span class="badge bg-success mb-3">機器資料</span></h3>
+            <h3><span class="badge bg-success mb-3">{{ $t('appearance.labels[0]') }}</span></h3>
             <div class="row mb-4">
                 <div class="col">
-                    <label class="label">日期和時間</label>
+                    <label class="label">{{ $t('appearance.date') }}</label>
                     <input type="datetime-local" class="form-control" v-model="form.date">
                 </div>
                 <div class="col">
-                    <label class="label">機器編號</label> 
+                    <label class="label">{{ $t('appearance.machine_no') }}</label> 
                     <input type="text" class="form-control" v-model="form.machine_no" required>
                 </div>
                 <div class="col">
-                    <label class="label">料號</label>
+                    <label class="label">{{ $t('appearance.material_no') }}</label>
                     <input type="text" class="form-control" v-model="form.material_no" required>
                 </div>
                 <div class="col">
-                    <label class="label">機種代碼</label> 
+                    <label class="label">{{ $t('appearance.material_type') }}</label> 
                     <input type="text" class="form-control" v-model="form.material_type" required>
                 </div>
                 <div class="col">
-                    <label class="label">模號</label>
+                    <label class="label">{{ $t('appearance.mold_id') }}</label>
                     <input type="text" class="form-control" v-model="form.mold_id" required>
                 </div>
             </div>
@@ -37,15 +36,15 @@
 
     <section>
     <div class="container mb-5">
-        <h3><span class="badge bg-success mb-3">外觀檢查</span></h3>
+        <h3><span class="badge bg-success mb-3">{{ $t('appearance.labels[1]') }}</span></h3>
         <table class="look"> 
             <thead>
                 <tr>
-                    <th>項目 / 抽檢序號</th>
-                    <th>第一顆</th>
-                    <th>第二顆</th>
-                    <th>第三顆</th>
-                    <th>第四顆</th>
+                    <th>{{ $t('appearance.checklist.title') }}</th>
+                    <th>{{ $t('appearance.checklist.items[0]') }}</th>
+                    <th>{{ $t('appearance.checklist.items[1]') }}</th>
+                    <th>{{ $t('appearance.checklist.items[2]') }}</th>
+                    <th>{{ $t('appearance.checklist.items[3]') }}</th>
                 </tr>
             </thead>
              <tbody>
@@ -75,10 +74,11 @@
 
 <script setup>
 import Navbar from '@/components/navbar.vue'
-import Header from '@/components/header.vue';
 import Footer from '@/components/footer.vue'
 import { reactive, ref } from 'vue'
 import { formatNow } from '@/utils/date.js'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 //initialization
 const checkRequired = ref();
@@ -104,17 +104,17 @@ const resetform = () => {
 //value assignment
 const items = [1, 2, 3, 4]
 const defectType = [
-    {key: 'crack', label: '拉模、裂紋'},
-    {key: 'loss', label: '缺肉、多肉'},
-    {key: 'burn', label: '燒付'},
-    {key: 'skew', label: '模銷斷、歪斜'},
-    {key: 'flow', label: '流紋'},
-    {key: 'dent', label: '起泡、凹陷'},
-    {key: 'deform', label: '變形'},
-    {key: 'stamp', label: '週期章無打點'},
-    {key: 'tool_ng', label: '檢具NG'},
-    {key: 'oil', label: '油汙、手套痕'},
-    {key: 'stick', label: '模具黏模'},
+    {key: 'crack', label: t('appearance.checklist.defects[0]')},
+    {key: 'loss', label: t('appearance.checklist.defects[1]')},
+    {key: 'burn', label: t('appearance.checklist.defects[2]')},
+    {key: 'skew', label: t('appearance.checklist.defects[3]')},
+    {key: 'flow', label: t('appearance.checklist.defects[4]')},
+    {key: 'dent', label: t('appearance.checklist.defects[5]')},
+    {key: 'deform', label: t('appearance.checklist.defects[6]')},
+    {key: 'stamp', label: t('appearance.checklist.defects[7]')},
+    {key: 'tool_ng', label: t('appearance.checklist.defects[8]')},
+    {key: 'oil', label: t('appearance.checklist.defects[9]')},
+    {key: 'stick', label: t('appearance.checklist.defects[10]')},
 ]
 
 //pack checkbox defects
@@ -148,11 +148,11 @@ const checkLook = () => {
     const count = form.defects.length;
     if(count === 0) 
     {
-        return confirm("目前沒有勾選任何異狀，確認資料無誤後，完成送出");
+        return confirm(t('appearance.look_ok'));
     }
     else
     {
-        return confirm("偵測到" + `${count}` + "項異狀，確認資料無誤後，完成送出");
+        return confirm(t('appearance.look_ng', { count: count }));
     }
 }
 

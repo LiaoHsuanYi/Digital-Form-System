@@ -1,41 +1,29 @@
 <template>
-
-    <div class="container text-center">
-        <img src="../assets/logo.jpg" class="img-fluid w-50">
-    </div>
-
-    <div class="btncontainer">
-        <div class="row mb-5">
-            <label class="h1">精密製造處</label>
-        </div>
-        <div class="row">
-             <div class="col">
-                <router-link to="/mbx"class="btn btn-warning idxbtn">零件製造部</router-link>
-            </div>
-            <div class="col">
-                <button class="btn btn-warning idxbtn">機械加工部</button>
-            </div>
-        </div>
-    </div>
-
-    <Footer />
     
+    <div class="dept-bg">
+        <div class="dept-inner">
+            <div class="text-center mb-4">
+                <img src="@/assets/logo.jpg" class="dept-logo">
+            </div>
+            <div class="dept-title">精密製造處</div>
+            <div class="dept-line"></div>
+
+            <div class="dept-cards">
+                <router-link to="/mbx" class="dept-card">
+                    <span class="dept-card-icon">⚙️</span>
+                    <div class="dept-card-label">零件製造部</div>
+                </router-link>
+                <div class="dept-card">
+                    <span class="dept-card-icon">🔧</span>
+                    <div class="dept-card-label">機械加工部</div>
+                </div>
+            </div>
+        </div>
+        <Footer />
+    </div>
+
 </template>
 
 <script setup>
 import Footer from '../components/footer.vue'
 </script>
-
-<style scoped>
-.h1{
-  font-size: 70px;
-  font-weight: bolder;
-  text-align: center;
-}
-.idxbtn{
-  font-size: 45px;
-  padding: 30px;
-  min-width: max-content;
-  margin: 0 15px;
-}
-</style>

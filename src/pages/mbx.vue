@@ -1,62 +1,37 @@
 <template>
 
-    <Header />
     <Navbar />
+    <div class="lang-body">
+        <div class="lang-card">
+            <div class="lang-card-title">{{ $t('common.lngset') }}</div>
+            
+            <div class="lang-btns">
+                <button v-if="locale != 'zh'" type="button" class="lang-btn" @click="changeLang('zh')">
+                    {{ $t('common.zh') }}
+                </button>
 
-    <div class="btncontainer">
-        <div class="row mb-5">
-            <label class="h3">{{ $t('common.lngset') }}</label>
-        </div>
-        <div class="row"> <!--need to revise if function-->
-            <div class="col" v-if="locale == 'zh'">
-                <button type="button" class="btn btn-warning btn1" @click="changeLang('zh')">
-                {{ $t('common.zh') }} </button>
+                <button v-if="locale != 'th'" type="button" class="lang-btn" @click="changeLang('th')">
+                    {{ $t('common.th') }}
+                </button>
+
+                <button v-if="locale != 'id'" type="button" class="lang-btn" @click="changeLang('id')">
+                    {{ $t('common.id') }}
+                </button>
             </div>
-
-            <div class="col" v-if="locale !== 'th'">
-                <button type="button" class="btn btn-warning btn1" @click="changeLang('th')">
-                {{ $t('common.th') }} </button>
-            </div>
-
-            <div class="col" v-if="locale !== 'id'">
-                <button type="button" class="btn btn-warning btn1" @click="changeLang('id')">
-                {{ $t('common.id') }} </button>
-            </div>      
         </div>
+
     </div>
-
     <Footer />
 
 </template>
-
-<style scoped>
-.btncontainer{
-  display: flex; 
-  flex-direction: column;         
-  justify-content: center; 
-  align-items: center;     
-  height: 60vh;
-}
-.h3{
-  font-size: 40px;
-  font-weight: bolder;
-  text-align: center;
-}
-.btn1{
-  font-size: 30px;
-  padding: 30px;
-  min-width: max-content;
-  margin: 0 15px;
-}
-</style>
-
 <script setup>
 import Footer from '@/components/footer.vue'
-import Header from '@/components/header.vue';
 import Navbar from '@/components/navbar.vue'
+import { useI18n } from 'vue-i18n'
+const { locale } = useI18n()
 
 const changeLang = (lang) => {
-  locale.value = lang;
+    locale.value = lang;
     localStorage.setItem('lang', lang);
 }
 </script>
