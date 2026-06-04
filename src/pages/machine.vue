@@ -40,75 +40,72 @@
                     <div class="sec-bar"></div>
                     <div class="sec-lbl">機器參數</div>
                 </div>
+
                 <div class="params-panel">
                     <div class="param-grid">
 
                         <div class="param-group">
                             <span class="param-label">合金材料</span>
                             <div class="radio-group">
-                                <input type="radio" id="adc12" name="alloy" checked>
+                                <input type="radio" id="adc12" checked>
                                 <label for="adc12">ADC12</label>
                             </div>
                         </div>
                         <div class="param-group">
                             <span class="param-label">氮氣壓力</span>
-                            <input class="param-input" type="text">
+                            <input class="param-input" type="number" v-model.number="form.n2press" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">開模時間（秒）</span>
-                            <input class="param-input" type="text">
+                            <input class="param-input" type="number" v-model.number="form.openTime" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">增壓時間（秒）</span>
-                            <input class="param-input" type="text">
+                            <input class="param-input" type="number" v-model.number="form.pressTime" required>
                         </div>
 
-                        <hr class="param-divider">
-
-                        <div class="param-subcard">
-                            <div class="param-subcard-title">離型劑時間（秒）</div>
-                            <div class="sub-grid">
-                                <div class="param-group">
-                                    <span class="param-sublabel">固定側</span>
-                                    <input class="param-input" type="text">
-                                </div>
-                                <div class="param-group">
-                                    <span class="param-sublabel">活動側</span>
-                                    <input class="param-input" type="text">
-                                </div>
-                            </div>
-                        </div>
                         <div class="param-subcard">
                             <div class="param-subcard-title">鋁湯溫度</div>
                             <div class="sub-grid">
                                 <div class="param-group">
                                     <span class="param-sublabel">設定溫度</span>
-                                    <input class="param-input" type="text">
+                                    <input class="param-input" type="number" v-model.number="form.setTemp" required>
                                 </div>
                                 <div class="param-group">
                                     <span class="param-sublabel">實際溫度</span>
-                                    <input class="param-input" type="text">
+                                    <input class="param-input" type="number" v-model.number="form.realTemp" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="param-subcard">
+                            <div class="param-subcard-title">離型劑時間（秒）</div>
+                            <div class="sub-grid">
+                                <div class="param-group">
+                                    <span class="param-sublabel">固定側</span>
+                                    <input class="param-input" type="number" v-model.number="form.fix_relTime" required>
+                                </div>
+                                <div class="param-group">
+                                    <span class="param-sublabel">活動側</span>
+                                    <input class="param-input" type="number" v-model.number="form.mov_relTime" required>
                                 </div>
                             </div>
                         </div>
 
-                        <hr class="param-divider">
-
                         <div class="param-group">
                             <span class="param-label">低速</span>
-                            <input class="param-input" type="text">
+                            <input class="param-input" type="number" v-model.number="form.lowSpeed" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">高速</span>
-                            <input class="param-input" type="text">
+                            <input class="param-input" type="number" v-model.number="form.highSpeed" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">高速行程位置</span>
-                            <input class="param-input" type="text">
+                            <input class="param-input" type="number" v-model.number="form.position" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">鑄造壓力</span>
-                            <input class="param-input" type="text">
+                            <input class="param-input" type="number" v-model.number="form.injectPress" required>
                         </div>
                     </div>
                 </div>
@@ -122,7 +119,7 @@
                         </div>
                         <span class="reason-tag">⚠ 異常填寫欄位</span>
                     </div>
-                    <div class="reason-input"></div>
+                    <input type="text" class="reason-input" v-model="form.reason" placeholder="請輸入異常原因">
                 </div>
             </section>
 
@@ -210,12 +207,12 @@ const form = reactive({
   mold_id: '',
   material: 'ADC12',
   n2press: '',
+  openTime: '',
+  pressTime: '',
   setTemp: '',
   realTemp: '',
-  openTime: '',
   fix_relTime: '',
-  move_relTime: '',
-  pressTime: '',
+  mov_relTime: '',
   lowSpeed: '',
   highSpeed: '',
   position: '',
@@ -224,6 +221,19 @@ const form = reactive({
   issues: [],
   files: []
 })
+const warning = reactive({
+  n2press: '',
+  openTime: '',
+  pressTime: '',
+  setTemp: '',
+  realTemp: '',
+  fix_relTime: '',
+  mov_relTime: '',
+  lowSpeed: '',
+  highSpeed: '',
+  position: '',
+  injectPress: '',
+});
 
 //clear & reset
 const resetform = () => { 
@@ -232,39 +242,30 @@ const resetform = () => {
     form.material_no = '';
     form.material_type = '';
     form.mold_id = '';
+    form.material = 'ADC12';
+    form.n2press = '';
+    form.openTime = '';
+    form.pressTime = '';
+    form.setTemp = '';
+    form.realTemp = '';
+    form.fix_relTime = '';
+    form.mov_relTime = '';
+    form.lowSpeed = '';
+    form.highSpeed = '';
+    form.position = '';
+    form.injectPress = '';
+    form.reason = '';
     form.issues = [];
     form.files = [];
     fileInput.value.value = '';
     fileName.value = '';
-    fileError.value ='';
+    fileError.value = '';
+    Object.keys(warning).forEach(key => {
+        warning[key] = '';
+    });
 }
 
 //value assignment
-const machineData = [
-    { key: 'material', type: 'radio', label: '合金材料', value: 'ADC12' },
-    { key: 'n2press', type: 'number', label: '氮氣壓力' },
-    { key: 'openTime', type: 'number', label: '開模時間(秒)' },
-    { key: 'pressTime', type: 'number', label: '增壓時間(秒)' },
-    {
-        label: '離型劑時間(秒)',
-        children: [
-            { key: 'fix_relTime', label: '固定側', type: 'number' },
-            { key: 'move_relTime', label: '活動側', type: 'number' },
-        ],
-    },
-    {
-        label: '鋁湯溫度',
-        children: [
-            { key: 'setTemp', label: '設定溫度', type: 'number' },
-            { key: 'realTemp', label: '實際溫度', type: 'number' },
-        ],
-    },
-    { key: 'lowSpeed', type: 'number', label: '低速' },
-    { key: 'highSpeed', type: 'number', label: '高速' },
-    { key: 'position', type: 'number', label: '高速行程位置' },
-    { key: 'injectPress', type: 'number', label: '鑄造壓力' },
-]
-
 const issueType = [
     { key: '1', label: t('machine.checklist[0]') },
     { key: '2', label: t('machine.checklist[1]') },
@@ -430,7 +431,6 @@ const submitMachine = async() => {
   background: var(--green-light);
 }
 
-
 .upload-content {
   text-align: center;
   display: flex;
@@ -449,7 +449,6 @@ const submitMachine = async() => {
   color: #363636;
   font-weight: 500;
 }
-
 
 .file-selected {
   color: var(--green);

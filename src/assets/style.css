@@ -8,7 +8,7 @@
   --border:       #e4e4e4;
   --title:        #1c1c1c;
   --text:         #4b4b4b;
-  --sub:          #007862;
+  --sub:          #006654;
 }
 
 /* reset */
@@ -176,9 +176,9 @@ body {
 
 .param-sublabel {
   font-size: 18px;
-  font-weight: 530;
+  font-weight: 550;
   color: var(--sub);
-  margin-bottom: 2px;
+  margin: 2px 0 2px;
 }
 
 .param-input {
@@ -228,6 +228,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px 14px 14px;
+  margin: 10px 0 5px;
   background: var(--card);
 }
 
@@ -235,7 +236,6 @@ body {
   font-size: 20px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -257,12 +257,6 @@ body {
   gap: 10px;
 }
 
-.param-divider {
-  border: none;
-  border-top: 1px solid #c4c2c2;
-  margin: 14px 0 14px;
-  grid-column: span 4;
-}
 
 .radio-group {
   display: flex;
@@ -337,7 +331,7 @@ body {
   border: 1.5px solid var(--border);
   border-radius: 9px;
   padding: 11px 14px;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--text);
   outline: none;
   background: #fafafa;
@@ -352,18 +346,3 @@ body {
   background: #fff;
 }
 
-.reason-hint {
-  font-size: 11px;
-  color: #bbb;
-  margin-top: 6px;
-}
-
-/* 淡入動畫 (Vue Transition) */
-.fade-enter-active {
-  transition: all 0.3s ease;
-}
-
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(-8px);
-}
