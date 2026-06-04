@@ -1,72 +1,84 @@
 <template>
 <Navbar />
-<form ref="checkRequired" @submit.prevent="submitAppearance">
-    <section>
-        <div class="container">
-            <div class="row">
-                <span class="badge bg-dark mt-5 mb-5" style="font-weight: bolder; font-size: x-large;">{{ $t('appearance.title') }}</span>
-            </div>
-        </div>
-        <div class="container">
-            <h3><span class="badge bg-success mb-3">{{ $t('appearance.labels[0]') }}</span></h3>
-            <div class="row mb-4">
-                <div class="col">
-                    <label class="label">{{ $t('appearance.date') }}</label>
-                    <input type="datetime-local" class="form-control" v-model="form.date">
+<div class="form-bg">
+    <div class="form-body">
+        <form ref="checkRequired" @submit.prevent="submitAppearance">
+            <section>
+                <div class="form-hero">
+                    {{ $t('appearance.title') }}
                 </div>
-                <div class="col">
-                    <label class="label">{{ $t('appearance.machine_no') }}</label> 
-                    <input type="text" class="form-control" v-model="form.machine_no" required>
+                <div class="sec-head">
+                    <div class="sec-bar"></div>
+                    <div class="sec-lbl">{{  $t('appearance.labels[0]') }}</div>
                 </div>
-                <div class="col">
-                    <label class="label">{{ $t('appearance.material_no') }}</label>
-                    <input type="text" class="form-control" v-model="form.material_no" required>
+                <div class="field-grid">
+                    <div class="field-group">
+                        <label class="field-label">{{ $t('appearance.date') }}</label>
+                        <input type="datetime-local" class="field-input" v-model="form.date">
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">{{ $t('appearance.machine_no') }}</label> 
+                        <input type="text" class="field-input" v-model="form.machine_no" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">{{ $t('appearance.material_no') }}</label>
+                        <input type="text" class="field-input" v-model="form.material_no" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">{{ $t('appearance.material_type') }}</label> 
+                        <input type="text" class="field-input" v-model="form.material_type" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label">{{ $t('appearance.mold_id') }}</label>
+                        <input type="text" class="field-input" v-model="form.mold_id" required>
+                    </div>
                 </div>
-                <div class="col">
-                    <label class="label">{{ $t('appearance.material_type') }}</label> 
-                    <input type="text" class="form-control" v-model="form.material_type" required>
-                </div>
-                <div class="col">
-                    <label class="label">{{ $t('appearance.mold_id') }}</label>
-                    <input type="text" class="form-control" v-model="form.mold_id" required>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <section>
-    <div class="container mb-5">
-        <h3><span class="badge bg-success mb-3">{{ $t('appearance.labels[1]') }}</span></h3>
-        <table class="look"> 
-            <thead>
-                <tr>
-                    <th>{{ $t('appearance.checklist.title') }}</th>
-                    <th>{{ $t('appearance.checklist.items[0]') }}</th>
-                    <th>{{ $t('appearance.checklist.items[1]') }}</th>
-                    <th>{{ $t('appearance.checklist.items[2]') }}</th>
-                    <th>{{ $t('appearance.checklist.items[3]') }}</th>
-                </tr>
-            </thead>
-             <tbody>
-                <tr v-for="defect in defectType" :key="defect.key">
-                    <td>{{ defect.label }}</td>
-                    <td v-for="item in items">
-                        <input type="checkbox" 
-                               class="form-check-input"
-                               :checked="isChecked(item, defect.key)"
-                               @change="packDefect(item, defect.key, $event.target.checked)"
-                        >
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    </section>
+            <section>
+                <div class="sec-head">
+                    <div class="sec-bar"></div>
+                    <div class="sec-lbl">{{  $t('appearance.labels[1]') }}</div>
+                </div>
 
-    <div class="container text-center">
-        <button type="submit" class="btn btn-outline-success btn-lg col-4 mb-4">Submit</button>
+                <div class="insp-wrap">
+                    <table class="insp-table">
+                        <thead>
+                        <tr>
+                            <th>{{ $t('appearance.checklist.title') }}</th>
+                            <th>{{ $t('appearance.checklist.items[0]') }}</th>
+                            <th>{{ $t('appearance.checklist.items[1]') }}</th>
+                            <th>{{ $t('appearance.checklist.items[2]') }}</th>
+                            <th>{{ $t('appearance.checklist.items[3]') }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr v-for="defect in defectType" :key="defect.key">
+                            <td>{{ defect.label }}</td>
+
+                            <td v-for="item in items" :key="item" class="check-td">
+                                <label class="insp-check-cell">
+                                    <input
+                                    type="checkbox"
+                                    :checked="isChecked(item, defect.key)"
+                                    @change="packDefect(item, defect.key, $event.target.checked)"
+                                    >
+                                </label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="submit-wrap">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+
+        </form>
     </div>
-</form>
+</div>
 
 <Footer />
 
@@ -165,3 +177,109 @@ const submitAppearance = async() => {
 }
 
 </script>
+
+<style scoped>
+/* table */
+.insp-wrap {
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 26px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.insp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+}
+
+.insp-table thead tr {
+  background: var(--green);
+}
+
+.insp-table th {
+  color: #fff;
+  font-weight: 800;
+  padding: 13px 14px;
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 0.3px;
+}
+
+.insp-table th:first-child {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.insp-table td {
+  padding: 0;
+  border-bottom: 1px solid #f4f4f4;
+  text-align: center;
+  color: #363636;
+}
+
+.insp-table td:first-child {
+  padding: 11px 14px 11px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #222;
+}
+
+.insp-table tbody td.check-td {
+  position: relative;
+}
+
+.insp-table tbody td.check-td::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 0;
+  bottom: 7px;
+  border-left: 2px dashed #d8d8d8;
+  pointer-events: none;
+}
+
+.insp-check-cell {
+  min-height: 42px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.insp-check-cell:hover {
+  border-color: var(--green);
+  background: var(--green-light);
+}
+
+.insp-table input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.insp-table input[type="checkbox"]:checked {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.insp-table input[type="checkbox"]:checked::before {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+</style>
