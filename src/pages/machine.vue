@@ -35,91 +35,120 @@
                 </div>
             </section>
 
-            <section> 
+            <section> <!-- parameters to be determined then write functions-->
                 <div class="sec-head">
                     <div class="sec-bar"></div>
-                    <div class="sec-lbl">機器參數</div>
+                    <div class="sec-lbl">{{ $t('machine.labels[1]') }}</div>
                 </div>
 
                 <div class="params-panel">
                     <div class="param-grid">
 
                         <div class="param-group">
-                            <span class="param-label">合金材料</span>
+                            <span class="param-label">{{ $t('machine.setting.labels[0]') }}</span>
                             <div class="radio-group">
                                 <input type="radio" id="adc12" checked>
                                 <label for="adc12">ADC12</label>
                             </div>
                         </div>
                         <div class="param-group">
-                            <span class="param-label">氮氣壓力</span>
-                            <input class="param-input" type="number" v-model.number="form.n2press" required>
-                        </div>
+                            <span class="param-label">{{ $t('machine.setting.labels[1]') }}</span>
+
+                                <input
+                                    class="param-input"
+                                    :class="{ 'inputError-red': warning.n2press }"
+                                    type="number"
+                                    @input="checkN2press"
+                                    v-model.number="form.n2press"
+                                    required
+                                />
+
+                                <label v-if="warning.n2press" class="field-error inputError-red">
+                                    {{ warning.n2press }}
+                                </label>
+                            </div>
                         <div class="param-group">
-                            <span class="param-label">開模時間（秒）</span>
+                            <span class="param-label">{{ $t('machine.setting.labels[2]') }}</span>
                             <input class="param-input" type="number" v-model.number="form.openTime" required>
                         </div>
                         <div class="param-group">
-                            <span class="param-label">增壓時間（秒）</span>
+                            <span class="param-label">{{ $t('machine.setting.labels[3]') }}</span>
                             <input class="param-input" type="number" v-model.number="form.pressTime" required>
                         </div>
 
                         <div class="param-subcard">
-                            <div class="param-subcard-title">鋁湯溫度</div>
+                            <div class="param-subcard-title">{{ $t('machine.setting.labels[4]') }}</div>
                             <div class="sub-grid">
                                 <div class="param-group">
-                                    <span class="param-sublabel">設定溫度</span>
-                                    <input class="param-input" type="number" v-model.number="form.setTemp" required>
+                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[0]') }}</span>
+                                    <input
+                                        class="param-input"
+                                        :class="tempclass"
+                                        type="number"
+                                        v-model.number="form.setTemp"
+                                        @input="checktemp"
+                                        required
+                                    />
                                 </div>
                                 <div class="param-group">
-                                    <span class="param-sublabel">實際溫度</span>
-                                    <input class="param-input" type="number" v-model.number="form.realTemp" required>
+                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[1]') }}</span>
+                                    <input
+                                        class="param-input"
+                                        :class="tempclass"
+                                        type="number"
+                                        @input="checktemp"
+                                        v-model.number="form.realTemp"
+                                        required
+                                    />
+                                    <label v-if="warning.temp" class="field-error" :class="tempclass">
+                                        {{ warning.temp }}
+                                    </label>
                                 </div>
                             </div>
                         </div>
                         <div class="param-subcard">
-                            <div class="param-subcard-title">離型劑時間（秒）</div>
+                            <div class="param-subcard-title">{{ $t('machine.setting.labels[5]') }}</div>
                             <div class="sub-grid">
                                 <div class="param-group">
-                                    <span class="param-sublabel">固定側</span>
+                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[2]') }}</span>
                                     <input class="param-input" type="number" v-model.number="form.fix_relTime" required>
                                 </div>
                                 <div class="param-group">
-                                    <span class="param-sublabel">活動側</span>
+                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[3]') }}</span>
                                     <input class="param-input" type="number" v-model.number="form.mov_relTime" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="param-group">
-                            <span class="param-label">低速</span>
+                            <span class="param-label">{{ $t('machine.setting.labels[6]') }}</span>
                             <input class="param-input" type="number" v-model.number="form.lowSpeed" required>
                         </div>
                         <div class="param-group">
-                            <span class="param-label">高速</span>
+                            <span class="param-label">{{ $t('machine.setting.labels[7]') }}</span>
                             <input class="param-input" type="number" v-model.number="form.highSpeed" required>
                         </div>
                         <div class="param-group">
-                            <span class="param-label">高速行程位置</span>
+                            <span class="param-label">{{ $t('machine.setting.labels[8]') }}</span>
                             <input class="param-input" type="number" v-model.number="form.position" required>
                         </div>
                         <div class="param-group">
-                            <span class="param-label">鑄造壓力</span>
+                            <span class="param-label">{{ $t('machine.setting.labels[9]') }}</span>
                             <input class="param-input" type="number" v-model.number="form.injectPress" required>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section>
+            <section v-if="inputReason">
                 <div class="reason-panel">
                     <div class="reason-header">
                         <div class="reason-header-left">
-                            異常原因
+                            {{ $t('machine.labels[2]') }}
                         </div>
-                        <span class="reason-tag">⚠ 異常填寫欄位</span>
+                        <span class="reason-tag">⚠ Error Field</span>
                     </div>
-                    <input type="text" class="reason-input" v-model="form.reason" placeholder="請輸入異常原因">
+                    <input type="text" class="reason-input" v-model="form.reason" :placeholder="$t('machine.reasonInput')" required>
                 </div>
             </section>
 
@@ -127,7 +156,7 @@
             <section> 
                 <div class="sec-head">
                     <div class="sec-bar"></div>
-                    <div class="sec-lbl">{{  $t('machine.labels[1]') }}</div>
+                    <div class="sec-lbl">{{  $t('machine.labels[3]') }}</div>
                 </div>
                 <div class="check-panel">
                     <div class="check-grid">
@@ -151,7 +180,7 @@
             <section> 
                 <div class="sec-head">
                     <div class="sec-bar"></div>
-                    <label class="sec-lbl">{{  $t('machine.labels[2]') }}</label>
+                    <label class="sec-lbl">{{  $t('machine.labels[4]') }}</label>
                 </div>
                 <div class="upload-zone" @click="triggerUpload">
                     <div class="upload-content">
@@ -179,6 +208,7 @@
             <div class="submit-wrap">
                 <button type="submit" class="submit-btn">Submit</button>
             </div>
+            
         </form>
     </div>
 </div>
@@ -189,13 +219,14 @@
 <script setup>
 import Navbar from '@/components/navbar.vue'
 import Footer from '@/components/footer.vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { formatNow } from '@/utils/date.js'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
 //initialization
 const checkRequired = ref();
+const tempclass = ref('');
 const fileInput = ref('');
 const fileName = ref('');
 const fileError = ref('');
@@ -225,8 +256,7 @@ const warning = reactive({
   n2press: '',
   openTime: '',
   pressTime: '',
-  setTemp: '',
-  realTemp: '',
+  temp: '',
   fix_relTime: '',
   mov_relTime: '',
   lowSpeed: '',
@@ -237,29 +267,20 @@ const warning = reactive({
 
 //clear & reset
 const resetform = () => { 
+    Object.keys(form).forEach(key => {
+        if (Array.isArray(form[key])) 
+            form[key] = [];
+        else 
+            form[key] = '';
+    })
     form.date = formatNow('minute');
-    form.machine_no = '';
-    form.material_no = '';
-    form.material_type = '';
-    form.mold_id = '';
     form.material = 'ADC12';
-    form.n2press = '';
-    form.openTime = '';
-    form.pressTime = '';
-    form.setTemp = '';
-    form.realTemp = '';
-    form.fix_relTime = '';
-    form.mov_relTime = '';
-    form.lowSpeed = '';
-    form.highSpeed = '';
-    form.position = '';
-    form.injectPress = '';
-    form.reason = '';
-    form.issues = [];
-    form.files = [];
+
+    tempclass.value = '';
     fileInput.value.value = '';
     fileName.value = '';
     fileError.value = '';
+
     Object.keys(warning).forEach(key => {
         warning[key] = '';
     });
@@ -277,6 +298,56 @@ const issueType = [
     { key: '8', label: t('machine.checklist[7]') },
     { key: '9', label: t('machine.checklist[8]') }
 ]
+
+//function check
+function checkN2press() //n2 press validation
+{
+    if(form.n2press < 0)
+    {
+        warning.n2press = t('machine.error');
+    }
+    else if (form.n2press <= 8.3)
+    {
+        warning.n2press = t('machine.warning');
+    }
+    else
+    {
+        warning.n2press = '';
+    }
+}
+
+function checktemp()
+{
+    if(form.setTemp != '' && form.realTemp != '')
+    {
+        if(form.setTemp < 0 || form.realTemp < 0)
+        {
+            warning.temp = t('machine.error');
+        }
+        else if(form.realTemp - form.setTemp > 10)
+        {
+            warning.temp = t('machine.highTemp');
+            tempclass.value = 'inputError-red';
+        }
+        else if(form.setTemp - form.realTemp > 10)
+        {
+            warning.temp = t('machine.lowTemp');
+            tempclass.value = 'inputError-blue';
+        }
+        else
+        {
+            warning.temp = '';
+            tempclass.value = '';
+        }
+
+    }
+    
+}
+
+//reason block display control
+const inputReason = computed(() => {
+    return Object.values(warning).some(value => value !== '')
+})
 
 //file processing
 const triggerUpload = () => {
@@ -313,9 +384,13 @@ const checkSet = () => {
 
     fileError.value = '';
 
-    if (form.issues.length === 0) 
+    if (form.issues.length === 0 && form.reason === '') 
     {
-        return confirm(t('machine.set_ok'));
+        return confirm(t('machine.setOK'));
+    }
+    else if(form.issues.length === 0 && form.reason !== '')
+    {
+        return confirm(t('machine.setNG'));
     }
 
     if (form.files.length === 0) 
@@ -338,6 +413,222 @@ const submitMachine = async() => {
 </script>
 
 <style scoped>
+/* setting */
+.params-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.param-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px 18px;
+}
+
+.param-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.param-label {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.param-sublabel {
+  font-size: 18px;
+  font-weight: 550;
+  color: var(--sub);
+  margin: 2px 0 2px;
+}
+
+.param-input {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  background: var(--input-bg, #f7f8fa);
+  width: 100%;
+  transition: border 0.18s, box-shadow 0.18s;
+}
+
+.param-input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-glow);
+  background: #fff;
+}
+
+.param-input:hover:not(:focus) {
+  border-color: var(--border-hover, #b0b8c1);
+}
+
+/* input warning */
+.param-input.inputError-red {
+  border-color: #e74c3c;
+  background: #fff8f8;
+}
+
+.param-input.inputError-red:focus {
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.field-error.inputError-red {
+  font-size: 16px;
+  color: #e74c3c;
+  margin-top: 3px;
+  display: block;
+}
+
+.param-input.inputError-blue {
+  border-color: #3498db;
+  background: #f5fbff;
+}
+
+.param-input.inputError-blue:focus {
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.field-error.inputError-blue {
+  font-size: 16px;
+  color: #3498db;
+  margin-top: 3px;
+  display: block;
+}
+
+.span2 { grid-column: span 2; }
+
+/* group container */
+.param-subcard {
+  grid-column: span 2;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px 14px;
+  margin: 10px 0 5px;
+  background: var(--card);
+}
+
+.param-subcard-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.param-subcard-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 18px;
+  background: var(--green);
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+.sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.radio-group input[type="radio"] {
+  width: 16px;
+  height: 16px;
+}
+
+.radio-group label {
+  font-size: 16px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* reason */
+.reason-panel {
+  background: var(--card);
+  border: 1px solid #f5c6c0;
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 4px rgba(231, 76, 60, 0.06);
+}
+
+.reason-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  
+  margin-bottom: 14px;
+}
+
+.reason-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.reason-header-left::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 18px;
+  background: #e74c3c;
+  border-radius: 2px;
+  margin-right: 5px;
+}
+
+.reason-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff0ee;
+  border: 1.5px solid #f5c6c0;
+  color: #c0392b;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.reason-input {
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 16px;
+  color: var(--text);
+  outline: none;
+  background: #fafafa;
+  transition: border 0.18s, box-shadow 0.18s;
+  resize: vertical;
+  min-height: 44px;
+}
+
+.reason-input:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+  background: #fff;
+}
+
 /* checkbox */
 .check-panel {
   background: var(--card);

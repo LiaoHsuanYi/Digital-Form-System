@@ -196,11 +196,11 @@ const submitAppearance = async() => {
 }
 
 .insp-table thead tr {
-  background: var(--green);
+  background: #ECF9F3;
 }
 
 .insp-table th {
-  color: #fff;
+  color: var(--sub);
   font-weight: 800;
   padding: 13px 14px;
   text-align: center;
