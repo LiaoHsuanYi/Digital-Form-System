@@ -7,6 +7,11 @@ import commonTh from '@/locales/th/common.json'
 import machineTh from '@/locales/th/machine.json'
 import appearanceTh from '@/locales/th/appearance.json'
 
+import commonId from '@/locales/id/common.json'
+import machineId from '@/locales/id/machine.json'
+import appearanceId from '@/locales/id/appearance.json'
+
+
 const i18n = createI18n({
   legacy: false,
   locale: 'zh',
@@ -21,6 +26,11 @@ const i18n = createI18n({
         common: commonTh,
         machine: machineTh,
         appearance: appearanceTh
+    },
+    'id': {
+        common: commonId,
+        machine: machineId,
+        appearance: appearanceId
     }
   }
 })

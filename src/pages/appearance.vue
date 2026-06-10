@@ -3,10 +3,11 @@
 <div class="form-bg">
     <div class="form-body">
         <form ref="checkRequired" @submit.prevent="submitAppearance">
-            <section>
-                <div class="form-hero">
-                    {{ $t('appearance.title') }}
-                </div>
+            <div class="form-title">
+                {{ $t('appearance.title') }}
+            </div>
+            
+            <section>           
                 <div class="sec-head">
                     <div class="sec-bar"></div>
                     <div class="sec-lbl">{{  $t('appearance.labels[0]') }}</div>
@@ -18,19 +19,19 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.machine_no') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machine_no" required>
+                        <input type="text" class="field-input" v-model="form.machineNo" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.material_no') }}</label>
-                        <input type="text" class="field-input" v-model="form.material_no" required>
+                        <label class="field-label">{{ $t('appearance.product_no') }}</label>
+                        <input type="text" class="field-input" v-model="form.productNo" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.material_type') }}</label> 
-                        <input type="text" class="field-input" v-model="form.material_type" required>
+                        <label class="field-label">{{ $t('appearance.product_type') }}</label> 
+                        <input type="text" class="field-input" v-model="form.productType" required>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.mold_id') }}</label>
-                        <input type="text" class="field-input" v-model="form.mold_id" required>
+                        <input type="text" class="field-input" v-model="form.moldId" required>
                     </div>
                 </div>
             </section>
@@ -96,37 +97,37 @@ const { t } = useI18n()
 const checkRequired = ref();
 const form = reactive({
     date: formatNow('minute'),
-    machine_no: '',
-    material_no: '',
-    material_type: '',
-    mold_id: '',
+    machineNo: '',
+    productNo: '',
+    productType: '',
+    moldId: '',
     defects: []
 })
 
 //clear & reset
 const resetform = () => {
     form.date = formatNow('minute');
-    form.machine_no = '';
-    form.material_no = '';
-    form.material_type = '';
-    form.mold_id = '';
+    form.machineNo = '';
+    form.productNo = '';
+    form.productType = '';
+    form.moldId = '';
     form.defects = [];
 }
 
 //value assignment
 const items = [1, 2, 3, 4]
 const defectType = [
-    {key: 'crack', label: t('appearance.checklist.defects[0]')},
-    {key: 'loss', label: t('appearance.checklist.defects[1]')},
-    {key: 'burn', label: t('appearance.checklist.defects[2]')},
-    {key: 'skew', label: t('appearance.checklist.defects[3]')},
-    {key: 'flow', label: t('appearance.checklist.defects[4]')},
-    {key: 'dent', label: t('appearance.checklist.defects[5]')},
-    {key: 'deform', label: t('appearance.checklist.defects[6]')},
-    {key: 'stamp', label: t('appearance.checklist.defects[7]')},
-    {key: 'tool_ng', label: t('appearance.checklist.defects[8]')},
-    {key: 'oil', label: t('appearance.checklist.defects[9]')},
-    {key: 'stick', label: t('appearance.checklist.defects[10]')},
+    {key: '拉模、裂紋', label: t('appearance.checklist.defects[0]')},
+    {key: '缺肉、多肉', label: t('appearance.checklist.defects[1]')},
+    {key: '燒付', label: t('appearance.checklist.defects[2]')},
+    {key: '模銷斷、歪斜', label: t('appearance.checklist.defects[3]')},
+    {key: '流紋', label: t('appearance.checklist.defects[4]')},
+    {key: '起泡、凹陷', label: t('appearance.checklist.defects[5]')},
+    {key: '變形', label: t('appearance.checklist.defects[6]')},
+    {key: '週期章無打點', label: t('appearance.checklist.defects[7]')},
+    {key: '檢具NG', label: t('appearance.checklist.defects[8]')},
+    {key: '油汙、手套痕', label: t('appearance.checklist.defects[9]')},
+    {key: '模具黏模', label: t('appearance.checklist.defects[10]')},
 ]
 
 //pack checkbox defects

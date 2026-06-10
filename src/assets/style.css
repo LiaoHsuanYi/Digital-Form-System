@@ -37,7 +37,7 @@ body {
 }
 
 /* title label */
-.form-hero {
+.form-title {
   background: linear-gradient(135deg, var(--green) 0%, #2daa72 100%);
   color: #fff;
   text-align: center;
