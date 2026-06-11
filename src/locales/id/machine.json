@@ -13,15 +13,9 @@
                   "Kecepatan Rendah", "Kecepatan Tinggi", "Posisi Kecepatan Tinggi", "Tekanan pengecoran"],
         "sublabels": ["Suhu settingan", "Suhu sekarang", "Sisi tetap", "Sisi aktif"]
     },
-    "reasonInput": "Silakan masukkan penyebab masalah",
     "checklist": ["Plunger bocor", "Sleeve bocor", "Dies bocor", "Release agent berlebih", "Vent tersumbat", 
                   "Nozzle spray bocor", "Sleeve kurang pelumas", "Fan konveyor mati", "Air pendingin dies mati"],
-    "warning": "Nilai tidak standar, isi alasannya",
-    "error" : "Nilai tidak valid, isi ulang",
-    "lowTemp": "Suhu logam rendah, isi alasannya",
-    "highTemp": "Suhu logam tinggi, isi alasannya",
     "setOK": "Normal. Ingat isi form inspeksi visual",
-    "setNG": "Anomali tercatat. Isi form inspeksi visual",
     "file_upload": "Klik di sini untuk unggah file",
     "file_ng": "Silakan unggah file",
     "file_limit": "File terlalu besar, unggah ulang"
