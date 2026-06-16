@@ -15,7 +15,7 @@
                 <div class="field-grid">
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.date') }}</label>
-                        <input type="datetime-local" class="field-input" v-model="form.date">
+                        <input type="datetime-local" class="field-input" v-model="form.date" readonly>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.machine_no') }}</label> 
@@ -31,7 +31,7 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.mold_id') }}</label>
-                        <input type="text" class="field-input" v-model="form.moldId" required>
+                        <input type="text" class="field-input" v-model="form.moldId" required placeholder="#">
                     </div>
                 </div>
             </section>

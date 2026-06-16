@@ -15,11 +15,11 @@
                 <div class="field-grid">
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.date') }}</label>
-                        <input type="datetime-local" class="field-input" v-model="form.date">
+                        <input type="datetime-local" class="field-input" v-model="form.date" readonly>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.machine_no') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineNo" required>
+                        <input type="text" class="field-input" v-model="form.machineNo" @keyup.enter="identifyParams()" required>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.product_no') }}</label>
@@ -31,12 +31,12 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.mold_id') }}</label>
-                        <input type="text" class="field-input" v-model="form.moldId" required>
+                        <input type="text" class="field-input" v-model="form.moldId" required placeholder="#">
                     </div>
                 </div>
             </section>
 
-            <section> 
+            <section v-if="checkParams"> 
                 <div class="sec-head">
                     <div class="sec-bar"></div>
                     <div class="sec-lbl">{{ $t('machine.labels[1]') }}</div>
@@ -184,7 +184,7 @@ const { t } = useI18n()
 
 //initialization
 const checkRequired = ref();
-const tempclass = ref('');
+const checkParams = ref(true);
 const fileInput = ref('');
 const fileName = ref('');
 const fileError = ref('');
@@ -239,6 +239,21 @@ const issueType = [
     { key: '輸送機風扇沒運轉', label: t('machine.checklist[7]') },
     { key: '模具循環水沒開啟', label: t('machine.checklist[8]') }
 ]
+
+//setting parameters block display or not
+function identifyParams()
+{
+    if(form.machineNo == 'DIE-011' || form.machineNo == 'DIE-012' || form.machineNo == 'DIE-014' ||
+       form.machineNo == 'DIE-015' || form.machineNo == 'DIE-016' || form.machineNo == 'DIE-017'
+    )
+    {
+        checkParams.value = false;
+    }
+    else
+    {
+        checkParams.value = true;
+    }
+}
 
 //file processing
 const triggerUpload = () => {
