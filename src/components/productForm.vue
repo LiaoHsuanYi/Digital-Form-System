@@ -97,29 +97,29 @@ const props = defineProps({
 const emit = defineEmits(['save', 'close'])
 
 const createEmpty = () => ({
-  jobType:     '',
-  productNo:   '',
+  jobType: '',
+  productNo: '',
   productType: '',
-  moldId:      '',
-  weekNo:      '',
-  OKquantity:  '',
-  NGquantity:  '',
-  totalQuan:   '',
-  runTime:     ''
+  moldId: '',
+  weekNo: '',
+  OKquantity: '',
+  NGquantity: '',
+  totalQuan: '',
+  runTime: ''
 })
 
 // If editData has value, then edit. If not, then create
 const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 
 const errors = reactive({
-  jobType:     false,
-  productNo:   false,
+  jobType: false,
+  productNo: false,
   productType: false,
-  moldId:      false,
-  weekNo:      false,
-  OKquantity:  false,
-  NGquantity:  false,
-  runTime:     false
+  moldId: false,
+  weekNo: false,
+  OKquantity: false,
+  NGquantity: false,
+  runTime: false
 })
 
 const computedTotal = computed(() =>
@@ -272,6 +272,16 @@ const handleSave = () => {
 .form-input:focus {
   border-color: #1daa7a;
   box-shadow: 0 0 0 3px rgba(29, 170, 122, 0.12);
+}
+
+.form-input.error {
+  border-color: #e57373;
+  box-shadow: 0 0 0 3px rgba(229, 115, 115, 0.12);
+}
+
+.form-input[readonly] {
+  background: #f7f7f7;
+  color: #888;
 }
 
 .error-msg {

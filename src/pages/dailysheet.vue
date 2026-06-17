@@ -9,66 +9,66 @@
         
       <section>
         <div class="sec-head">
-            <div class="sec-bar"></div>
-            <div class="sec-lbl">機器資料</div>
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">機器資料</div>
         </div>
 
         <div class="machine-grid">
-            <div class="field-group">
-                <label class="field-label">日期</label>
-                <input type="date" class="field-input" v-model="form.date" readonly>
-            </div>
-            <div class="field-group">
-                <label class="field-label">機器編號</label>
-                <input type="text" class="field-input" v-model="form.machineNo" required>
-            </div>
+          <div class="field-group">
+              <label class="field-label">日期</label>
+              <input type="date" class="field-input" v-model="form.date" readonly>
+          </div>
+          <div class="field-group">
+              <label class="field-label">機器編號</label>
+              <input type="text" class="field-input" v-model="form.machineNo" required>
+          </div>
         </div>
       </section>
 
       <section>
         <div class="sec-head">
-            <div class="sec-bar"></div>
-            <div class="sec-lbl">個人資料</div>
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">個人資料</div>
         </div>
 
         <div v-for="(person, index) in form.people" :key="index" class="person-row">
-            <div class="field-group">
-                <label class="field-label">班別</label> 
-                <select class="field-input" v-model="person.shift" required>
-                    <option value="">請選擇</option>
-                    <option value="早班">早班</option>
-                    <option value="晚班">晚班</option>
-                </select>
-            </div>    
-            <div class="field-group">
-                <label class="field-label">工號</label> 
-                <input type="text" class="field-input" v-model="person.employeeNo" required>
-            </div>
-            <div class="field-group">
-                <label class="field-label">姓名</label>
-                <input type="text" class="field-input" v-model="person.name" required>
-            </div>
-            <div class="field-group">
-                <label class="field-label">出勤時數</label> 
-                <input type="number" class="field-input" v-model="person.workhrs" required>
-            </div>
+          <div class="field-group">
+              <label class="field-label">班別</label> 
+              <select class="field-input" v-model="person.shift" required>
+                  <option value="">請選擇</option>
+                  <option value="早班">早班</option>
+                  <option value="晚班">晚班</option>
+              </select>
+          </div>    
+          <div class="field-group">
+              <label class="field-label">工號</label> 
+              <input type="text" class="field-input" v-model="person.employeeNo" required>
+          </div>
+          <div class="field-group">
+              <label class="field-label">姓名</label>
+              <input type="text" class="field-input" v-model="person.name" required>
+          </div>
+          <div class="field-group">
+              <label class="field-label">出勤時數</label> 
+              <input type="number" class="field-input" v-model="person.workhrs" required>
+          </div>
 
-            <button type="button" 
-                v-if="index === 0" 
-                class="action-btn person-add-btn" 
-                @click="addPerson" 
-                :disabled="form.people.length >= 3"
-                >
-                <span class="person-btn-icon">+</span>
-            </button>
+          <button type="button" 
+              v-if="index === 0" 
+              class="action-btn person-add-btn" 
+              @click="addPerson" 
+              :disabled="form.people.length >= 3"
+              >
+              <span class="person-btn-icon">+</span>
+          </button>
 
-            <button type="button" 
-                v-else
-                class="action-btn person-remove-btn" 
-                @click="removePerson"
-                >
-                <span class="person-btn-icon">-</span>
-            </button>
+          <button type="button" 
+              v-else
+              class="action-btn person-remove-btn" 
+              @click="removePerson"
+              >
+              <span class="person-btn-icon">-</span>
+          </button>
         </div>
       </section>
 
@@ -93,18 +93,14 @@
   
             <div class="card-meta">
               <div class="meta-item">
-                <p class="meta-label">數量</p>
+                <p class="meta-label">生產數量</p>
                 <div class="meta-val">{{ item.totalQuan }}</div>
               </div>
               <div class="divider"></div>
               <div class="meta-item">
-                <p class="meta-label">時間</p>
+                <p class="meta-label">生產時間</p>
                 <div class="meta-val">{{ item.runTime }}</div>
               </div>
-              <div class="divider"></div>
-              <span class="badge" :class="isComplete(item) ? 'badge-complete' : 'badge-incomplete'">
-                {{ isComplete(item) ? 'Complete' : 'Incomplete' }}
-              </span>
             </div>
   
             <div class="card-actions">
@@ -117,6 +113,60 @@
         <button type="button" class="prod-add-btn" @click="openAddProduct">
           + 新增生產項目
         </button>
+      </section>
+
+      <section>
+        <div class="sec-head">
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">停機項目</div>
+        </div>
+
+        <div class="machine-grid">
+          <div class="field-group">
+              <label class="field-label">上班射次</label>
+              <input type="number" class="field-input" v-model="form.startShot" required>
+          </div>
+          <div class="field-group">
+              <label class="field-label">下班射次</label>
+              <input type="number" class="field-input" v-model="form.endShot" required>
+          </div>
+        </div>
+        <div class="card-list">
+          <article
+            v-for="(item, index) in form.stopItems"
+            :key="index"
+            class="prod-card"
+          >
+            <div class="card-index">{{ index + 1 }}</div>
+  
+            <div class="card-main">
+              <div class="card-title">{{ item.productType }}</div>
+              <div class="card-sub">{{ item.productNo }}</div>
+            </div>
+  
+            <div class="card-meta">
+              <div class="meta-item">
+                <p class="meta-label">停機NG數</p>
+                <div class="meta-val">{{ item.stop_NGquan }}</div>
+              </div>
+              <div class="divider"></div>
+              <div class="meta-item">
+                <p class="meta-label">停機時間</p>
+                <div class="meta-val">{{ item.stopTime }}</div>
+              </div>
+            </div>
+  
+            <div class="card-actions">
+              <button type="button" class="btn-icon" @click="openEditProduct(index)">✎</button>
+              <button type="button" class="btn-icon del" @click="form.productItems.splice(index, 1)">✕</button>
+            </div>
+          </article>
+        </div>
+  
+        <button type="button" class="stop-add-btn" @click="openAddProduct">
+          + 新增停機項目
+        </button>
+
       </section>
 
       <div class="submit-wrap">
@@ -188,8 +238,8 @@ const form = reactive(
         ],
         productItems: [],
         stopItems: [],
-        startNum: '',
-        endNum: ''
+        startShot: '',
+        endShot: ''
       }
 )
 
@@ -197,20 +247,6 @@ const form = reactive(
 watch(form, () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
 }, { deep: true })
-
-//create active form
-//productItems
-const createProduct = () => ({
-    jobType: '',
-    productNo: '',
-    productType: '',
-    moldId: '',
-    weekNo: '',
-    OKquantity: '',
-    NGquantity: '',
-    totalQuan: '',
-    runTime: ''
-})
 
 //stopItems
 const createStop = () => ({
@@ -265,11 +301,6 @@ const closeProductModal = () => {
   productEditData.value  = null
 }
  
-// ── 完成判斷 ──
-const isComplete = (item) => {
-  return Number(item.OKquantity) > 0 && Number(item.NGquantity) === 0
-}
- 
 //form submit
 const submitDailysheet = () => {
   console.log(form);
@@ -280,6 +311,7 @@ const submitDailysheet = () => {
 </script>
 
 <style scoped>
+/* machine */
 .machine-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -287,7 +319,7 @@ const submitDailysheet = () => {
   margin-bottom: 24px;
 }
  
-/* ── 個人資料列 ── */
+/* employee */
 .person-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr auto;
@@ -403,7 +435,7 @@ const submitDailysheet = () => {
 }
 .badge-complete   { background: #e1f5ee; color: #0f6e56; }
 .badge-incomplete { background: #faeeda; color: #854f0b; }
-.card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.card-actions { display: flex; gap: 6px; flex-shrink: 0; margin-left: 20px;}
 .btn-icon {
   width: 40px;
   height: 40px;
@@ -415,13 +447,13 @@ const submitDailysheet = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 16px;
+  margin: 3px;
   transition: background 0.15s;
 }
 .btn-icon:hover { background: #f5f5f5; color: #1c1c1c; }
 .btn-icon.del:hover { background: #fcebeb; color: #a32d2d; border-color: #f09595; }
  
-/* stopItems */
 .prod-add-btn {
   margin-top: 12px;
   width: 100%;
@@ -437,10 +469,31 @@ const submitDailysheet = () => {
   justify-content: center;
   gap: 6px;
   transition: background 0.15s;
+  margin-bottom: 20px;
 }
 .prod-add-btn:hover { background: #e1f5ee; }
  
-/* ── 送出按鈕（移除 transform，改用 box-shadow 加深做 hover 回饋）── */
+/* stopItems */
+.stop-add-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  border: 1px dashed #f38383;
+  border-radius: 8px;
+  background: transparent;
+  color: #ff1f1f;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.15s;
+  margin-bottom: 20px;
+}
+.stop-add-btn:hover { background: #ffd7d7; }
+
+/* submit */
 .submit-wrap {
   text-align: center;
   margin-top: 24px;
