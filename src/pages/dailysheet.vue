@@ -157,13 +157,13 @@
             </div>
   
             <div class="card-actions">
-              <button type="button" class="btn-icon" @click="openEditProduct(index)">✎</button>
-              <button type="button" class="btn-icon del" @click="form.productItems.splice(index, 1)">✕</button>
+              <button type="button" class="btn-icon" @click="openEditStop(index)">✎</button>
+              <button type="button" class="btn-icon del" @click="form.stopItems.splice(index, 1)">✕</button>
             </div>
           </article>
         </div>
   
-        <button type="button" class="stop-add-btn" @click="openAddProduct">
+        <button type="button" class="stop-add-btn" @click="openAddStop">
           + 新增停機項目
         </button>
 
@@ -270,37 +270,73 @@ const resetform = () => {
 }
 
 //productForm modal control
-const showProductModal = ref(false)
-const productEditIndex = ref(null)
-const productEditData  = ref(null)
+const showProductModal = ref(false);
+const productEditIndex = ref(null);
+const productEditData  = ref(null);
  
 const openAddProduct = () => {
-  productEditIndex.value = null
-  productEditData.value  = null
-  showProductModal.value = true
+  productEditIndex.value = null;
+  productEditData.value  = null;
+  showProductModal.value = true;
 }
  
 const openEditProduct = (index) => {
-  productEditIndex.value = index
-  productEditData.value  = { ...form.productItems[index] }
-  showProductModal.value = true
+  productEditIndex.value = index;
+  productEditData.value  = { ...form.productItems[index] };
+  showProductModal.value = true;
 }
  
 const handleProductSave = (data) => {
-  if (productEditIndex.value !== null) {
-    form.productItems[productEditIndex.value] = { ...data }
-  } else {
-    form.productItems.push({ ...data })
+  if (productEditIndex.value !== null) 
+  {
+    form.productItems[productEditIndex.value] = { ...data };
+  } 
+  else {
+    form.productItems.push({ ...data });
   }
-  closeProductModal()
+  closeProductModal();
 }
  
 const closeProductModal = () => {
-  showProductModal.value = false
-  productEditIndex.value = null
-  productEditData.value  = null
+  showProductModal.value = false;
+  productEditIndex.value = null;
+  productEditData.value  = null;
 }
  
+//stopForm modal control
+const showStopModal = ref(false);
+const stopEditIndex = ref(null);
+const stopEditData  = ref(null);
+ 
+const openAddStop = () => {
+  stopEditIndex.value = null;
+  stopEditData.value  = null;
+  showStopModal.value = true;
+}
+ 
+const openEditStop = (index) => {
+  stopEditIndex.value = index;
+  stopEditData.value  = { ...form.stopItems[index] };
+  showStopModal.value = true;
+}
+ 
+const handleStopSave = (data) => {
+  if (stopEditIndex.value !== null) 
+  {
+    form.stopItems[stopEditIndex.value] = { ...data };
+  } 
+  else {
+    form.stopItems.push({ ...data });
+  }
+  closeStopModal();
+}
+ 
+const closeStopModal = () => {
+  showStopModal.value = false;
+  stopEditIndex.value = null;
+  stopEditData.value  = null;
+}
+
 //form submit
 const submitDailysheet = () => {
   console.log(form);
