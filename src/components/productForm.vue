@@ -285,6 +285,7 @@ const handleSave = () => {
 }
 
 .error-msg {
+  margin-top: 5px;
   font-size: 16px;
   color: #DF4E4E;
   text-align: center;

@@ -39,7 +39,7 @@
               <div class="form-field">
                 <label class="form-label">首次射次<span class="required">*</span></label>
                 <input v-model.number="local.firstShot" type="number" min="0" class="form-input" :class="{ error: errors.firstShot }">
-                <span v-if="errors.first" class="error-msg">必填</span>
+                <span v-if="errors.firstShot" class="error-msg">必填</span>
               </div>
               <div class="form-field">
                 <label class="form-label">末次射次<span class="required">*</span></label>
@@ -48,8 +48,8 @@
               </div>
               <div class="form-field">
                 <label class="form-label">停機時間<span class="required">*</span></label>
-                <input v-model.number="local.last" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }">
-                <span v-if="errors.last" class="error-msg">必填</span>
+                <input v-model.number="local.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
+                <span v-if="errors.stopTime" class="error-msg">必填</span>
               </div>
             </div>
           </div>
@@ -58,7 +58,8 @@
             <p class="group-label">Item Info</p>
             <div class="form-row">
               <div class="form-field">
-                <select class="form-label" v-model="local.moldIssue">模具問題
+                <label class="form-label">模具問題</label> 
+                <select class="form-input" v-model="local.stopIssue" :class="{ error: errors.stopIssue }">
                   <option value="">請選擇</option>
                   <option value="模具上模">模具上模</option>
                   <option value="模具下模">模具下模</option>
@@ -85,7 +86,8 @@
                 </select>
               </div>
               <div class="form-field">
-                <select class="form-label" v-model="local.machineIssue">機台問題
+                <label class="form-label">機台問題</label> 
+                <select class="form-input" v-model="local.stopIssue" :class="{ error: errors.stopIssue }">
                   <option value="">請選擇</option>
                   <option value="壓鑄機故障">壓鑄機故障</option>
                   <option value="料管卡鋁屑處理">料管卡鋁屑處理</option>
@@ -111,8 +113,15 @@
               </div>
               <div class="form-field">
                 <label class="form-label">NG數量<span class="required">*</span></label>
-                <input v-model.number="local.stop_NGquan" type="number" min="0" class="form-input" :class="{ error: errors.stop_NGquan }">
-                <span v-if="errors.stop_NGquan" class="error-msg">必填</span>
+                <input v-model.number="local.stop_NGquan" type="number" min="0" class="form-input" :class="{ error: errors.stop_NGquan }">  
+              </div>
+            </div>
+            <div class="error-row">
+              <div class="error-left" v-if="errors.stopIssue">
+                請選擇一項原因
+              </div>
+              <div class="error-right" v-if="errors.stop_NGquan">
+                必填
               </div>
             </div>
           </div>
@@ -146,8 +155,7 @@ const createEmpty = () => ({
   firstShot: '',
   lastShot: '',
   stopTime: '',
-  moldIssue: '',
-  machineIssue: '',
+  stopIssue: '',
   stop_NGquan: ''
 })
 
@@ -161,12 +169,11 @@ const errors = reactive({
   firstShot: false,
   lastShot: false,
   stopTime: false,
-  moldIssue: false,
-  machineIssue: false,
+  stopIssue: false,
   stop_NGquan: false
 })
 
-const requiredFields = ['productNo', 'productType', 'moldId', 'firstShot', 'lastShot', 'stopTime', 'stop_NGquan']
+const requiredFields = ['productNo', 'productType', 'moldId', 'firstShot', 'lastShot', 'stopTime', 'stopIssue', 'stop_NGquan']
 
 const validate = () => {
   let valid = true
@@ -285,6 +292,23 @@ const handleSave = () => {
   flex: 1;
   min-width: 0;
 }
+.error-row {
+  display: flex;     
+}
+
+.error-left {
+  flex: 2; 
+  font-size: 16px;
+  color: #DF4E4E;
+  text-align: center;
+}
+
+.error-right {
+  flex: 1; 
+  font-size: 16px;
+  color: #DF4E4E;
+  text-align: center;
+}
 
 .form-label {
   font-size: 16px;
@@ -325,6 +349,7 @@ const handleSave = () => {
 }
 
 .error-msg {
+  margin-top: 5px;
   font-size: 16px;
   color: #DF4E4E;
   text-align: center;

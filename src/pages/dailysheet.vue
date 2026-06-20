@@ -181,6 +181,14 @@
         @save="handleProductSave"
         @close="closeProductModal"
       />
+
+      <stopForm
+        v-if="showStopModal"
+        :edit-data="stopEditData"
+        :is-edit="stopEditIndex !== null"
+        @save="handleStopSave"
+        @close="closeStopModal"
+      />
  
     </form>
   </div>
@@ -192,6 +200,7 @@
 import Navbar from '@/components/navbar.vue'
 import Footer from '@/components/footer.vue'
 import productForm from '@/components/productForm.vue'
+import stopForm from '@/components/stopForm.vue'
 import { formatNow } from '@/utils/date.js'
 import { reactive, ref, watch } from 'vue'
 
