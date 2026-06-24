@@ -31,9 +31,9 @@
           <div class="sec-lbl">個人資料</div>
         </div>
 
-        <div v-for="(person, index) in form.people" :key="index" class="person-row">
+        <div v-for="(person, index) in form.people" :key="person.pID" class="person-row">
           <div class="field-group">
-              <label class="field-label">班別</label> 
+              <label class="field-label" v-if="index === 0">班別</label> 
               <select class="field-input" v-model="person.shift" required>
                   <option value="">請選擇</option>
                   <option value="早班">早班</option>
@@ -41,33 +41,33 @@
               </select>
           </div>    
           <div class="field-group">
-              <label class="field-label">工號</label> 
+              <label class="field-label" v-if="index === 0">工號</label> 
               <input type="text" class="field-input" v-model="person.employeeNo" required>
           </div>
           <div class="field-group">
-              <label class="field-label">姓名</label>
+              <label class="field-label" v-if="index === 0">姓名</label>
               <input type="text" class="field-input" v-model="person.name" required>
           </div>
           <div class="field-group">
-              <label class="field-label">出勤時數</label> 
+              <label class="field-label" v-if="index === 0">出勤時數</label> 
               <input type="number" class="field-input" v-model="person.workhrs" required>
           </div>
 
           <button type="button" 
-              v-if="index === 0" 
-              class="action-btn person-add-btn" 
-              @click="addPerson" 
-              :disabled="form.people.length >= 3"
-              >
-              <span class="person-btn-icon">+</span>
+            v-if="index === 0" 
+            class="action-btn person-add-btn" 
+            @click="addPerson" 
+            :disabled="form.people.length >= 3"
+            >
+            <span class="person-btn-icon">+</span>
           </button>
 
           <button type="button" 
-              v-else
-              class="action-btn person-remove-btn" 
-              @click="removePerson"
-              >
-              <span class="person-btn-icon">-</span>
+            v-else
+            class="action-btn person-remove-btn" 
+            @click="removePerson(index)"
+            >
+            <span class="person-btn-icon">-</span>
           </button>
         </div>
       </section>
@@ -152,7 +152,7 @@
               <div class="divider"></div>
               <div class="meta-item">
                 <p class="meta-label">停機時間</p>
-                <div class="meta-val">{{ item.stopTime }}</div>
+                <div class="meta-val">{{ item.totalTime }}</div>
               </div>
             </div>
   
@@ -211,6 +211,7 @@ function addPerson() {
   if (form.people.length >= 3) return
 
   form.people.push({
+    pID: Math.random().toString(36).slice(2),
     shift: '',
     employeeNo: '',
     name: '',
@@ -219,9 +220,10 @@ function addPerson() {
 }
 
 function removePerson(index) {
-  if (form.people.length <= 1) return
+  if(index === 0) return;
+  if (form.people.length <= 1) return;
 
-  form.people.splice(index, 1)
+  form.people.splice(index, 1);
 }
 
 
@@ -239,6 +241,7 @@ const form = reactive(
         machineNo: '',
         people: [
             {
+                pID: Math.random().toString(36).slice(2),
                 shift: '',
                 employeeNo: '',
                 name: '',
@@ -256,16 +259,6 @@ const form = reactive(
 watch(form, () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
 }, { deep: true })
-
-//stopItems
-const createStop = () => ({
-    productNo: '',
-    productType: '',
-    stopTime: '',
-    moldReason: '',
-    machineReason: '',
-    stop_NGquan: ''
-})
 
 //clear & reset
 const resetform = () => {
@@ -348,7 +341,10 @@ const closeStopModal = () => {
 
 //form submit
 const submitDailysheet = () => {
-  console.log(form);
+
+  //console.log(form);
+  //console.log('目前所有 keys:', Object.keys(form));
+
   // API
 
   resetform()

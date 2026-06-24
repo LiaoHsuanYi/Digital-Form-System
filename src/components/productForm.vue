@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, watch } from 'vue'
 
 const props = defineProps({
   editData: { type: Object, default: null },
@@ -141,6 +141,16 @@ const handleSave = () => {
   if (!validate()) return
   emit('save', { ...local, totalQuan: computedTotal.value })
 }
+
+
+watch(
+  [() => local.OKquantity, () => local.NGquantity], 
+  ([newOK, newNG]) => {
+    local.totalQuan = (Number(newOK) || 0) + (Number(newNG) || 0);
+  },
+  {immediate: true}
+)
+
 </script>
 
 <style scoped>

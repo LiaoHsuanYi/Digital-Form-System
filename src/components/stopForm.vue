@@ -47,19 +47,47 @@
                 <span v-if="errors.lastShot" class="error-msg">必填</span>
               </div>
               <div class="form-field">
-                <label class="form-label">停機時間<span class="required">*</span></label>
-                <input v-model.number="local.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
-                <span v-if="errors.stopTime" class="error-msg">必填</span>
+                <label class="form-label">停機總時間</label>
+                <input :value="computedTotal" type="number" class="form-input" readonly>
               </div>
             </div>
           </div>
 
           <div class="section-group">
-            <p class="group-label">Item Info</p>
+            <p class="group-label">Quantity Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">模具問題</label> 
-                <select class="form-input" v-model="local.stopIssue" :class="{ error: errors.stopIssue }">
+                <label class="form-label">鑄件問題</label>
+                <select class="form-input" v-model="local.productIssue">
+                  <option value="">請選擇</option>
+                  <option value="缺肉">缺肉</option>
+                  <option value="流紋">流紋</option>
+                  <option value="黏模">黏模</option>
+                  <option value="拉模裂">拉模裂</option>
+                  <option value="變形">變形</option>
+                  <option value="砂孔">砂孔</option>
+                  <option value="脫皮">脫皮</option>
+                  <option value="斷料頭">斷料頭</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label class="form-label">停機NG數</label>
+                <input v-model.number="local.stop_NGquan" type="number" min="0" class="form-input">  
+              </div>
+              <div class="form-field">
+                <label class="form-label">冷模數量</label>
+                <input v-model.number="local.coldQuan" type="number" min="0" class="form-input">  
+              </div>
+            </div>
+          </div>
+
+          <p class="group-label">Downtime Info</p>
+          <div v-for="(item, index) in local.stopReason" :key="index" class="section-group">
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" v-if="index === 0">模具問題</label> 
+                <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
                   <option value="">請選擇</option>
                   <option value="模具上模">模具上模</option>
                   <option value="模具下模">模具下模</option>
@@ -86,8 +114,8 @@
                 </select>
               </div>
               <div class="form-field">
-                <label class="form-label">機台問題</label> 
-                <select class="form-input" v-model="local.stopIssue" :class="{ error: errors.stopIssue }">
+                <label class="form-label" v-if="index === 0">機台問題</label> 
+                <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
                   <option value="">請選擇</option>
                   <option value="壓鑄機故障">壓鑄機故障</option>
                   <option value="料管卡鋁屑處理">料管卡鋁屑處理</option>
@@ -112,20 +140,35 @@
                 </select>
               </div>
               <div class="form-field">
-                <label class="form-label">NG數量<span class="required">*</span></label>
-                <input v-model.number="local.stop_NGquan" type="number" min="0" class="form-input" :class="{ error: errors.stop_NGquan }">  
+                <label class="form-label" v-if="index === 0">停機時間<span class="required">*</span></label>
+                <input v-model.number="item.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
               </div>
+            
+              <button type="button"
+                v-if="index === 0" 
+                class="action-btn stop-add-btn" 
+                @click="addstopReason"
+                >
+                <span class="stop-btn-icon">+</span>
+              </button>
+
+              <button type="button" 
+                v-else
+                class="action-btn stop-remove-btn" 
+                @click="removestopReason(index)"
+                >
+                <span class="person-btn-icon">-</span>
+              </button>
             </div>
-            <div class="error-row">
-              <div class="error-left" v-if="errors.stopIssue">
+            <div class="error-row" v-if="index === 0">
+              <div class="error-left" :style="{ visibility: errors.stopIssue ? 'visible' : 'hidden' }">
                 請選擇一項原因
               </div>
-              <div class="error-right" v-if="errors.stop_NGquan">
+              <div class="error-right" :style="{ visibility: errors.stopTime ? 'visible' : 'hidden' }">
                 必填
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="modal-footer">
@@ -139,7 +182,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, computed, watch } from 'vue'
 
 const props = defineProps({
   editData: { type: Object, default: null },
@@ -154,10 +197,35 @@ const createEmpty = () => ({
   moldId: '',
   firstShot: '',
   lastShot: '',
-  stopTime: '',
-  stopIssue: '',
-  stop_NGquan: ''
+  totalTime: '',
+  productIssue: '',
+  stop_NGquan: '',
+  coldQuan: '',
+  stopReason: [
+    {
+      stopIssue: '',
+      stopTime: ''
+    }
+  ]
+  
 })
+
+function addstopReason() 
+{
+  local.stopReason.push({
+    stopIssue: '',
+    stopTime: ''
+  })
+}
+
+function removestopReason(index) 
+{
+  if (local.stopReason.length <= 1) 
+    return;
+
+  local.stopReason.splice(index, 1);
+}
+
 
 // If editData has value, then edit. If not, then create
 const local = reactive(props.editData ? { ...props.editData } : createEmpty())
@@ -168,12 +236,19 @@ const errors = reactive({
   moldId: false,
   firstShot: false,
   lastShot: false,
-  stopTime: false,
+  stop_NGquan: false,
   stopIssue: false,
-  stop_NGquan: false
+  stopTime: false
 })
 
-const requiredFields = ['productNo', 'productType', 'moldId', 'firstShot', 'lastShot', 'stopTime', 'stopIssue', 'stop_NGquan']
+const computedTotal = computed(() => {
+  return local.stopReason.reduce((total, item) => {
+    const time = parseInt(item.stopTime) || 0;
+    return total + time;
+  }, 0);
+})
+
+const requiredFields = ['productNo', 'productType', 'moldId', 'firstShot', 'lastShot']
 
 const validate = () => {
   let valid = true
@@ -181,6 +256,17 @@ const validate = () => {
     errors[key] = local[key] === '' || local[key] === null || local[key] === undefined
     if (errors[key]) valid = false
   })
+  
+  const firstStop = local.stopReason[0];
+
+  errors.stopIssue = !firstStop.stopIssue;
+  errors.stopTime = !firstStop.stopTime;
+
+  if (errors.stopTime || errors.stopIssue ) 
+  {
+    valid = false
+  }
+
   return valid;
 }
 
@@ -188,6 +274,16 @@ const handleSave = () => {
   if (!validate()) return
   emit('save', { ...local })
 }
+
+watch(
+  () => local.stopReason, (newIssue) => {
+      local.totalTime = newIssue.reduce((total, item) => {
+      return total + (Number(item.stopTime) || 0);
+    }, 0);
+  },
+  {deep: true}
+)
+
 </script>
 
 <style scoped>
@@ -293,21 +389,21 @@ const handleSave = () => {
   min-width: 0;
 }
 .error-row {
-  display: flex;     
+  display: flex;   
+  gap: 35px;
 }
 
 .error-left {
-  flex: 2; 
+  flex: 7;
   font-size: 16px;
   color: #DF4E4E;
   text-align: center;
 }
 
 .error-right {
-  flex: 1; 
+  flex: 3;
   font-size: 16px;
   color: #DF4E4E;
-  text-align: center;
 }
 
 .form-label {
@@ -361,6 +457,39 @@ const handleSave = () => {
   gap: 15px;
   padding: 12px 18px;
   border-top: 1px solid #ebebeb;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1.5px solid;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  align-self: end;
+}
+.stop-btn-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+.stop-add-btn {
+  border-color: #3ab87a;
+  color: #3ab87a;
+}
+.stop-add-btn:hover { background: #e1f5ee; }
+.stop-remove-btn {
+  border-color: #ccc;
+  color: #999;
+}
+.stop-remove-btn:hover {
+  border-color: #e57373;
+  color: #e57373;
+  background: #fff5f5;
 }
 
 .btn-cancel {
