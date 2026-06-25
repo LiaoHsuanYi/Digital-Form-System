@@ -160,7 +160,7 @@
                 <span class="person-btn-icon">-</span>
               </button>
             </div>
-            <div class="error-row" v-if="index === 0">
+            <div class="error-row" v-if="index === 0 && (errors.stopIssue == true || errors.stopTime == true)">
               <div class="error-left" :style="{ visibility: errors.stopIssue ? 'visible' : 'hidden' }">
                 請選擇一項原因
               </div>
