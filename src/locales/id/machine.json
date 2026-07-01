@@ -15,7 +15,7 @@
     },
     "checklist": ["Plunger bocor", "Sleeve bocor", "Dies bocor", "Release agent berlebih", "Vent tersumbat", 
                   "Nozzle spray bocor", "Sleeve kurang pelumas", "Fan konveyor mati", "Air pendingin dies mati"],
-    "setOK": "Normal. Ingat isi form inspeksi visual",
+    "set_ok": "Normal. Ingat isi form inspeksi visual",
     "file_upload": "Klik di sini untuk unggah file",
     "file_ng": "Silakan unggah file",
     "file_limit": "File terlalu besar, unggah ulang"

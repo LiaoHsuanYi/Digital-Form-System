@@ -146,14 +146,23 @@
                         <div class="upload-icon">📁</div>
                         <div class="upload-text">
                              <!--when fileError != '', then output-->
-                            <span v-if="fileError" class="file-error">{{ fileError }}</span>
-                            <span v-else-if="fileName" class="file-selected">{{ fileName }}</span>
-                            <span v-else>{{  $t('machine.file_upload') }}</span>
+                            <span v-if="fileError" class="file-error">
+                                {{ fileError }}
+                            </span>
+                            <div v-else-if="form.files.length" class="file-selected">
+                                <div v-for="(file, index) in form.files" :key="index">
+                                    {{ file.name }}
+                                </div>
+                            </div>
+                            <span v-else>
+                                {{ $t('machine.file_upload') }}
+                            </span>
                         </div>
                     </div>
 
                     <input 
                         type="file" 
+                        multiple
                         ref="fileInput" 
                         style="display: none" 
                         @change="handleFileChange" 
@@ -186,7 +195,6 @@ const { t } = useI18n()
 const checkRequired = ref();
 const checkParams = ref(true);
 const fileInput = ref('');
-const fileName = ref('');
 const fileError = ref('');
 const form = reactive({ 
   date: formatNow('minute'),
@@ -222,7 +230,6 @@ const resetform = () => {
     form.material = 'ADC12';
 
     fileInput.value.value = '';
-    fileName.value = '';
     fileError.value = '';
 
 }
@@ -262,22 +269,19 @@ const triggerUpload = () => {
 
 const handleFileChange = (event) => {
 
-    const file = event.target.files[0];
-    fileName.value = '';
+    const selectedFiles = Array.from(event.target.files);
     fileError.value = '';
-    form.files = [];
 
-    if (!file) return;
+    if (selectedFiles.length === 0) return;
 
-    if (file.size > 5 * 1024 * 1024) 
-    {
-        fileError.value = t('machine.file_limit');
-        event.target.value = '';
-        return;
+    for (const file of selectedFiles) {
+        if (file.size > 5 * 1024 * 1024) {
+            fileError.value = t('machine.file_limit');
+            event.target.value = '';
+            return;
+        }
     }
-
-    fileName.value = file.name;
-    form.files = [file];
+    form.files = selectedFiles;
 };
 
 //validation
@@ -292,7 +296,7 @@ const checkSet = () => {
 
     if (form.issues.length === 0) 
     {
-        return confirm(t('machine.setOK'));
+        return confirm(t('machine.set_ok'));
     }
 
     if (form.files.length === 0) 
@@ -309,6 +313,7 @@ const submitMachine = async() => {
     if(!checkSet())
         return;
 
+    form.moldId = String(form.moldId).padStart(3, '#0');
     resetform();
 }
 

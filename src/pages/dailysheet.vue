@@ -4,23 +4,31 @@
   <div class="form-body">
     <form @submit.prevent="submitDailysheet">
       <div class="form-title">
-          壓鑄工作日報表
+          {{ $t('dailysheet.title') }}
       </div>
         
       <section>
         <div class="sec-head">
           <div class="sec-bar"></div>
-          <div class="sec-lbl">機器資料</div>
+          <div class="sec-lbl">{{ $t('dailysheet.labels[0]') }}</div>
         </div>
 
         <div class="machine-grid">
           <div class="field-group">
-              <label class="field-label">日期</label>
+              <label class="field-label">{{ $t('dailysheet.date') }}</label>
               <input type="date" class="field-input" v-model="form.date" readonly>
           </div>
           <div class="field-group">
-              <label class="field-label">機器編號</label>
+              <label class="field-label">{{ $t('dailysheet.machine_no') }}</label>
               <input type="text" class="field-input" v-model="form.machineNo" required>
+          </div>
+          <div class="field-group">
+              <label class="field-label">{{ $t('dailysheet.start_shot') }}</label>
+              <input type="number" class="field-input" v-model="form.startShot" required>
+          </div>
+          <div class="field-group">
+              <label class="field-label">{{ $t('dailysheet.end_shot') }}</label>
+              <input type="number" class="field-input" v-model="form.endShot" required>
           </div>
         </div>
       </section>
@@ -28,28 +36,28 @@
       <section>
         <div class="sec-head">
           <div class="sec-bar"></div>
-          <div class="sec-lbl">個人資料</div>
+          <div class="sec-lbl">{{ $t('dailysheet.labels[1]') }}</div>
         </div>
 
-        <div v-for="(person, index) in form.people" :key="person.pID" class="person-row">
+        <div v-for="(person, index) in form.people" :key="index" class="person-row">
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">班別</label> 
+              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[0]') }}</label> 
               <select class="field-input" v-model="person.shift" required>
-                  <option value="">請選擇</option>
-                  <option value="早班">早班</option>
-                  <option value="晚班">晚班</option>
+                  <option value="">{{ $t('dailysheet.person.shifts[0]') }}</option>
+                  <option value="早班">{{ $t('dailysheet.person.shifts[1]') }}</option>
+                  <option value="晚班">{{ $t('dailysheet.person.shifts[2]') }}</option>
               </select>
           </div>    
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">工號</label> 
+              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[1]') }}</label> 
               <input type="text" class="field-input" v-model="person.employeeNo" required>
           </div>
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">姓名</label>
+              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[2]') }}</label>
               <input type="text" class="field-input" v-model="person.name" required>
           </div>
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">出勤時數</label> 
+              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[3]') }}</label> 
               <input type="number" class="field-input" v-model="person.workhrs" required>
           </div>
 
@@ -75,7 +83,7 @@
       <section>
         <div class="sec-head">
           <div class="sec-bar"></div>
-          <div class="sec-lbl">生產項目</div>
+          <div class="sec-lbl">{{ $t('dailysheet.labels[2]')}}</div>
         </div>
   
         <div class="card-list">
@@ -93,12 +101,12 @@
   
             <div class="card-meta">
               <div class="meta-item">
-                <p class="meta-label">生產數量</p>
+                <p class="meta-label">{{ $t('dailysheet.pro_quantity') }}</p>
                 <div class="meta-val">{{ item.totalQuan }}</div>
               </div>
               <div class="divider"></div>
               <div class="meta-item">
-                <p class="meta-label">生產時間</p>
+                <p class="meta-label">{{ $t('dailysheet.pro_time') }}</p>
                 <div class="meta-val">{{ item.runTime }}</div>
               </div>
             </div>
@@ -111,26 +119,16 @@
         </div>
   
         <button type="button" class="prod-add-btn" @click="openAddProduct">
-          + 新增生產項目
+          + {{ $t('dailysheet.add_product') }}
         </button>
       </section>
 
       <section>
         <div class="sec-head">
           <div class="sec-bar"></div>
-          <div class="sec-lbl">停機項目</div>
+          <div class="sec-lbl">{{ $t('dailysheet.labels[3]')}}</div>
         </div>
 
-        <div class="machine-grid">
-          <div class="field-group">
-              <label class="field-label">上班射次</label>
-              <input type="number" class="field-input" v-model="form.startShot" required>
-          </div>
-          <div class="field-group">
-              <label class="field-label">下班射次</label>
-              <input type="number" class="field-input" v-model="form.endShot" required>
-          </div>
-        </div>
         <div class="card-list">
           <article
             v-for="(item, index) in form.stopItems"
@@ -146,12 +144,12 @@
   
             <div class="card-meta">
               <div class="meta-item">
-                <p class="meta-label">停機NG數</p>
+                <p class="meta-label">{{ $t('dailysheet.stop_quantity') }}</p>
                 <div class="meta-val">{{ item.stop_NGquan }}</div>
               </div>
               <div class="divider"></div>
               <div class="meta-item">
-                <p class="meta-label">停機時間</p>
+                <p class="meta-label">{{ $t('dailysheet.stop_time') }}</p>
                 <div class="meta-val">{{ item.totalTime }}</div>
               </div>
             </div>
@@ -164,7 +162,7 @@
         </div>
   
         <button type="button" class="stop-add-btn" @click="openAddStop">
-          + 新增停機項目
+          + {{ $t('dailysheet.add_stop') }}
         </button>
 
       </section>
@@ -211,7 +209,6 @@ function addPerson() {
   if (form.people.length >= 3) return
 
   form.people.push({
-    pID: Math.random().toString(36).slice(2),
     shift: '',
     employeeNo: '',
     name: '',
@@ -241,7 +238,6 @@ const form = reactive(
         machineNo: '',
         people: [
             {
-                pID: Math.random().toString(36).slice(2),
                 shift: '',
                 employeeNo: '',
                 name: '',
@@ -355,7 +351,7 @@ const submitDailysheet = () => {
 /* machine */
 .machine-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 10px;
   margin-bottom: 24px;
 }
@@ -495,15 +491,17 @@ const submitDailysheet = () => {
 .btn-icon:hover { background: #f5f5f5; color: #1c1c1c; }
 .btn-icon.del:hover { background: #fcebeb; color: #a32d2d; border-color: #f09595; }
  
+/* productItems */
 .prod-add-btn {
   margin-top: 12px;
   width: 100%;
   padding: 10px;
-  border: 1px dashed #5dcaa5;
+  border: 2px dashed #5dcaa5;
   border-radius: 8px;
   background: transparent;
   color: #0f6e56;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -519,11 +517,12 @@ const submitDailysheet = () => {
   margin-top: 12px;
   width: 100%;
   padding: 10px;
-  border: 1px dashed #f38383;
+  border: 2px dashed #f38383;
   border-radius: 8px;
   background: transparent;
   color: #ff1f1f;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;

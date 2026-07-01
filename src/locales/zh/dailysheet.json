@@ -1,0 +1,33 @@
+{
+    "title": "壓鑄工作日報表",
+    "labels": ["機器資料", "個人資料", "生產項目", "停機項目"],
+    "date": "日期",
+    "machine_no": "機器編號",
+    "person": {
+        "labels": ["班別", "工號", "姓名", "出勤時間"],
+        "shifts": ["請選擇", "早班", "晚班"]
+    }, 
+    "pro_quantity": "生產數量", 
+    "pro_time": "生產時間",
+    "add_product": "新增生產項目",
+    "edit_product": "編輯生產項目",
+    "start_shot": "上班射次",
+    "end_shot": "下班射次",
+    "stop_quantity": "停機NG數", 
+    "stop_time": "停機時間",
+    "add_stop": "新增停機項目",
+    "edit_stop": "編輯停機項目",
+    "reminder": "全部必填 (All  required)",
+    "required": "必填",
+    "reason": "請選擇一項原因",
+    "product_form": {
+        "labels": ["工作類型", "料號", "品名", "模號", "週期",
+                   "OK數量", "NG數量", "總數量", "運行時間"],
+        "worktype": ["請選擇", "有標工作", "試模"]
+    },
+    "stop_form": {
+        "labels": ["料號", "品名", "模號", "首次射次", "末次射次",
+                   "停機總時間", "鑄件問題", "停機NG數", "冷模數量",
+                   "模具問題", "機台問題", "停機時間"]
+    }
+}

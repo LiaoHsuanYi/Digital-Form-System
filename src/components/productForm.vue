@@ -5,8 +5,8 @@
       <div class="modal-box">
         <div class="modal-header">
           <span class="modal-title">
-            {{ isEdit ? '編輯生產項目' : '新增生產項目' }}
-            <span class="modal-hint">全部必填 (All  required)</span>
+            {{ isEdit ? $t('dailysheet.edit_product') : $t('dailysheet.add_product') }}
+            <span class="modal-hint">{{ $t('dailysheet.reminder') }}</span>
           </span>
           <button class="modal-close" type="button" @click="$emit('close')">✕</button>
         </div>
@@ -16,35 +16,35 @@
             <p class="group-label">Product Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">工作類型 <span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[0]') }}<span class="required">*</span></label>
                 <select class="form-input" v-model="local.jobType" :class="{ error: errors.jobType }">
-                  <option value="">請選擇</option>
-                  <option value="有標工作">有標工作</option>
-                  <option value="試模">試模</option>
+                  <option value="">{{ $t('dailysheet.product_form.worktype[0]') }}</option>
+                  <option value="有標工作">{{ $t('dailysheet.product_form.worktype[1]') }}</option>
+                  <option value="試模">{{ $t('dailysheet.product_form.worktype[2]') }}</option>
                 </select>
-                <span v-if="errors.jobType" class="error-msg">必填</span>
+                <span v-if="errors.jobType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">料號<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[1]') }}<span class="required">*</span></label>
                 <input v-model="local.productNo" type="text" class="form-input" :class="{ error: errors.productNo }">
-                <span v-if="errors.productNo" class="error-msg">必填</span>
+                <span v-if="errors.productNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
             </div>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">品名<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[2]') }}<span class="required">*</span></label>
                 <input v-model="local.productType" type="text" class="form-input" :class="{ error: errors.productType }">
-                <span v-if="errors.productType" class="error-msg">必填</span>
+                <span v-if="errors.productType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">模號<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[3]') }}<span class="required">*</span></label>
                 <input v-model="local.moldId" type="text" class="form-input" :class="{ error: errors.moldId }" placeholder="#">
-                <span v-if="errors.moldId" class="error-msg">必填</span>
+                <span v-if="errors.moldId" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">週期<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[4]') }}<span class="required">*</span></label>
                 <input v-model="local.weekNo" type="text" class="form-input" :class="{ error: errors.weekNo }">
-                <span v-if="errors.weekNo" class="error-msg">必填</span>
+                <span v-if="errors.weekNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
             </div>
           </div>
@@ -53,23 +53,23 @@
             <p class="group-label">Item Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">OK數量<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[5]') }}<span class="required">*</span></label>
                 <input v-model.number="local.OKquantity" type="number" min="0" class="form-input" :class="{ error: errors.OKquantity }">
-                <span v-if="errors.OKquantity" class="error-msg">必填</span>
+                <span v-if="errors.OKquantity" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">NG數量<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[6]') }}<span class="required">*</span></label>
                 <input v-model.number="local.NGquantity" type="number" min="0" class="form-input" :class="{ error: errors.NGquantity }">
-                <span v-if="errors.NGquantity" class="error-msg">必填</span>
+                <span v-if="errors.NGquantity" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">總數量</label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[7]') }}</label>
                 <input :value="computedTotal" type="number" class="form-input" readonly>
               </div>
               <div class="form-field">
-                <label class="form-label">運行時間<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.product_form.labels[8]') }}<span class="required">*</span></label>
                 <input v-model="local.runTime" type="text" class="form-input" :class="{ error: errors.runTime }" placeholder="? mins">
-                <span v-if="errors.runTime" class="error-msg">必填</span>
+                <span v-if="errors.runTime" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
             </div>
           </div>
@@ -139,6 +139,7 @@ const validate = () => {
 
 const handleSave = () => {
   if (!validate()) return
+  local.moldId = String(local.moldId).padStart(3, '#0');
   emit('save', { ...local, totalQuan: computedTotal.value })
 }
 

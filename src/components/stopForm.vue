@@ -5,8 +5,8 @@
       <div class="modal-box">
         <div class="modal-header">
           <span class="modal-title">
-            {{ isEdit ? '編輯停機項目' : '新增停機項目' }}
-            <span class="modal-hint">全部必填 (All  required)</span>
+            {{ isEdit ? $t('dailysheet.edit_stop') : $t('dailysheet.add_stop') }}
+            <span class="modal-hint">{{ $t('dailysheet.reminder') }}</span>
           </span>
           <button class="modal-close" type="button" @click="$emit('close')">✕</button>
         </div>
@@ -16,19 +16,19 @@
             <p class="group-label">Product Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">料號<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[0]') }}<span class="required">*</span></label>
                 <input v-model="local.productNo" type="text" class="form-input" :class="{ error: errors.productNo }">
-                <span v-if="errors.productNo" class="error-msg">必填</span>
+                <span v-if="errors.productNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">品名<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[1]') }}<span class="required">*</span></label>
                 <input v-model="local.productType" type="text" class="form-input" :class="{ error: errors.productType }">
-                <span v-if="errors.productType" class="error-msg">必填</span>
+                <span v-if="errors.productType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">模號<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[2]') }}<span class="required">*</span></label>
                 <input v-model="local.moldId" type="text" class="form-input" :class="{ error: errors.moldId }" placeholder="#">
-                <span v-if="errors.moldId" class="error-msg">必填</span>
+                <span v-if="errors.moldId" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
             </div>
           </div>
@@ -37,17 +37,17 @@
             <p class="group-label">Machine Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">首次射次<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[3]') }}<span class="required">*</span></label>
                 <input v-model.number="local.firstShot" type="number" min="0" class="form-input" :class="{ error: errors.firstShot }">
-                <span v-if="errors.firstShot" class="error-msg">必填</span>
+                <span v-if="errors.firstShot" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">末次射次<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[4]') }}<span class="required">*</span></label>
                 <input v-model.number="local.lastShot" type="number" min="0" class="form-input" :class="{ error: errors.lastShot }">
-                <span v-if="errors.lastShot" class="error-msg">必填</span>
+                <span v-if="errors.lastShot" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">停機總時間</label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[5]') }}</label>
                 <input :value="computedTotal" type="number" class="form-input" readonly>
               </div>
             </div>
@@ -57,7 +57,7 @@
             <p class="group-label">Quantity Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">鑄件問題</label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[6]') }}</label>
                 <select class="form-input" v-model="local.productIssue">
                   <option value="">請選擇</option>
                   <option value="缺肉">缺肉</option>
@@ -71,11 +71,11 @@
                 </select>
               </div>
               <div class="form-field">
-                <label class="form-label">停機NG數</label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[7]') }}</label>
                 <input v-model.number="local.stop_NGquan" type="number" min="0" class="form-input">  
               </div>
               <div class="form-field">
-                <label class="form-label">冷模數量</label>
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[8]') }}</label>
                 <input v-model.number="local.coldQuan" type="number" min="0" class="form-input">  
               </div>
             </div>
@@ -86,7 +86,7 @@
 
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label" v-if="index === 0">模具問題</label> 
+                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[9]') }}</label> 
                 <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
                   <option value="">請選擇</option>
                   <option value="模具上模">模具上模</option>
@@ -114,7 +114,7 @@
                 </select>
               </div>
               <div class="form-field">
-                <label class="form-label" v-if="index === 0">機台問題</label> 
+                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[10]') }}</label> 
                 <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
                   <option value="">請選擇</option>
                   <option value="壓鑄機故障">壓鑄機故障</option>
@@ -140,7 +140,7 @@
                 </select>
               </div>
               <div class="form-field">
-                <label class="form-label" v-if="index === 0">停機時間<span class="required">*</span></label>
+                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[11]') }}<span class="required">*</span></label>
                 <input v-model.number="item.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
               </div>
             
@@ -162,10 +162,10 @@
             </div>
             <div class="error-row" v-if="index === 0 && (errors.stopIssue == true || errors.stopTime == true)">
               <div class="error-left" :style="{ visibility: errors.stopIssue ? 'visible' : 'hidden' }">
-                請選擇一項原因
+                {{ $t('dailysheet.reason') }}
               </div>
               <div class="error-right" :style="{ visibility: errors.stopTime ? 'visible' : 'hidden' }">
-                必填
+                {{ $t('dailysheet.required') }}
               </div>
             </div>
           </div>
@@ -272,6 +272,7 @@ const validate = () => {
 
 const handleSave = () => {
   if (!validate()) return
+  local.moldId = String(local.moldId).padStart(3, '#0');
   emit('save', { ...local })
 }
 
@@ -390,11 +391,11 @@ watch(
 }
 .error-row {
   display: flex;   
-  gap: 35px;
+  gap: 50px;
 }
 
 .error-left {
-  flex: 7;
+  flex: 6;
   font-size: 16px;
   color: #DF4E4E;
   text-align: center;

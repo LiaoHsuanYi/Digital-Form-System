@@ -174,6 +174,7 @@ const submitAppearance = async() => {
     if(!checkLook())
         return;
 
+    form.moldId = String(form.moldId).padStart(3, '#0');
     resetform();
 }
 
