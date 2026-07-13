@@ -59,15 +59,25 @@
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stop_form.labels[6]') }}</label>
                 <select class="form-input" v-model="local.productIssue">
-                  <option value="">請選擇</option>
-                  <option value="缺肉">缺肉</option>
-                  <option value="流紋">流紋</option>
-                  <option value="黏模">黏模</option>
-                  <option value="拉模裂">拉模裂</option>
-                  <option value="變形">變形</option>
-                  <option value="砂孔">砂孔</option>
-                  <option value="脫皮">脫皮</option>
-                  <option value="斷料頭">斷料頭</option>
+                  <option value="">{{ $t('dailysheet.stop_form.select') }}</option>
+                  <option value="黏膜">1</option>
+                  <option value="燒附">2</option>
+                  <option value="拉模">3</option>
+                  <option value="模崩">4</option>
+                  <option value="模裂">5</option>
+                  <option value="壓傷">6</option>
+                  <option value="沖蝕">7</option>
+                  <option value="缺肉">8</option>
+                  <option value="多肉">9</option>
+                  <option value="顆粒">10</option>
+                  <option value="斷差">11</option>
+                  <option value="洩料">12</option>
+                  <option value="水路異常">13</option>
+                  <option value="Pin問題">14</option>
+                  <option value="頂針問題">15</option>
+                  <option value="油壓缸處理">16</option>
+                  <option value="年週章頂針調整">17</option>
+                  <option value="其他問題">18</option>
                 </select>
               </div>
               <div class="form-field">
@@ -88,55 +98,41 @@
               <div class="form-field">
                 <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[9]') }}</label> 
                 <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
-                  <option value="">請選擇</option>
-                  <option value="模具上模">模具上模</option>
-                  <option value="模具下模">模具下模</option>
-                  <option value="模具維修">模具維修</option>
-                  <option value="試模">試模</option>
-                  <option value="冷模">冷模</option>
-                  <option value="燒付處理">燒付處理</option>
-                  <option value="斷pin">斷pin</option>
-                  <option value="頂針斷">頂針斷</option>
-                  <option value="頂針長度調整">頂針長度調整</option>
-                  <option value="模具模面清理">模具模面清理</option>
-                  <option value="清理真空閥堵塞">清理真空閥堵塞</option>
-                  <option value="油壓缸維修">油壓缸維修</option>
-                  <option value="換週期章">換週期章</option>
-                  <option value="缺肉">缺肉</option>
-                  <option value="流紋">流紋</option>
-                  <option value="黏模">黏模</option>
-                  <option value="拉模裂">拉模裂</option>
-                  <option value="變形">變形</option>
-                  <option value="砂孔">砂孔</option>
-                  <option value="脫皮">脫皮</option>
-                  <option value="斷料頭">斷料頭</option>
-                  <option value="其他">其他</option>
+                  <option value="">{{ $t('dailysheet.stop_form.select') }}</option>
+                  <option value="模具上模">1</option>
+                  <option value="模具下模">2</option>
+                  <option value="模具維修">3</option>
+                  <option value="模具保養">4</option>
+                  <option value="模具檢查">5</option>
+                  <option value="試模">6</option>
+                  <option value="模具機構異常">7</option>
                 </select>
               </div>
               <div class="form-field">
                 <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[10]') }}</label> 
                 <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
-                  <option value="">請選擇</option>
-                  <option value="壓鑄機故障">壓鑄機故障</option>
-                  <option value="料管卡鋁屑處理">料管卡鋁屑處理</option>
-                  <option value="換柱塞">換柱塞</option>
-                  <option value="給湯機故障">給湯機故障</option>
-                  <option value="湯溫不足">湯溫不足</option>
-                  <option value="取出機故障">取出機故障</option>
-                  <option value="添加液壓油">添加液壓油</option>
-                  <option value="真空機故障">真空機故障</option>
-                  <option value="調整噴霧">調整噴霧</option>
-                  <option value="噴霧機故障">噴霧機故障</option>
-                  <option value="設備保養">設備保養</option>
-                  <option value="整理清潔">整理清潔</option>
-                  <option value="支援外單位">支援外單位</option>
-                  <option value="教育集會">教育集會</option>
-                  <option value="換料管">換料管</option>
-                  <option value="料管漏油">料管漏油</option>
-                  <option value="調整合模力">調整合模力</option>
-                  <option value="烤模">烤模</option>
-                  <option value="剪邊模故障">剪邊模故障</option>
-                  <option value="其他">其他</option>
+                  <option value="">{{ $t('dailysheet.stop_form.select') }}</option>
+                  <option value="壓鑄機故障">A</option>
+                  <option value="料管卡鋁屑處理">B</option>
+                  <option value="換柱塞">C</option>
+                  <option value="給湯機故障">D</option>
+                  <option value="湯溫不足">E</option>
+                  <option value="取出機故障">F</option>
+                  <option value="添加液壓油">G</option>
+                  <option value="真空機故障">H</option>
+                  <option value="調整噴霧">I</option>
+                  <option value="噴霧機故障">J</option>
+                  <option value="設備保養">K</option>
+                  <option value="整理清潔">L</option>
+                  <option value="支援外單位">M</option>
+                  <option value="教育集會">N</option>
+                  <option value="換料管">O</option>
+                  <option value="料管漏油">P</option>
+                  <option value="調整合模力">Q</option>
+                  <option value="烤模">R</option>
+                  <option value="剪邊模故障">S</option>
+                  <option value="模具模面清理">T</option>
+                  <option value="其他">U</option>
                 </select>
               </div>
               <div class="form-field">

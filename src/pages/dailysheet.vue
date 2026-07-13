@@ -236,6 +236,8 @@ const form = reactive(
     : {
         date: formatNow('date'),
         machineNo: '',
+        startShot: '',
+        endShot: '',
         people: [
             {
                 shift: '',
@@ -245,9 +247,7 @@ const form = reactive(
             }
         ],
         productItems: [],
-        stopItems: [],
-        startShot: '',
-        endShot: ''
+        stopItems: []
       }
 )
 

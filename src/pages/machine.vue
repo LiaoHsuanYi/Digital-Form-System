@@ -145,7 +145,7 @@
                     <div class="upload-content">
                         <div class="upload-icon">📁</div>
                         <div class="upload-text">
-                             <!--when fileError != '', then output-->
+                            <!--when fileError != '', then output-->
                             <span v-if="fileError" class="file-error">
                                 {{ fileError }}
                             </span>
