@@ -7,12 +7,11 @@ import dailysheetZh from '@/locales/zh/dailysheet.json'
 import commonTh from '@/locales/th/common.json'
 import machineTh from '@/locales/th/machine.json'
 import appearanceTh from '@/locales/th/appearance.json'
+import dailysheetTh from '@/locales/th/dailysheet.json'
 
 import commonId from '@/locales/id/common.json'
 import machineId from '@/locales/id/machine.json'
 import appearanceId from '@/locales/id/appearance.json'
-
-
 
 const i18n = createI18n({
   legacy: false,
@@ -28,7 +27,8 @@ const i18n = createI18n({
     'th': {
         common: commonTh,
         machine: machineTh,
-        appearance: appearanceTh
+        appearance: appearanceTh,
+        dailysheet: dailysheetTh
     },
     'id': {
         common: commonId,

@@ -57,32 +57,34 @@
             <p class="group-label">Quantity Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stop_form.labels[6]') }}</label>
-                <select class="form-input" v-model="local.productIssue">
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[6]') }}<span class="required">*</span></label>
+                <select class="form-input" v-model="local.productIssue" :class="{ error: errors.productIssue }">
                   <option value="">{{ $t('dailysheet.stop_form.select') }}</option>
-                  <option value="黏膜">1</option>
-                  <option value="燒附">2</option>
-                  <option value="拉模">3</option>
-                  <option value="模崩">4</option>
-                  <option value="模裂">5</option>
-                  <option value="壓傷">6</option>
-                  <option value="沖蝕">7</option>
-                  <option value="缺肉">8</option>
-                  <option value="多肉">9</option>
-                  <option value="顆粒">10</option>
-                  <option value="斷差">11</option>
-                  <option value="洩料">12</option>
-                  <option value="水路異常">13</option>
-                  <option value="Pin問題">14</option>
-                  <option value="頂針問題">15</option>
-                  <option value="油壓缸處理">16</option>
-                  <option value="年週章頂針調整">17</option>
-                  <option value="其他問題">18</option>
+                  <option value="黏膜">A</option>
+                  <option value="燒附">B</option>
+                  <option value="拉模">C</option>
+                  <option value="模崩">D</option>
+                  <option value="模裂">E</option>
+                  <option value="壓傷">F</option>
+                  <option value="沖蝕">G</option>
+                  <option value="缺肉">H</option>
+                  <option value="多肉">I</option>
+                  <option value="顆粒">J</option>
+                  <option value="斷差">K</option>
+                  <option value="洩料">L</option>
+                  <option value="水路異常">M</option>
+                  <option value="Pin問題">N</option>
+                  <option value="頂針問題">O</option>
+                  <option value="油壓缸處理">P</option>
+                  <option value="年週章頂針調整">Q</option>
+                  <option value="其他">R</option>
                 </select>
+                <span v-if="errors.productIssue" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stop_form.labels[7]') }}</label>
-                <input v-model.number="local.stop_NGquan" type="number" min="0" class="form-input">  
+                <label class="form-label">{{ $t('dailysheet.stop_form.labels[7]') }}<span class="required">*</span></label>
+                <input v-model.number="local.stop_NGquan" :class="{ error: errors.stop_NGquan }" type="number" min="0" class="form-input">  
+                <span v-if="errors.stop_NGquan" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stop_form.labels[8]') }}</label>
@@ -93,53 +95,52 @@
 
           <p class="group-label">Downtime Info</p>
           <div v-for="(item, index) in local.stopReason" :key="index" class="section-group">
-
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[9]') }}</label> 
+                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[9]') }}<span class="required">*</span></label> 
                 <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
+
                   <option value="">{{ $t('dailysheet.stop_form.select') }}</option>
-                  <option value="模具上模">1</option>
-                  <option value="模具下模">2</option>
-                  <option value="模具維修">3</option>
-                  <option value="模具保養">4</option>
-                  <option value="模具檢查">5</option>
-                  <option value="試模">6</option>
-                  <option value="模具機構異常">7</option>
+                  <optgroup :label="$t('dailysheet.stop_form.optgroups[0]')">
+                    <option value="試模">1</option>
+                    <option value="烤模">2</option>
+                    <option value="模具上模">3</option>
+                    <option value="模具下模">4</option>
+                    <option value="模具維修">5</option>
+                    <option value="模具保養">6</option>
+                    <option value="模具檢查">7</option>
+                    <option value="剪邊模故障">8</option>
+                    <option value="模具機構異常">9</option>
+                    <option value="模具模面清理">10</option>
+                  </optgroup>
+                  <optgroup :label="$t('dailysheet.stop_form.optgroups[1]')">
+                    <option value="換柱塞">11</option>
+                    <option value="換料管">12</option>
+                    <option value="湯溫不足">13</option>
+                    <option value="油管漏油">14</option>
+                    <option value="設備保養">15</option>
+                    <option value="調整合模力">16</option>
+                    <option value="添加液壓油">17</option>
+                    <option value="壓鑄機故障">18</option>
+                    <option value="給湯機故障">19</option>
+                    <option value="取出機故障">20</option>
+                    <option value="真空機故障">21</option>
+                    <option value="噴霧機故障">22</option>
+                    <option value="料管卡鋁屑處理">23</option>
+                  </optgroup>
+                  <optgroup :label="$t('dailysheet.stop_form.optgroups[2]')">
+                    <option value="調整噴霧">24</option>
+                    <option value="整理清潔">25</option>
+                    <option value="教育集會">26</option>
+                    <option value="支援外單位">27</option>
+                    <option value="其他">28</option>
+                  </optgroup>
                 </select>
               </div>
               <div class="form-field">
-                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[10]') }}</label> 
-                <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
-                  <option value="">{{ $t('dailysheet.stop_form.select') }}</option>
-                  <option value="壓鑄機故障">A</option>
-                  <option value="料管卡鋁屑處理">B</option>
-                  <option value="換柱塞">C</option>
-                  <option value="給湯機故障">D</option>
-                  <option value="湯溫不足">E</option>
-                  <option value="取出機故障">F</option>
-                  <option value="添加液壓油">G</option>
-                  <option value="真空機故障">H</option>
-                  <option value="調整噴霧">I</option>
-                  <option value="噴霧機故障">J</option>
-                  <option value="設備保養">K</option>
-                  <option value="整理清潔">L</option>
-                  <option value="支援外單位">M</option>
-                  <option value="教育集會">N</option>
-                  <option value="換料管">O</option>
-                  <option value="料管漏油">P</option>
-                  <option value="調整合模力">Q</option>
-                  <option value="烤模">R</option>
-                  <option value="剪邊模故障">S</option>
-                  <option value="模具模面清理">T</option>
-                  <option value="其他">U</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[11]') }}<span class="required">*</span></label>
+                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stop_form.labels[10]') }}<span class="required">*</span></label>
                 <input v-model.number="item.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
               </div>
-            
               <button type="button"
                 v-if="index === 0" 
                 class="action-btn stop-add-btn" 
@@ -158,7 +159,7 @@
             </div>
             <div class="error-row" v-if="index === 0 && (errors.stopIssue == true || errors.stopTime == true)">
               <div class="error-left" :style="{ visibility: errors.stopIssue ? 'visible' : 'hidden' }">
-                {{ $t('dailysheet.reason') }}
+                {{ $t('dailysheet.required') }}
               </div>
               <div class="error-right" :style="{ visibility: errors.stopTime ? 'visible' : 'hidden' }">
                 {{ $t('dailysheet.required') }}
@@ -203,7 +204,6 @@ const createEmpty = () => ({
       stopTime: ''
     }
   ]
-  
 })
 
 function addstopReason() 
@@ -232,6 +232,7 @@ const errors = reactive({
   moldId: false,
   firstShot: false,
   lastShot: false,
+  productIssue: false,
   stop_NGquan: false,
   stopIssue: false,
   stopTime: false
@@ -244,7 +245,7 @@ const computedTotal = computed(() => {
   }, 0);
 })
 
-const requiredFields = ['productNo', 'productType', 'moldId', 'firstShot', 'lastShot']
+const requiredFields = ['productNo', 'productType', 'moldId', 'firstShot', 'lastShot', 'productIssue', 'stop_NGquan']
 
 const validate = () => {
   let valid = true
@@ -253,8 +254,8 @@ const validate = () => {
     if (errors[key]) valid = false
   })
   
+  //validate stopReason array independently
   const firstStop = local.stopReason[0];
-
   errors.stopIssue = !firstStop.stopIssue;
   errors.stopTime = !firstStop.stopTime;
 
@@ -385,23 +386,6 @@ watch(
   flex: 1;
   min-width: 0;
 }
-.error-row {
-  display: flex;   
-  gap: 50px;
-}
-
-.error-left {
-  flex: 6;
-  font-size: 16px;
-  color: #DF4E4E;
-  text-align: center;
-}
-
-.error-right {
-  flex: 3;
-  font-size: 16px;
-  color: #DF4E4E;
-}
 
 .form-label {
   font-size: 16px;
@@ -439,6 +423,25 @@ watch(
 .form-input[readonly] {
   background: #f7f7f7;
   color: #888;
+}
+
+.error-row {
+  display: flex;
+  gap: 90px;
+}
+
+.error-left {
+  flex: 6;
+  font-size: 16px;
+  color: #DF4E4E;
+  text-align: center;
+}
+
+.error-right {
+  flex: 5;
+  font-size: 16px;
+  color: #DF4E4E;
+  text-align: left;
 }
 
 .error-msg {

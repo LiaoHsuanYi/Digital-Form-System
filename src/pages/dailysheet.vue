@@ -170,6 +170,17 @@
       <div class="submit-wrap">
           <button type="submit" class="submit-btn">Submit</button>
       </div>
+
+      <section>
+        <div class="sec-head" style="margin-top: 10px;">
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">{{ $t('dailysheet.labels[4]')}}</div>
+        </div>
+        <div class="card-list" style="text-align: center;">
+          <img src="@/assets/issueRef.jpg">
+        </div>
+      </section>
+      
   
       <!-- productForm -->
       <productForm
@@ -201,6 +212,8 @@ import productForm from '@/components/productForm.vue'
 import stopForm from '@/components/stopForm.vue'
 import { formatNow } from '@/utils/date.js'
 import { reactive, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 
 //create new data
@@ -338,6 +351,17 @@ const closeStopModal = () => {
 //form submit
 const submitDailysheet = () => {
 
+  if(form.productItems.length === 0) 
+  {
+    alert(t('dailysheet.product_item'));
+    return;
+  }
+  if(form.stopItems.length === 0) 
+  {
+    alert(t('dailysheet.stop_item'));
+    return;
+  }
+
   //console.log(form);
   //console.log('目前所有 keys:', Object.keys(form));
 
@@ -460,7 +484,7 @@ const submitDailysheet = () => {
 }
 .divider {
   width: 0.5px;
-  height: 40px;
+  height: 45px;
   background: #e4e4e4;
 }
 .badge {
