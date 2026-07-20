@@ -12,6 +12,7 @@ import dailysheetTh from '@/locales/th/dailysheet.json'
 import commonId from '@/locales/id/common.json'
 import machineId from '@/locales/id/machine.json'
 import appearanceId from '@/locales/id/appearance.json'
+import dailysheetId from '@/locales/id/dailysheet.json'
 
 const i18n = createI18n({
   legacy: false,
@@ -33,7 +34,8 @@ const i18n = createI18n({
     'id': {
         common: commonId,
         machine: machineId,
-        appearance: appearanceId
+        appearance: appearanceId,
+        dailysheet: dailysheetId
     }
   }
 })

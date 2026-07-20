@@ -164,6 +164,7 @@
               <div class="error-right" :style="{ visibility: errors.stopTime ? 'visible' : 'hidden' }">
                 {{ $t('dailysheet.required') }}
               </div>
+              <div class="ghost-spacer"></div>
             </div>
           </div>
         </div>
@@ -427,21 +428,27 @@ watch(
 
 .error-row {
   display: flex;
-  gap: 90px;
 }
 
 .error-left {
-  flex: 6;
+  flex: 1;
   font-size: 16px;
   color: #DF4E4E;
   text-align: center;
 }
 
 .error-right {
-  flex: 5;
+  flex: 1;
   font-size: 16px;
   color: #DF4E4E;
-  text-align: left;
+  text-align: center;
+}
+
+.ghost-spacer {
+  width: 44px; 
+  flex-shrink: 0; 
+  visibility: hidden; 
+  pointer-events: none;
 }
 
 .error-msg {

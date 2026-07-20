@@ -3,9 +3,9 @@
     "labels": ["Parameter mesin", "Inspeksi Visual"],
     "date": "Tanggal dan Waktu",
     "machine_no": "Nomor Mesin",
-    "product_no": "Kode Produk",
+    "product_no": "Part Number",
     "product_type": "Jenis Mesin",
-    "mold_id": "Nomor Cetakan",
+    "mold_id": "No. Dies",
     "checklist": {
         "title": "Item / No. Sampel",
         "items": ["Yang pertama", "Yang kedua", "Yang ketiga", "Yang keempat"],

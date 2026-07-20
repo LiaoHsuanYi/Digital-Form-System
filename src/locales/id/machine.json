@@ -4,9 +4,9 @@
                "Pencegahan Cacat Lubang Pasir", "Unggah berkas"],
     "date": "Tanggal dan Waktu",
     "machine_no": "Nomor Mesin",
-    "product_no": "Kode Produk",
+    "product_no": "Part Number",
     "product_type": "Jenis Mesin",
-    "mold_id": "Nomor Cetakan",
+    "mold_id": "No. Dies",
     "setting": {
         "labels":["Bahan Campuran", "Tekanan Nitrogen", "Waktu Buka (detik)", 
                   "Waktu Boost (detik)", "Suhu kaldu aluminium", "Waktu semprot(detik)", 
