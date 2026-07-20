@@ -54,15 +54,15 @@
                         </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[1]') }}</span>
-                            <input class="param-input" type="number" v-model.number="form.n2press" required>
+                            <input class="param-input" type="number" step="any" v-model.number="form.n2press" required>
                             </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[2]') }}</span>
-                            <input class="param-input" type="number" v-model.number="form.openTime" required>
+                            <input class="param-input" type="number" step="any" v-model.number="form.openTime" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[3]') }}</span>
-                            <input class="param-input" type="number" v-model.number="form.pressTime" required>
+                            <input class="param-input" type="number" step="any" v-model.number="form.pressTime" required>
                         </div>
 
                         <div class="param-subcard">
@@ -70,11 +70,11 @@
                             <div class="sub-grid">
                                 <div class="param-group">
                                     <span class="param-sublabel">{{ $t('machine.setting.sublabels[0]') }}</span>
-                                    <input class="param-input" type="number" v-model.number="form.setTemp" required>
+                                    <input class="param-input" type="number" step="any" v-model.number="form.setTemp" required>
                                 </div>
                                 <div class="param-group">
                                     <span class="param-sublabel">{{ $t('machine.setting.sublabels[1]') }}</span>
-                                    <input class="param-input" type="number" v-model.number="form.realTemp" required>
+                                    <input class="param-input" type="number" step="any" v-model.number="form.realTemp" required>
                                 </div>
                             </div>
                         </div>
@@ -83,30 +83,30 @@
                             <div class="sub-grid">
                                 <div class="param-group">
                                     <span class="param-sublabel">{{ $t('machine.setting.sublabels[2]') }}</span>
-                                    <input class="param-input" type="number" v-model.number="form.fix_relTime" required>
+                                    <input class="param-input" type="number" step="any" v-model.number="form.fix_relTime" required>
                                 </div>
                                 <div class="param-group">
                                     <span class="param-sublabel">{{ $t('machine.setting.sublabels[3]') }}</span>
-                                    <input class="param-input" type="number" v-model.number="form.mov_relTime" required>
+                                    <input class="param-input" type="number" step="any" v-model.number="form.mov_relTime" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[6]') }}</span>
-                            <input class="param-input" type="number" v-model.number="form.lowSpeed" required>
+                            <input class="param-input" type="number" step="any" v-model.number="form.lowSpeed" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[7]') }}</span>
-                            <input class="param-input" type="number" v-model.number="form.highSpeed" required>
+                            <input class="param-input" type="number" step="any" v-model.number="form.highSpeed" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[8]') }}</span>
-                            <input class="param-input" type="number" v-model.number="form.position" required>
+                            <input class="param-input" type="number" step="any" v-model.number="form.position" required>
                         </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[9]') }}</span>
-                            <input class="param-input" type="number" v-model.number="form.injectPress">
+                            <input class="param-input" type="number" step="any" v-model.number="form.injectPress">
                         </div>
                     </div>
                 </div>
