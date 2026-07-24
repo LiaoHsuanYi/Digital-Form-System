@@ -88,30 +88,44 @@
 <script setup>
 import Navbar from '@/components/navbar.vue'
 import Footer from '@/components/footer.vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import { formatNow } from '@/utils/date.js'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
+const STORAGE_KEY = 'appearance_draft'
+ 
+//initialization: read draft from localStorage
+const savedDraft = localStorage.getItem(STORAGE_KEY)
+const parsedDraft = savedDraft ? JSON.parse(savedDraft) : null
+
 //initialization
 const checkRequired = ref();
+//main form
 const form = reactive({
-    date: formatNow('minute'),
+  ...(parsedDraft || {
     machineNo: '',
     productNo: '',
     productType: '',
     moldId: '',
     defects: []
+  }),
+  date: formatNow('minute')   
 })
+
+//data actively save to localStorage
+watch(form, () => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
+}, { deep: true })
 
 //clear & reset
 const resetform = () => {
-    form.date = formatNow('minute');
-    form.machineNo = '';
-    form.productNo = '';
-    form.productType = '';
-    form.moldId = '';
-    form.defects = [];
+  localStorage.removeItem(STORAGE_KEY)
+  Object.keys(form).forEach(key => {
+    if (Array.isArray(form[key])) form[key] = [];
+    else form[key] = '';
+  })
+  form.date = formatNow('minute');
 }
 
 //value assignment

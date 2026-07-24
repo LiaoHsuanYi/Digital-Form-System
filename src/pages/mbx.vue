@@ -1,26 +1,15 @@
 <template>
 
     <Navbar />
+    
     <div class="lang-body">
         <div class="lang-card">
-            <div class="lang-card-title">{{ $t('common.lngset') }}</div>
-            
-            <div class="lang-btns">
-                <button v-if="locale != 'zh'" type="button" class="lang-btn" @click="changeLang('zh')">
-                    {{ $t('common.zh') }}
-                </button>
-
-                <button v-if="locale != 'th'" type="button" class="lang-btn" @click="changeLang('th')">
-                    {{ $t('common.th') }}
-                </button>
-
-                <button v-if="locale != 'id'" type="button" class="lang-btn" @click="changeLang('id')">
-                    {{ $t('common.id') }}
-                </button>
-            </div>
+            <div class="lang-card-title">系統預設是繁體中文，有需要請至右上角選擇其他語言</div>
+            <div class="lang-card-subth">ภาษาเริ่มต้นคือจีนตัวเต็ม เปลี่ยนภาษาได้ที่มุมขวาบน</div>
+            <div class="lang-card-subid">Bahasa bawaan adalah Mandarin Tradisional. Anda dapat mengubahnya di kanan atas.</div>
         </div>
-
     </div>
+
     <Footer />
 
 </template>
@@ -28,13 +17,6 @@
 <script setup>
 import Footer from '@/components/footer.vue'
 import Navbar from '@/components/navbar.vue'
-import { useI18n } from 'vue-i18n'
-const { locale } = useI18n()
-
-const changeLang = (lang) => {
-    locale.value = lang;
-    localStorage.setItem('lang', lang);
-}
 </script>
 
 <style scoped>
@@ -52,7 +34,7 @@ const changeLang = (lang) => {
   background: var(--card);
   border-radius: 36px;                      
   box-shadow: 0 8px 48px rgba(0, 0, 0, 0.07); 
-  padding: 88px 104px;                     
+  padding: 85px 50px;                     
   text-align: center;
   max-width: 1040px;                 
   width: 100%;
@@ -61,8 +43,20 @@ const changeLang = (lang) => {
 .lang-card-title {
   font-size: 32px;                           
   font-weight: 700;
-  color: var(--text);
+  color: var(--title);
   margin-bottom: 20px;                     
+}
+
+.lang-card-subth {
+  font-size: 24px;                           
+  font-weight: 400;
+  color: var(--text);   
+  margin-bottom: 20px;                     
+}
+.lang-card-subid {
+  font-size: 22px;                           
+  font-weight: 400;
+  color: var(--text);                    
 }
 
 .lang-btns {

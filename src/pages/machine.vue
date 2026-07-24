@@ -186,56 +186,68 @@
 <script setup>
 import Navbar from '@/components/navbar.vue'
 import Footer from '@/components/footer.vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch, computed } from 'vue'
 import { formatNow } from '@/utils/date.js'
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+const STORAGE_KEY = 'machine_draft'
+ 
+//initialization: read draft from localStorage
+const savedDraft = localStorage.getItem(STORAGE_KEY)
+const parsedDraft = savedDraft ? JSON.parse(savedDraft) : null
 
 //initialization
 const checkRequired = ref();
 const checkParams = ref(true);
 const fileInput = ref('');
 const fileError = ref('');
-const form = reactive({ 
-  date: formatNow('minute'),
-  machineNo: '',
-  productNo: '',
-  productType: '',
-  moldId: '',
-  material: 'ADC12',
-  n2press: '',
-  openTime: '',
-  pressTime: '',
-  setTemp: '',
-  realTemp: '',
-  fix_relTime: '',
-  mov_relTime: '',
-  lowSpeed: '',
-  highSpeed: '',
-  position: '',
-  injectPress: '',
-  issues: [],
-  files: []
+//main form
+const form = reactive({
+  ...(parsedDraft || {
+    machineNo: '',
+    productNo: '',
+    productType: '',
+    moldId: '',
+    material: 'ADC12',
+    n2press: '',
+    openTime: '',
+    pressTime: '',
+    setTemp: '',
+    realTemp: '',
+    fix_relTime: '',
+    mov_relTime: '',
+    lowSpeed: '',
+    highSpeed: '',
+    position: '',
+    injectPress: '',
+    issues: [],
+    files: []
+  }),
+  date: formatNow('minute')   
 })
 
+//data actively save to localStorage
+watch(form, () => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
+}, { deep: true })
+
 //clear & reset
-const resetform = () => { 
-    Object.keys(form).forEach(key => {
-        if (Array.isArray(form[key])) 
-            form[key] = [];
-        else 
-            form[key] = '';
-    })
+const resetform = () => {
+  localStorage.removeItem(STORAGE_KEY)
+  Object.keys(form).forEach(key => {
+    if (Array.isArray(form[key])) form[key] = [];
+    else form[key] = '';
+  })
     form.date = formatNow('minute');
     form.material = 'ADC12';
 
     fileInput.value.value = '';
     fileError.value = '';
-
 }
 
 //value assignment
-const issueType = [
+const issueType = computed(() => [
     { key: '鑄塞漏水', label: t('machine.checklist[0]') },
     { key: '料管漏水', label: t('machine.checklist[1]') },
     { key: '模具漏水', label: t('machine.checklist[2]') },
@@ -245,7 +257,7 @@ const issueType = [
     { key: '料管沒潤滑', label: t('machine.checklist[6]') },
     { key: '輸送機風扇沒運轉', label: t('machine.checklist[7]') },
     { key: '模具循環水沒開啟', label: t('machine.checklist[8]') }
-]
+])
 
 //setting parameters block display or not
 function identifyParams()

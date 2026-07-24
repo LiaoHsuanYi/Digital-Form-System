@@ -16,7 +16,7 @@
         <div class="machine-grid">
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.date') }}</label>
-              <input type="date" class="field-input" v-model="form.date" readonly>
+              <input type="date" class="field-input" v-model="form.date">
           </div>
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.machine_no') }}</label>
@@ -241,28 +241,28 @@ const STORAGE_KEY = 'dailysheet_draft'
  
 //initialization: read draft from localStorage
 const savedDraft = localStorage.getItem(STORAGE_KEY)
+const parsedDraft = savedDraft ? JSON.parse(savedDraft) : null
 
 //main form
-const form = reactive(
-  savedDraft
-    ? JSON.parse(savedDraft)
-    : {
-        date: formatNow('date'),
-        machineNo: '',
-        startShot: '',
-        endShot: '',
-        people: [
-            {
-                shift: '',
-                employeeNo: '',
-                name: '',
-                workhrs: ''
-            }
-        ],
-        productItems: [],
-        stopItems: []
-      }
-)
+const form = reactive({
+  ...(parsedDraft || {
+    machineNo: '',
+    startShot: '',
+    endShot: '',
+    people: [
+        {
+            shift: '',
+            employeeNo: '',
+            name: '',
+            workhrs: ''
+        }
+    ],
+    productItems: [],
+    stopItems: []
+  }),
+  date: formatNow('date')   
+})
+
 
 //data actively save to localStorage
 watch(form, () => {

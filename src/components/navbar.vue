@@ -1,28 +1,41 @@
 <template>
 
-    <div class="topbar">
-        <img src="@/assets/logo.jpg" class="topbar-logo">
-        <button class="topbar-back" @click="router.push('/index')">返回首頁</button>
-    </div>
+  <div class="topbar">
+      <div class="topbar-left" @click="router.push('/index')">
+        <svg width="31.2" height="31.2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 8l-4 4 4 4M16 12H8"/>
+        </svg>
+      </div>
+      <img src="@/assets/logo.jpg" class="topbar-logo">
+
+      <div class="topbar-right">
+          <select class="topbar-lang" :value="locale" @change="changeLang">
+              <option value="zh" selected>繁體中文</option>
+              <option value="th">ภาษาไทย</option>
+              <option value="id">Bahasa Indonesia</option>
+          </select>
+      </div>
+  </div>
 
     <div class="subnav">
-        <router-link to="/mbx" class="subnav-brand">{{ t('common.title') }}</router-link>
+        <router-link to="/mbx" class="subnav-brand">{{ t('navbar.title[0]') }}</router-link>
 
         <div class="subnav-dropdown">
             <a class="subnav-link" :class="{ on: isCheckRoute }">
-                {{ t('common.navbar[0].title') }} ▾
+                {{ t('navbar.title[1]') }} ▾
             </a>
             <div class="subnav-dropdown-menu">
                 <router-link to="/machine" class="subnav-dropdown-item">
-                    {{ t('common.navbar[0].subtitles[0]') }}
+                    {{ t('navbar.subtitles[0]') }}
                 </router-link>
                 <router-link to="/appearance" class="subnav-dropdown-item">
-                    {{ t('common.navbar[0].subtitles[1]') }}
+                    {{ t('navbar.subtitles[1]') }}
                 </router-link>
             </div>
         </div>
         <router-link to="/dailysheet" class="subnav-link" :class="{ on: isDailyRoute }">
-            {{ t('common.navbar[1].title') }}
+            {{ t('navbar.title[2]') }}
         </router-link>
     </div>
 
@@ -35,7 +48,7 @@ import { computed } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 // determine active route for navbar highlighting
 const isCheckRoute = computed(() =>
@@ -44,6 +57,12 @@ const isCheckRoute = computed(() =>
 const isDailyRoute = computed(() =>
   route.path === '/dailysheet'
 )
+
+function changeLang(e) {
+  const newLocale = e.target.value;
+  locale.value = newLocale;           
+  localStorage.setItem('locale', newLocale);    
+}
 </script>
 
 <style scoped>
@@ -64,25 +83,40 @@ const isDailyRoute = computed(() =>
   display: block;
 }
 
-.topbar-back {
+.topbar-left {
   position: absolute;
-  right: 20px;
+  left: 25px;
   top: 20px;
+}
+
+.topbar-left:hover {
+  border-color: var(--green-hover);
+  color: var(--green-hover);
+}
+
+.topbar-right {
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.topbar-lang {
   font-size: 16px;
   border: 1.5px solid var(--border);
   border-radius: 7px;
-  padding: 5px 14px;
+  padding: 5px 10px;
   cursor: pointer;
   background: #fff;
   color: #3f3f3f;
   transition: all 0.18s;
 }
 
-.topbar-back:hover {
-  border-color: var(--green);
-  color: var(--green);
+.topbar-lang:hover {
+  border-color: var(--green-hover);
+  color: var(--green-hover);
 }
-
 .subnav {
   display: flex;
   align-items: center;
