@@ -54,7 +54,14 @@
           </div>
 
           <div class="section-group">
-            <p class="group-label">Quantity Info</p>
+            <p class="group-label">Quantity Info
+              <span class="tooltip-wrapper" ref="TooltipRef">
+                <i class="ti ti-info-circle tooltip-icon" @click.stop="showTip = !showTip"></i>
+                <div v-if="showTip" class="tooltip-popover">
+                  <img src="@/assets/productIssue.jpg" class="tooltip-image" />
+                </div>
+              </span>
+            </p>
             <div class="form-row">
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stop_form.labels[6]') }}<span class="required">*</span></label>
@@ -180,7 +187,7 @@
 </template>
 
 <script setup>
-import { reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   editData: { type: Object, default: null },
@@ -223,6 +230,18 @@ function removestopReason(index)
   local.stopReason.splice(index, 1);
 }
 
+//tooltip
+const showTip = ref(false)
+const TooltipRef = ref(null)
+
+function handleClickOutside(event) {
+  if (TooltipRef.value && !TooltipRef.value.contains(event.target)) {
+    showTip.value = false
+  }
+}
+
+onMounted(() => document.addEventListener('click', handleClickOutside))
+onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 
 // If editData has value, then edit. If not, then create
 const local = reactive(props.editData ? { ...props.editData } : createEmpty())
@@ -526,4 +545,38 @@ watch(
   transition: background 0.15s;
 }
 .btn-save:hover { background: #179268; }
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.tooltip-icon {
+  font-size: 15px;
+  color: #999;
+  cursor: pointer;
+}
+
+.tooltip-icon:hover {
+  color: var(--green);
+}
+
+.tooltip-popover {
+  position: absolute;
+  top: 130%;
+  left: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: 20;
+}
+
+.tooltip-image {
+  width: 100%;
+  border-radius: 4px;
+  display: block;
+}
 </style>
