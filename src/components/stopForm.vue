@@ -56,7 +56,11 @@
           <div class="section-group">
             <p class="group-label">Quantity Info
               <span class="tooltip-wrapper" ref="TooltipRef">
-                <i class="ti ti-info-circle tooltip-icon" @click.stop="showTip = !showTip"></i>
+                <IconInfoCircle
+                  class="tooltip-icon"
+                  @click.stop="showTip = !showTip"
+                />
+
                 <div v-if="showTip" class="tooltip-popover">
                   <img src="@/assets/productIssue.jpg" class="tooltip-image" />
                 </div>
@@ -188,6 +192,7 @@
 
 <script setup>
 import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue'
+import { IconInfoCircle } from "@tabler/icons-vue";
 
 const props = defineProps({
   editData: { type: Object, default: null },
@@ -548,7 +553,8 @@ watch(
 
 .tooltip-wrapper {
   position: relative;
-  display: inline-flex;
+  display: inline-block;
+  top: -1px;
 }
 
 .tooltip-icon {
