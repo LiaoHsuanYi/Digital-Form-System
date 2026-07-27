@@ -171,17 +171,6 @@
           <button type="submit" class="submit-btn">Submit</button>
       </div>
 
-      <section>
-        <div class="sec-head" style="margin-top: 10px;">
-          <div class="sec-bar"></div>
-          <div class="sec-lbl">{{ $t('dailysheet.labels[4]')}}</div>
-        </div>
-        <div class="card-list" style="text-align: center;">
-          <img src="@/assets/issueRef.jpg">
-        </div>
-      </section>
-      
-  
       <!-- productForm -->
       <productForm
         v-if="showProductModal"

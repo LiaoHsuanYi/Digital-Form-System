@@ -58,13 +58,29 @@
               <span class="tooltip-wrapper" ref="TooltipRef">
                 <IconInfoCircle
                   class="tooltip-icon"
-                  @click.stop="showTip = !showTip"
+                  @click.stop="openProPreview"
                 />
-
-                <div v-if="showTip" class="tooltip-popover">
-                  <img src="@/assets/productIssue.jpg" class="tooltip-image" />
-                </div>
               </span>
+              <Teleport to="body">
+                <div
+                  v-if="showProImage"
+                  class="image-preview-overlay"
+                  @click="closeProPreview"
+                >
+                  <button
+                    type="button"
+                    class="image-preview-close"
+                    @click.stop="closeProPreview"
+                  >
+                    ✕
+                  </button>
+                  <img
+                    src="@/assets/productIssue.jpg"
+                    class="image-preview"
+                    @click.stop
+                  />
+                </div>
+              </Teleport>
             </p>
             <div class="form-row">
               <div class="form-field">
@@ -104,7 +120,34 @@
             </div>
           </div>
 
-          <p class="group-label">Downtime Info</p>
+          <p class="group-label">Downtime Info
+            <span class="tooltip-wrapper" ref="TooltipRef">
+              <IconInfoCircle
+                class="tooltip-icon"
+                @click.stop="openStopPreview"
+              />
+            </span>
+            <Teleport to="body">
+              <div
+                v-if="showStopImage"
+                class="image-preview-overlay"
+                @click="closeStopPreview"
+              >
+                <button
+                  type="button"
+                  class="image-preview-close"
+                  @click.stop="closeStopPreview"
+                >
+                  ✕
+                </button>
+                <img
+                  src="@/assets/stopIssue.jpg"
+                  class="image-preview"
+                  @click.stop
+                />
+              </div>
+            </Teleport>
+          </p>
           <div v-for="(item, index) in local.stopReason" :key="index" class="section-group">
             <div class="form-row">
               <div class="form-field">
@@ -192,7 +235,7 @@
 
 <script setup>
 import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue'
-import { IconInfoCircle } from "@tabler/icons-vue";
+import { IconInfoCircle, IconX } from "@tabler/icons-vue";
 
 const props = defineProps({
   editData: { type: Object, default: null },
@@ -235,18 +278,23 @@ function removestopReason(index)
   local.stopReason.splice(index, 1);
 }
 
-//tooltip
-const showTip = ref(false)
-const TooltipRef = ref(null)
+//lightbox - image preview
+const showProImage = ref(false);
+const showStopImage = ref(false);
 
-function handleClickOutside(event) {
-  if (TooltipRef.value && !TooltipRef.value.contains(event.target)) {
-    showTip.value = false
-  }
+const openProPreview = () => {
+  showProImage.value = true;
+}
+const openStopPreview = () => {
+  showStopImage.value = true;
 }
 
-onMounted(() => document.addEventListener('click', handleClickOutside))
-onUnmounted(() => document.removeEventListener('click', handleClickOutside))
+const closeProPreview = () => {
+  showProImage.value = false;
+}
+const closeStopPreview = () => {
+  showStopImage.value = false;
+}
 
 // If editData has value, then edit. If not, then create
 const local = reactive(props.editData ? { ...props.editData } : createEmpty())
@@ -317,7 +365,7 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 99999;
+  z-index: 1000;
   overflow: auto;
 }
 
@@ -584,5 +632,41 @@ watch(
   width: 100%;
   border-radius: 4px;
   display: block;
+}
+
+.image-preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-preview {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+}
+.image-preview-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 3000;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.image-preview-close:hover {
+  background: #fff;
 }
 </style>
