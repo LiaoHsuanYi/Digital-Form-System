@@ -18,19 +18,19 @@
                         <input type="datetime-local" class="field-input" v-model="form.date" readonly>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('machine.machine_no') }}</label> 
+                        <label class="field-label">{{ $t('machine.machineNo') }}</label> 
                         <input type="text" class="field-input" v-model="form.machineNo" @keyup.enter="identifyParams()" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('machine.product_no') }}</label>
-                        <input type="text" class="field-input" v-model="form.productNo" required>
+                        <label class="field-label">{{ $t('machine.batchNo') }}</label>
+                        <input type="text" class="field-input" v-model="form.batchNo" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('machine.product_type') }}</label> 
-                        <input type="text" class="field-input" v-model="form.productType" required>
+                        <label class="field-label">{{ $t('machine.machineType') }}</label> 
+                        <input type="text" class="field-input" v-model="form.machineType" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('machine.mold_id') }}</label>
+                        <label class="field-label">{{ $t('machine.moldId') }}</label>
                         <input type="text" class="field-input" v-model="form.moldId" required placeholder="#">
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[1]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.n2press" required>
+                            <input class="param-input" type="number" step="any" v-model.number="form.n2Press" required>
                             </div>
                         <div class="param-group">
                             <span class="param-label">{{ $t('machine.setting.labels[2]') }}</span>
@@ -83,11 +83,11 @@
                             <div class="sub-grid">
                                 <div class="param-group">
                                     <span class="param-sublabel">{{ $t('machine.setting.sublabels[2]') }}</span>
-                                    <input class="param-input" type="number" step="any" v-model.number="form.fix_relTime" required>
+                                    <input class="param-input" type="number" step="any" v-model.number="form.fixRelTime" required>
                                 </div>
                                 <div class="param-group">
                                     <span class="param-sublabel">{{ $t('machine.setting.sublabels[3]') }}</span>
-                                    <input class="param-input" type="number" step="any" v-model.number="form.mov_relTime" required>
+                                    <input class="param-input" type="number" step="any" v-model.number="form.movRelTime" required>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                             <span v-else>
-                                {{ $t('machine.file_upload') }}
+                                {{ $t('machine.fileUpload') }}
                             </span>
                         </div>
                     </div>
@@ -206,17 +206,17 @@ const fileError = ref('');
 const form = reactive({
   ...(parsedDraft || {
     machineNo: '',
-    productNo: '',
-    productType: '',
+    machineType: '',
+    batchNo: '',
     moldId: '',
     material: 'ADC12',
-    n2press: '',
+    n2Press: '',
     openTime: '',
     pressTime: '',
     setTemp: '',
     realTemp: '',
-    fix_relTime: '',
-    mov_relTime: '',
+    fixRelTime: '',
+    movRelTime: '',
     lowSpeed: '',
     highSpeed: '',
     position: '',
@@ -288,7 +288,7 @@ const handleFileChange = (event) => {
 
     for (const file of selectedFiles) {
         if (file.size > 5 * 1024 * 1024) {
-            fileError.value = t('machine.file_limit');
+            fileError.value = t('machine.fileLimit');
             event.target.value = '';
             return;
         }
@@ -308,12 +308,12 @@ const checkSet = () => {
 
     if (form.issues.length === 0) 
     {
-        return confirm(t('machine.set_ok'));
+        return confirm(t('machine.setOK'));
     }
 
     if (form.files.length === 0) 
     {
-        fileError.value = t('machine.file_ng');
+        fileError.value = t('machine.fileNG');
         return false;
     }
     

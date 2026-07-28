@@ -18,19 +18,19 @@
                         <input type="datetime-local" class="field-input" v-model="form.date" readonly>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.machine_no') }}</label> 
+                        <label class="field-label">{{ $t('appearance.machineNo') }}</label> 
                         <input type="text" class="field-input" v-model="form.machineNo" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.product_no') }}</label>
-                        <input type="text" class="field-input" v-model="form.productNo" required>
+                        <label class="field-label">{{ $t('appearance.batchNo') }}</label>
+                        <input type="text" class="field-input" v-model="form.batchNo" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.product_type') }}</label> 
-                        <input type="text" class="field-input" v-model="form.productType" required>
+                        <label class="field-label">{{ $t('appearance.machineType') }}</label> 
+                        <input type="text" class="field-input" v-model="form.machineType" required>
                     </div>
                     <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.mold_id') }}</label>
+                        <label class="field-label">{{ $t('appearance.moldId') }}</label>
                         <input type="text" class="field-input" v-model="form.moldId" required placeholder="#">
                     </div>
                 </div>
@@ -105,8 +105,8 @@ const checkRequired = ref();
 const form = reactive({
   ...(parsedDraft || {
     machineNo: '',
-    productNo: '',
-    productType: '',
+    machineType: '',
+    batchNo: '',
     moldId: '',
     defects: []
   }),
@@ -175,11 +175,11 @@ const checkLook = () => {
     const count = form.defects.length;
     if(count === 0) 
     {
-        return confirm(t('appearance.look_ok'));
+        return confirm(t('appearance.lookOK'));
     }
     else
     {
-        return confirm(t('appearance.look_ng', { count: count }));
+        return confirm(t('appearance.lookNG', { count: count }));
     }
 }
 

@@ -2,10 +2,10 @@
     "title": "Checklist Patroli Mandiri – Inspeksi Visual",
     "labels": ["Parameter mesin", "Inspeksi Visual"],
     "date": "Tanggal dan Waktu",
-    "machine_no": "Nomor Mesin",
-    "product_no": "Part Number",
-    "product_type": "Jenis Mesin",
-    "mold_id": "No. Dies",
+    "machineNo": "Nomor Mesin",
+    "batchNo": "No. Lot",
+    "machineType": "Tipe Mesin",
+    "moldId": "No. Dies",
     "checklist": {
         "title": "Item / No. Sampel",
         "items": ["Yang pertama", "Yang kedua", "Yang ketiga", "Yang keempat"],
@@ -14,6 +14,6 @@
                     "Deformasi", "Marking tanggal tidak ada", "Jig NG", 
                     "Oli / Bekas sarung tangan", "Dies lengket"]
     },
-    "look_ok": "Normal. Pastikan data benar lalu kirim.",
-    "look_ng": "Terdeteksi {count} anomali. Pastikan data benar lalu kirim."
+    "lookOK": "Normal. Pastikan data benar lalu kirim.",
+    "lookNG": "Terdeteksi {count} anomali. Pastikan data benar lalu kirim."
 }

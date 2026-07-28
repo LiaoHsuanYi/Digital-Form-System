@@ -3,10 +3,10 @@
     "labels": ["Spesifikasi Mesin", "Parameter mesin", "Penyebab ketidaknormalan", 
                "Pencegahan Cacat Lubang Pasir", "Unggah berkas"],
     "date": "Tanggal dan Waktu",
-    "machine_no": "Nomor Mesin",
-    "product_no": "Part Number",
-    "product_type": "Jenis Mesin",
-    "mold_id": "No. Dies",
+    "machineNo": "Nomor Mesin",
+    "batchNo": "No. Lot",
+    "machineType": "Tipe Mesin",
+    "moldId": "No. Dies",
     "setting": {
         "labels":["Bahan Campuran", "Tekanan Nitrogen", "Waktu Buka (detik)", 
                   "Waktu Boost (detik)", "Suhu kaldu aluminium", "Waktu semprot(detik)", 
@@ -15,8 +15,8 @@
     },
     "checklist": ["Plunger bocor", "Sleeve bocor", "Dies bocor", "Release agent berlebih", "Vent tersumbat", 
                   "Nozzle spray bocor", "Sleeve kurang pelumas", "Fan konveyor mati", "Air pendingin dies mati"],
-    "set_ok": "Normal. Ingat isi form inspeksi visual",
-    "file_upload": "Klik di sini untuk unggah file",
-    "file_ng": "Silakan unggah file",
-    "file_limit": "File terlalu besar, unggah ulang"
+    "setOK": "Normal. Ingat isi form inspeksi visual",
+    "fileUpload": "Klik di sini untuk unggah file",
+    "fileNG": "Silakan unggah file",
+    "fileLimit": "File terlalu besar, unggah ulang"
 }

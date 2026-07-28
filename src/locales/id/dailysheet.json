@@ -2,35 +2,35 @@
     "title": "Laporan Harian Produksi Die Casting",
     "labels": ["Data Mesin", "Data Personel", "Item Produksi", "Item Downtime", "Daftar Masalah Downtime"],
     "date": "Tanggal",
-    "machine_no": "Nomor Mesin",
+    "machineNo": "Nomor Mesin",
     "person": {
         "labels": ["Shift", "NIK", "Nama", "Jam Absen"],
         "shifts": ["Pilih", "Shift Pagi", "Shift Malam"]
     }, 
-    "pro_quantity": "Jumlah Produksi", 
-    "pro_time": "Waktu Produksi",
-    "add_product": "Tambah Item Produksi",
-    "edit_product": "Edit Item Produksi",
-    "start_shot": "Shot Awal",
-    "end_shot": "Shot Akhir",
-    "stop_quantity": "Jumlah NG Downtime", 
-    "stop_time": "Waktu Downtime",
-    "add_stop": "Tambah Item Downtime",
-    "edit_stop": "Edit Item Downtime",
+    "proQty": "Jumlah Produksi", 
+    "proTime": "Waktu Produksi",
+    "addProduct": "Tambah Item Produksi",
+    "editProduct": "Edit Item Produksi",
+    "startShot": "Shot Awal",
+    "endShot": "Shot Akhir",
+    "stopQty": "Jumlah NG Downtime", 
+    "stopTime": "Waktu Downtime",
+    "addStop": "Tambah Item Downtime",
+    "editStop": "Edit Item Downtime",
     "reminder": "Semua Wajib Diisi",
     "required": "Wajib Diisi",
-    "product_form": {
-        "labels": ["Jenis Pekerjaan", "Part Number", "Nama Part", "No. Dies", "Minggu Ke-",
+    "productForm": {
+        "labels": ["Jenis Pekerjaan", "No. Lot", "Tipe Mesin", "No. Dies", "Minggu Ke-",
                    "Jumlah OK", "Jumlah NG", "Total Jumlah", "Waktu Run"],
         "worktype": ["Pilih", "Produksi Normal", "Trial Dies"]
     },
-    "stop_form": {
-        "labels": ["Part Number", "Nama Part", "No. Dies", "Shot Awal", "Shot Akhir",
+    "stopForm": {
+        "labels": ["No. Lot", "Tipe Mesin", "No. Dies", "Shot Atas", "Shot Bawah",
                    "Total Downtime", "Masalah", "NG Downtime", "Cold Mold Qty",
                    "Penyebab Downtime", "Waktu Downtime"],
         "optgroups": ["Pekerjaan Dies", "Masalah Mesin", "Lain-lain"],
         "select": "Pilih"
     },
-    "product_item": "Mohon tambah minimal satu item produksi",
-    "stop_item": "Mohon tambah minimal satu item downtime"
+    "productItem": "Mohon tambah minimal satu item produksi",
+    "stopItem": "Mohon tambah minimal satu item downtime"
 }

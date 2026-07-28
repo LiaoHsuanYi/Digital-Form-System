@@ -19,16 +19,16 @@
               <input type="date" class="field-input" v-model="form.date">
           </div>
           <div class="field-group">
-              <label class="field-label">{{ $t('dailysheet.machine_no') }}</label>
+              <label class="field-label">{{ $t('dailysheet.machineNo') }}</label>
               <input type="text" class="field-input" v-model="form.machineNo" required>
           </div>
           <div class="field-group">
-              <label class="field-label">{{ $t('dailysheet.start_shot') }}</label>
-              <input type="number" class="field-input" v-model="form.startShot" required>
+              <label class="field-label">{{ $t('dailysheet.firstShot') }}</label>
+              <input type="number" class="field-input" v-model="form.firstShot" required>
           </div>
           <div class="field-group">
-              <label class="field-label">{{ $t('dailysheet.end_shot') }}</label>
-              <input type="number" class="field-input" v-model="form.endShot" required>
+              <label class="field-label">{{ $t('dailysheet.lastShot') }}</label>
+              <input type="number" class="field-input" v-model="form.lastShot" required>
           </div>
         </div>
       </section>
@@ -58,7 +58,7 @@
           </div>
           <div class="field-group">
               <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[3]') }}</label> 
-              <input type="number" class="field-input" v-model="person.workhrs" required>
+              <input type="number" class="field-input" v-model="person.workHours" required>
           </div>
 
           <button type="button" 
@@ -95,18 +95,18 @@
             <div class="card-index">{{ index + 1 }}</div>
   
             <div class="card-main">
-              <div class="card-title">{{ item.productType }}</div>
-              <div class="card-sub">{{ item.productNo }}</div>
+              <div class="card-title">{{ item.machineType }}</div>
+              <div class="card-sub">{{ item.batchNo }}</div>
             </div>
   
             <div class="card-meta">
               <div class="meta-item">
-                <p class="meta-label">{{ $t('dailysheet.pro_quantity') }}</p>
-                <div class="meta-val">{{ item.totalQuan }}</div>
+                <p class="meta-label">{{ $t('dailysheet.proQty') }}</p>
+                <div class="meta-val">{{ item.totalQty }}</div>
               </div>
               <div class="divider"></div>
               <div class="meta-item">
-                <p class="meta-label">{{ $t('dailysheet.pro_time') }}</p>
+                <p class="meta-label">{{ $t('dailysheet.proTime') }}</p>
                 <div class="meta-val">{{ item.runTime }}</div>
               </div>
             </div>
@@ -119,7 +119,7 @@
         </div>
   
         <button type="button" class="prod-add-btn" @click="openAddProduct">
-          + {{ $t('dailysheet.add_product') }}
+          + {{ $t('dailysheet.addProduct') }}
         </button>
       </section>
 
@@ -138,18 +138,18 @@
             <div class="card-index">{{ index + 1 }}</div>
   
             <div class="card-main">
-              <div class="card-title">{{ item.productType }}</div>
-              <div class="card-sub">{{ item.productNo }}</div>
+              <div class="card-title">{{ item.machineType }}</div>
+              <div class="card-sub">{{ item.batchNo }}</div>
             </div>
   
             <div class="card-meta">
               <div class="meta-item">
-                <p class="meta-label">{{ $t('dailysheet.stop_quantity') }}</p>
-                <div class="meta-val">{{ item.stop_NGquan }}</div>
+                <p class="meta-label">{{ $t('dailysheet.stopQty') }}</p>
+                <div class="meta-val">{{ item.stopNgQty }}</div>
               </div>
               <div class="divider"></div>
               <div class="meta-item">
-                <p class="meta-label">{{ $t('dailysheet.stop_time') }}</p>
+                <p class="meta-label">{{ $t('dailysheet.stopTime') }}</p>
                 <div class="meta-val">{{ item.totalTime }}</div>
               </div>
             </div>
@@ -162,7 +162,7 @@
         </div>
   
         <button type="button" class="stop-add-btn" @click="openAddStop">
-          + {{ $t('dailysheet.add_stop') }}
+          + {{ $t('dailysheet.addStop') }}
         </button>
 
       </section>
@@ -214,7 +214,7 @@ function addPerson() {
     shift: '',
     employeeNo: '',
     name: '',
-    workhrs: ''
+    workHours: ''
   })
 }
 
@@ -236,14 +236,14 @@ const parsedDraft = savedDraft ? JSON.parse(savedDraft) : null
 const form = reactive({
   ...(parsedDraft || {
     machineNo: '',
-    startShot: '',
-    endShot: '',
+    firstShot: '',
+    lastShot: '',
     people: [
         {
             shift: '',
             employeeNo: '',
             name: '',
-            workhrs: ''
+            workHours: ''
         }
     ],
     productItems: [],
@@ -266,7 +266,7 @@ const resetform = () => {
     else form[key] = '';
   })
   form.date = formatNow('date');
-  form.people = [{ shift: '', employeeNo: '', name: '', workhrs: '' }];
+  form.people = [{ shift: '', employeeNo: '', name: '', workHours: '' }];
 }
 
 //productForm modal control
@@ -342,12 +342,12 @@ const submitDailysheet = () => {
 
   if(form.productItems.length === 0) 
   {
-    alert(t('dailysheet.product_item'));
+    alert(t('dailysheet.productItem'));
     return;
   }
   if(form.stopItems.length === 0) 
   {
-    alert(t('dailysheet.stop_item'));
+    alert(t('dailysheet.stopItem'));
     return;
   }
 

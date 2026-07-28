@@ -5,7 +5,7 @@
       <div class="modal-box">
         <div class="modal-header">
           <span class="modal-title">
-            {{ isEdit ? $t('dailysheet.edit_product') : $t('dailysheet.add_product') }}
+            {{ isEdit ? $t('dailysheet.editProduct') : $t('dailysheet.addProduct') }}
             <span class="modal-hint">{{ $t('dailysheet.reminder') }}</span>
           </span>
           <button class="modal-close" type="button" @click="$emit('close')">✕</button>
@@ -16,33 +16,33 @@
             <p class="group-label">Product Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[0]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[0]') }}<span class="required">*</span></label>
                 <select class="form-input" v-model="local.jobType" :class="{ error: errors.jobType }">
-                  <option value="">{{ $t('dailysheet.product_form.worktype[0]') }}</option>
-                  <option value="有標工作">{{ $t('dailysheet.product_form.worktype[1]') }}</option>
-                  <option value="試模">{{ $t('dailysheet.product_form.worktype[2]') }}</option>
+                  <option value="">{{ $t('dailysheet.productForm.worktype[0]') }}</option>
+                  <option value="有標工作">{{ $t('dailysheet.productForm.worktype[1]') }}</option>
+                  <option value="試模">{{ $t('dailysheet.productForm.worktype[2]') }}</option>
                 </select>
                 <span v-if="errors.jobType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[1]') }}<span class="required">*</span></label>
-                <input v-model="local.productNo" type="text" class="form-input" :class="{ error: errors.productNo }">
-                <span v-if="errors.productNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[1]') }}<span class="required">*</span></label>
+                <input v-model="local.batchNo" type="text" class="form-input" :class="{ error: errors.batchNo }">
+                <span v-if="errors.batchNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
             </div>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[2]') }}<span class="required">*</span></label>
-                <input v-model="local.productType" type="text" class="form-input" :class="{ error: errors.productType }">
-                <span v-if="errors.productType" class="error-msg">{{ $t('dailysheet.required') }}</span>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[2]') }}<span class="required">*</span></label>
+                <input v-model="local.machineType" type="text" class="form-input" :class="{ error: errors.machineType }">
+                <span v-if="errors.machineType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[3]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[3]') }}<span class="required">*</span></label>
                 <input v-model="local.moldId" type="text" class="form-input" :class="{ error: errors.moldId }" placeholder="#">
                 <span v-if="errors.moldId" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[4]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[4]') }}<span class="required">*</span></label>
                 <input v-model="local.weekNo" type="text" class="form-input" :class="{ error: errors.weekNo }">
                 <span v-if="errors.weekNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
@@ -53,21 +53,21 @@
             <p class="group-label">Item Info</p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[5]') }}<span class="required">*</span></label>
-                <input v-model.number="local.OKquantity" type="number" min="0" class="form-input" :class="{ error: errors.OKquantity }">
-                <span v-if="errors.OKquantity" class="error-msg">{{ $t('dailysheet.required') }}</span>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[5]') }}<span class="required">*</span></label>
+                <input v-model.number="local.okQty" type="number" min="0" class="form-input" :class="{ error: errors.okQty }">
+                <span v-if="errors.okQty" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[6]') }}<span class="required">*</span></label>
-                <input v-model.number="local.NGquantity" type="number" min="0" class="form-input" :class="{ error: errors.NGquantity }">
-                <span v-if="errors.NGquantity" class="error-msg">{{ $t('dailysheet.required') }}</span>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[6]') }}<span class="required">*</span></label>
+                <input v-model.number="local.ngQty" type="number" min="0" class="form-input" :class="{ error: errors.ngQty }">
+                <span v-if="errors.ngQty" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[7]') }}</label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[7]') }}</label>
                 <input :value="computedTotal" type="number" class="form-input" readonly>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.product_form.labels[8]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[8]') }}<span class="required">*</span></label>
                 <input v-model="local.runTime" type="text" class="form-input" :class="{ error: errors.runTime }" placeholder="? mins">
                 <span v-if="errors.runTime" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
@@ -97,13 +97,13 @@ const emit = defineEmits(['save', 'close'])
 
 const createEmpty = () => ({
   jobType: '',
-  productNo: '',
-  productType: '',
+  batchNo: '',
+  machineType: '',
   moldId: '',
   weekNo: '',
-  OKquantity: '',
-  NGquantity: '',
-  totalQuan: '',
+  okQty: '',
+  ngQty: '',
+  totalQty: '',
   runTime: ''
 })
 
@@ -112,20 +112,20 @@ const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 
 const errors = reactive({
   jobType: false,
-  productNo: false,
-  productType: false,
+  batchNo: false,
+  machineType: false,
   moldId: false,
   weekNo: false,
-  OKquantity: false,
-  NGquantity: false,
+  okQty: false,
+  ngQty: false,
   runTime: false
 })
 
 const computedTotal = computed(() =>
-  (Number(local.OKquantity) || 0) + (Number(local.NGquantity) || 0)
+  (Number(local.okQty) || 0) + (Number(local.ngQty) || 0)
 )
 
-const requiredFields = ['jobType', 'productNo', 'productType', 'moldId', 'weekNo', 'OKquantity', 'NGquantity', 'runTime']
+const requiredFields = ['jobType', 'batchNo', 'machineType', 'moldId', 'weekNo', 'okQty', 'ngQty', 'runTime']
 
 const validate = () => {
   let valid = true
@@ -139,14 +139,14 @@ const validate = () => {
 const handleSave = () => {
   if (!validate()) return
   local.moldId = String(local.moldId).padStart(3, '#0');
-  emit('save', { ...local, totalQuan: computedTotal.value })
+  emit('save', { ...local, totalQty: computedTotal.value })
 }
 
 
 watch(
-  [() => local.OKquantity, () => local.NGquantity], 
+  [() => local.okQty, () => local.ngQty], 
   ([newOK, newNG]) => {
-    local.totalQuan = (Number(newOK) || 0) + (Number(newNG) || 0);
+    local.totalQty = (Number(newOK) || 0) + (Number(newNG) || 0);
   },
   {immediate: true}
 )
