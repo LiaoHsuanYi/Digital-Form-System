@@ -15,6 +15,7 @@
     "lastShot": "下班射次",
     "stopQty": "停機NG數", 
     "stopTime": "停機時間",
+    "shotError": "下班射次 > 上班射次",
     "addStop": "新增停機項目",
     "editStop": "編輯停機項目",
     "reminder": "全部必填 (All  required)",

@@ -17,7 +17,7 @@
             <div class="form-row">
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stopForm.labels[0]') }}<span class="required">*</span></label>
-                <input v-model="local.batchNo" type="text" class="form-input" :class="{ error: errors.batchNo }">
+                <input v-model="local.batchNo" type="text" class="form-input" @blur="returnMoldId" :class="{ error: errors.batchNo }">
                 <span v-if="errors.batchNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
@@ -27,8 +27,7 @@
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stopForm.labels[2]') }}<span class="required">*</span></label>
-                <input v-model="local.moldId" type="text" class="form-input" :class="{ error: errors.moldId }" placeholder="#">
-                <span v-if="errors.moldId" class="error-msg">{{ $t('dailysheet.required') }}</span>
+                <input v-model="local.moldId" type="text" class="form-input" readonly>
               </div>
             </div>
           </div>
@@ -260,6 +259,12 @@ const createEmpty = () => ({
   ]
 })
 
+//automatically show moldId
+const returnMoldId = () => {
+    local.moldId = local.batchNo.split('-')[1] || '';
+    local.moldId = String(local.moldId).padStart(3, '#0');
+}
+
 function addstopReason() 
 {
   local.stopReason.push({
@@ -300,7 +305,6 @@ const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 const errors = reactive({
   batchNo: false,
   machineType: false,
-  moldId: false,
   topShot: false,
   botShot: false,
   productIssue: false,
@@ -316,7 +320,7 @@ const computedTotal = computed(() => {
   }, 0);
 })
 
-const requiredFields = ['batchNo', 'machineType', 'moldId', 'topShot', 'botShot', 'productIssue', 'stopNgQty']
+const requiredFields = ['batchNo', 'machineType', 'topShot', 'botShot', 'productIssue', 'stopNgQty']
 
 const validate = () => {
   let valid = true

@@ -28,7 +28,8 @@
           </div>
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.lastShot') }}</label>
-              <input type="number" class="field-input" v-model="form.lastShot" required>
+              <input type="number" class="field-input" v-model="form.lastShot" @blur="checkShots" required>
+              <span class="error-msg" v-if="shotError">{{ shotError }}</span>
           </div>
         </div>
       </section>
@@ -58,7 +59,7 @@
           </div>
           <div class="field-group">
               <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[3]') }}</label> 
-              <input type="number" class="field-input" v-model="person.workHours" required>
+              <input type="number" class="field-input" v-model="person.workHours" placeholder=" ? hrs" required>
           </div>
 
           <button type="button" 
@@ -252,6 +253,19 @@ const form = reactive({
   date: formatNow('date')   
 })
 
+//shot validation
+const shotError = ref('');
+const checkShots = () => {
+  shotError.value = '';
+
+  if (form.firstShot >= form.lastShot) {
+    shotError.value = t('dailysheet.shotError');
+  }
+  else{
+    shotError.value = '';
+  }
+}
+
 
 //data actively save to localStorage
 watch(form, () => {
@@ -369,6 +383,14 @@ const submitDailysheet = () => {
   margin-bottom: 24px;
 }
  
+ .error-msg {
+  margin-top: 5px;
+  font-size: 16px;
+  color: #FF2D2D;
+  text-align: center;
+  font-weight: bold;
+}
+
 /* employee */
 .person-row {
   display: grid;

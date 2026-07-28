@@ -26,7 +26,7 @@
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[1]') }}<span class="required">*</span></label>
-                <input v-model="local.batchNo" type="text" class="form-input" :class="{ error: errors.batchNo }">
+                <input v-model="local.batchNo" type="text" class="form-input" @blur="returnMoldId" :class="{ error: errors.batchNo }">
                 <span v-if="errors.batchNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
             </div>
@@ -38,8 +38,7 @@
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[3]') }}<span class="required">*</span></label>
-                <input v-model="local.moldId" type="text" class="form-input" :class="{ error: errors.moldId }" placeholder="#">
-                <span v-if="errors.moldId" class="error-msg">{{ $t('dailysheet.required') }}</span>
+                <input v-model="local.moldId" type="text" class="form-input" readonly>
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[4]') }}<span class="required">*</span></label>
@@ -107,6 +106,12 @@ const createEmpty = () => ({
   runTime: ''
 })
 
+//automatically show moldId
+const returnMoldId = () => {
+    local.moldId = local.batchNo.split('-')[1] || '';
+    local.moldId = String(local.moldId).padStart(3, '#0');
+}
+
 // If editData has value, then edit. If not, then create
 const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 
@@ -114,7 +119,6 @@ const errors = reactive({
   jobType: false,
   batchNo: false,
   machineType: false,
-  moldId: false,
   weekNo: false,
   okQty: false,
   ngQty: false,
@@ -125,7 +129,7 @@ const computedTotal = computed(() =>
   (Number(local.okQty) || 0) + (Number(local.ngQty) || 0)
 )
 
-const requiredFields = ['jobType', 'batchNo', 'machineType', 'moldId', 'weekNo', 'okQty', 'ngQty', 'runTime']
+const requiredFields = ['jobType', 'batchNo', 'machineType', 'weekNo', 'okQty', 'ngQty', 'runTime']
 
 const validate = () => {
   let valid = true

@@ -19,11 +19,11 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.machineNo') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineNo" @keyup.enter="identifyParams()" required>
+                        <input type="text" class="field-input" v-model="form.machineNo" @keyup.enter="identifyParams" required>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.batchNo') }}</label>
-                        <input type="text" class="field-input" v-model="form.batchNo" required>
+                        <input type="text" class="field-input" v-model="form.batchNo" @blur="returnMoldId" required>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.machineType') }}</label> 
@@ -31,7 +31,7 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.moldId') }}</label>
-                        <input type="text" class="field-input" v-model="form.moldId" required placeholder="#">
+                        <input type="text" class="field-input" v-model="form.moldId" readonly>
                     </div>
                 </div>
             </section>
@@ -226,6 +226,12 @@ const form = reactive({
   }),
   date: formatNow('minute')   
 })
+
+//automatically show moldId
+const returnMoldId = () => {
+    form.moldId = form.batchNo.split('-')[1] || '';
+    form.moldId = String(form.moldId).padStart(3, '#0');
+}
 
 //data actively save to localStorage
 watch(form, () => {

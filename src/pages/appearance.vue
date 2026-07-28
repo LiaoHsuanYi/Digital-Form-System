@@ -23,15 +23,15 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.batchNo') }}</label>
-                        <input type="text" class="field-input" v-model="form.batchNo" required>
+                        <input type="text" class="field-input" v-model="form.batchNo" @blur="returnMoldId" required>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.machineType') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineType" required>
+                        <input type="text" class="field-input" v-model="form.machineType"required>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('appearance.moldId') }}</label>
-                        <input type="text" class="field-input" v-model="form.moldId" required placeholder="#">
+                        <input type="text" class="field-input" v-model="form.moldId" readonly>
                     </div>
                 </div>
             </section>
@@ -113,6 +113,12 @@ const form = reactive({
   date: formatNow('minute')   
 })
 
+//automatically show moldId
+const returnMoldId = () => {
+    form.moldId = form.batchNo.split('-')[1] || '';
+    form.moldId = String(form.moldId).padStart(3, '#0');
+}
+
 //data actively save to localStorage
 watch(form, () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
@@ -185,11 +191,11 @@ const checkLook = () => {
 
 //submit
 const submitAppearance = async() => {
-    if(!checkLook())
-        return;
+  if(!checkLook())
+      return;
 
-    form.moldId = String(form.moldId).padStart(3, '#0');
-    resetform();
+  form.moldId = String(form.moldId).padStart(3, '#0');
+  resetform();
 }
 
 </script>

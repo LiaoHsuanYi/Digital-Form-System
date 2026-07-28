@@ -15,6 +15,7 @@
     "lastShot": "Shot จบกะ",
     "stopQty": "NG ช่วงหยุดเครื่อง", 
     "stopTime": "เวลาหยุดเครื่อง",
+    "shotError": "Shot จบกะ > Shot เริ่มกะ",
     "addStop": "เพิ่มรายการหยุดเครื่อง",
     "editStop": "แก้ไขรายการหยุดเครื่อง",
     "reminder": "กรอกข้อมูลให้ครบ (All required)",
