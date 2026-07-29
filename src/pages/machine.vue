@@ -19,7 +19,7 @@
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.machineNo') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineNo" @keyup.enter="identifyParams" required>
+                        <input type="text" class="field-input" v-model="form.machineNo" @blur="identifyParams" required>
                     </div>
                     <div class="field-group">
                         <label class="field-label">{{ $t('machine.batchNo') }}</label>
@@ -250,6 +250,7 @@ const resetform = () => {
 
     fileInput.value.value = '';
     fileError.value = '';
+    checkParams.value = true;
 }
 
 //value assignment
@@ -266,18 +267,18 @@ const issueType = computed(() => [
 ])
 
 //setting parameters block display or not
+const allowMachine = [
+  'DIE-011',
+  'DIE-012',
+  'DIE-014',
+  'DIE-015',
+  'DIE-016',
+  'DIE-017'
+]
+
 function identifyParams()
 {
-    if(form.machineNo == 'DIE-011' || form.machineNo == 'DIE-012' || form.machineNo == 'DIE-014' ||
-       form.machineNo == 'DIE-015' || form.machineNo == 'DIE-016' || form.machineNo == 'DIE-017'
-    )
-    {
-        checkParams.value = false;
-    }
-    else
-    {
-        checkParams.value = true;
-    }
+    checkParams.value = !allowMachine.includes(form.machineNo)
 }
 
 //file processing

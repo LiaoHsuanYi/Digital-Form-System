@@ -26,7 +26,7 @@
         "worktype": ["Pilih", "Produksi Normal", "Trial Dies"]
     },
     "stopForm": {
-        "labels": ["No. Lot", "Tipe Mesin", "No. Dies", "Shot Atas", "Shot Bawah",
+        "labels": ["No. Lot", "Tipe Mesin", "No. Dies", "Shot Saat Stop Mesin",
                    "Total Downtime", "Masalah", "NG Downtime", "Cold Mold Qty",
                    "Penyebab Downtime", "Waktu Downtime"],
         "optgroups": ["Pekerjaan Dies", "Masalah Mesin", "Lain-lain"],
