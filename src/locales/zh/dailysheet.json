@@ -3,10 +3,11 @@
     "labels": ["機器資料", "個人資料", "生產項目", "停機項目", "停機問題對照表"],
     "date": "日期",
     "machineNo": "機器編號",
-    "person": {
-        "labels": ["班別", "工號", "姓名", "出勤時間"],
-        "shifts": ["請選擇", "早班", "晚班"]
-    }, 
+    "shift": "班別",
+    "employeeNo1": "工號 1",
+    "employeeNo2": "工號 2", 
+    "workHours": "出勤時間",
+    "shiftOption": ["請選擇", "早班", "晚班"],
     "proQty": "生產數量", 
     "proTime": "生產時間",
     "addProduct": "新增生產項目",

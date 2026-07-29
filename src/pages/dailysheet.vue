@@ -40,44 +40,27 @@
           <div class="sec-lbl">{{ $t('dailysheet.labels[1]') }}</div>
         </div>
 
-        <div v-for="(person, index) in form.people" :key="index" class="person-row">
+        <div class="person-row">
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[0]') }}</label> 
-              <select class="field-input" v-model="person.shift" required>
-                  <option value="">{{ $t('dailysheet.person.shifts[0]') }}</option>
-                  <option value="早班">{{ $t('dailysheet.person.shifts[1]') }}</option>
-                  <option value="晚班">{{ $t('dailysheet.person.shifts[2]') }}</option>
+              <label class="field-label">{{ $t('dailysheet.shift') }}</label> 
+              <select class="field-input" v-model="form.shift" required>
+                  <option value="">{{ $t('dailysheet.shiftOption[0]') }}</option>
+                  <option value="早班">{{ $t('dailysheet.shiftOption[1]') }}</option>
+                  <option value="晚班">{{ $t('dailysheet.shiftOption[2]') }}</option>
               </select>
           </div>    
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[1]') }}</label> 
-              <input type="text" class="field-input" v-model="person.employeeNo" required>
+              <label class="field-label">{{ $t('dailysheet.employeeNo1') }}</label> 
+              <input type="text" class="field-input" v-model="form.employeeNo1" required>
           </div>
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[2]') }}</label>
-              <input type="text" class="field-input" v-model="person.name" required>
+              <label class="field-label">{{ $t('dailysheet.employeeNo2') }}</label>
+              <input type="text" class="field-input" v-model="form.employeeNo2" required>
           </div>
           <div class="field-group">
-              <label class="field-label" v-if="index === 0">{{ $t('dailysheet.person.labels[3]') }}</label> 
-              <input type="number" class="field-input" v-model="person.workHours" placeholder=" ? hrs" required>
+              <label class="field-label">{{ $t('dailysheet.workHours') }}</label> 
+              <input type="number" class="field-input" v-model="form.workHours" placeholder=" ? hrs" required>
           </div>
-
-          <button type="button" 
-            v-if="index === 0" 
-            class="action-btn person-add-btn" 
-            @click="addPerson" 
-            :disabled="form.people.length >= 3"
-            >
-            <span class="person-btn-icon">+</span>
-          </button>
-
-          <button type="button" 
-            v-else
-            class="action-btn person-remove-btn" 
-            @click="removePerson(index)"
-            >
-            <span class="person-btn-icon">-</span>
-          </button>
         </div>
       </section>
 
@@ -205,28 +188,6 @@ import { reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
-
-//create new data
-//people +-
-function addPerson() {
-  if (form.people.length >= 3) return
-
-  form.people.push({
-    shift: '',
-    employeeNo: '',
-    name: '',
-    workHours: ''
-  })
-}
-
-function removePerson(index) {
-  if(index === 0) return;
-  if (form.people.length <= 1) return;
-
-  form.people.splice(index, 1);
-}
-
-
 const STORAGE_KEY = 'dailysheet_draft'
  
 //initialization: read draft from localStorage
@@ -239,14 +200,10 @@ const form = reactive({
     machineNo: '',
     firstShot: '',
     lastShot: '',
-    people: [
-        {
-            shift: '',
-            employeeNo: '',
-            name: '',
-            workHours: ''
-        }
-    ],
+    shift: '',
+    employeeNo1: '',
+    employeeNo2: '',
+    workHours: '',
     productItems: [],
     stopItems: []
   }),
@@ -280,7 +237,6 @@ const resetform = () => {
     else form[key] = '';
   })
   form.date = formatNow('date');
-  form.people = [{ shift: '', employeeNo: '', name: '', workHours: '' }];
 }
 
 //productForm modal control
@@ -394,44 +350,12 @@ const submitDailysheet = () => {
 /* employee */
 .person-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: end;
   gap: 10px;
   margin: 15px 0;
 }
-.action-btn {
-  width: 46px;
-  height: 46px;
-  border-radius: 6px;
-  border: 1.5px solid;
-  background: transparent;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background 0.15s;
-  align-self: end;
-}
-.person-btn-icon {
-  font-size: 18px;
-  line-height: 1;
-}
-.person-add-btn {
-  border-color: #3ab87a;
-  color: #3ab87a;
-}
-.person-add-btn:hover { background: #e1f5ee; }
-.person-remove-btn {
-  border-color: #ccc;
-  color: #999;
-}
-.person-remove-btn:hover {
-  border-color: #e57373;
-  color: #e57373;
-  background: #fff5f5;
-}
- 
+
 /* productItems */
 .card-list {
   display: flex;

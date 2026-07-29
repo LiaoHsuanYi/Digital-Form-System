@@ -3,10 +3,11 @@
     "labels": ["Data Mesin", "Data Personel", "Item Produksi", "Item Downtime", "Daftar Masalah Downtime"],
     "date": "Tanggal",
     "machineNo": "Nomor Mesin",
-    "person": {
-        "labels": ["Shift", "NIK", "Nama", "Jam Absen"],
-        "shifts": ["Pilih", "Shift Pagi", "Shift Malam"]
-    }, 
+    "shift": "Shift",
+    "employeeNo1": "NIK 1",
+    "employeeNo2": "NIK 2",
+    "workHours": "Jam Absen",
+    "shiftOption": ["Pilih", "Shift Pagi", "Shift Malam"],
     "proQty": "Jumlah Produksi", 
     "proTime": "Waktu Produksi",
     "addProduct": "Tambah Item Produksi",
