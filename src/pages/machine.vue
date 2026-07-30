@@ -333,7 +333,11 @@ const submitMachine = async() => {
         return;
 
     form.moldId = String(form.moldId).padStart(3, '#0');
+    
+    //console.log(form);
     resetform();
+
+    //API
 }
 
 </script>

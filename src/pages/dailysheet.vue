@@ -55,7 +55,7 @@
           </div>
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.employeeNo2') }}</label>
-              <input type="text" class="field-input" v-model="form.employeeNo2" required>
+              <input type="text" class="field-input" v-model="form.employeeNo2">
           </div>
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.workHours') }}</label> 
@@ -320,9 +320,9 @@ const submitDailysheet = () => {
     alert(t('dailysheet.stopItem'));
     return;
   }
-
-  //console.log(form);
-  //console.log('目前所有 keys:', Object.keys(form));
+  /*localStorage.clear()
+  sessionStorage.clear()
+  console.log(form);*/
 
   // API
 

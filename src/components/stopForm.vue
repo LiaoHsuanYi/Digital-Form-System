@@ -178,11 +178,11 @@
                     <option value="料管卡鋁屑處理">26</option>
                   </optgroup>
                   <optgroup :label="$t('dailysheet.stopForm.optgroups[2]')">
-                    <option value="調整噴霧">24</option>
-                    <option value="整理清潔">25</option>
-                    <option value="教育集會">26</option>
-                    <option value="支援外單位">27</option>
-                    <option value="其他">28</option>
+                    <option value="調整噴霧">27</option>
+                    <option value="整理清潔">28</option>
+                    <option value="教育集會">29</option>
+                    <option value="支援外單位">30</option>
+                    <option value="其他">31</option>
                   </optgroup>
                 </select>
               </div>
