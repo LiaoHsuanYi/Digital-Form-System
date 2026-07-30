@@ -18,26 +18,26 @@
       </div>
   </div>
 
-    <div class="subnav">
-        <router-link to="/mbx" class="subnav-brand">{{ t('navbar.title[0]') }}</router-link>
+  <div class="subnav">
+    <router-link to="/mbx" class="subnav-brand">{{ t('navbar.title[0]') }}</router-link>
 
-        <div class="subnav-dropdown">
-            <a class="subnav-link" :class="{ on: isCheckRoute }">
-                {{ t('navbar.title[1]') }} ▾
-            </a>
-            <div class="subnav-dropdown-menu">
-                <router-link to="/machine" class="subnav-dropdown-item">
-                    {{ t('navbar.subtitles[0]') }}
-                </router-link>
-                <router-link to="/appearance" class="subnav-dropdown-item">
-                    {{ t('navbar.subtitles[1]') }}
-                </router-link>
-            </div>
+    <div class="subnav-dropdown">
+        <a class="subnav-link" :class="{ on: isCheckRoute }">
+            {{ t('navbar.title[1]') }} ▾
+        </a>
+        <div class="subnav-dropdown-menu">
+            <router-link to="/machine" class="subnav-dropdown-item">
+                {{ t('navbar.subtitles[0]') }}
+            </router-link>
+            <router-link to="/appearance" class="subnav-dropdown-item">
+                {{ t('navbar.subtitles[1]') }}
+            </router-link>
         </div>
-        <router-link to="/dailysheet" class="subnav-link" :class="{ on: isDailyRoute }">
-            {{ t('navbar.title[2]') }}
-        </router-link>
     </div>
+    <router-link to="/dailysheet" class="subnav-link" :class="{ on: isDailyRoute }">
+        {{ t('navbar.title[2]') }}
+    </router-link>
+  </div>
 
 </template>
 

@@ -18,14 +18,9 @@
   padding: 0;
 }
 
-body {
-  font-family: 'Noto Sans TC', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
 /* container */
 .form-bg {
+  font-family: 'Noto Sans TC', sans-serif;
   background: var(--bg);
 }
 
@@ -60,14 +55,14 @@ body {
 
 .sec-bar {
   width: 3px;
-  height: 34px;
+  height: 30px;
   background: var(--green);
   border-radius: 2px;
   flex-shrink: 0;
 }
 
 .sec-lbl {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--title);
   letter-spacing: 0.4px;

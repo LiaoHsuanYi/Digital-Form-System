@@ -137,17 +137,17 @@ const resetform = () => {
 //value assignment
 const items = [1, 2, 3, 4]
 const defectType = [
-    {key: '拉模、裂紋', label: t('appearance.checklist.defects[0]')},
-    {key: '缺肉、多肉', label: t('appearance.checklist.defects[1]')},
-    {key: '燒付', label: t('appearance.checklist.defects[2]')},
-    {key: '模銷斷、歪斜', label: t('appearance.checklist.defects[3]')},
-    {key: '流紋', label: t('appearance.checklist.defects[4]')},
-    {key: '起泡、凹陷', label: t('appearance.checklist.defects[5]')},
-    {key: '變形', label: t('appearance.checklist.defects[6]')},
-    {key: '週期章無打點', label: t('appearance.checklist.defects[7]')},
-    {key: '檢具NG', label: t('appearance.checklist.defects[8]')},
-    {key: '油汙、手套痕', label: t('appearance.checklist.defects[9]')},
-    {key: '模具黏模', label: t('appearance.checklist.defects[10]')},
+  {key: '拉模、裂紋', label: t('appearance.checklist.defects[0]')},
+  {key: '缺肉、多肉', label: t('appearance.checklist.defects[1]')},
+  {key: '燒付', label: t('appearance.checklist.defects[2]')},
+  {key: '模銷斷、歪斜', label: t('appearance.checklist.defects[3]')},
+  {key: '流紋', label: t('appearance.checklist.defects[4]')},
+  {key: '起泡、凹陷', label: t('appearance.checklist.defects[5]')},
+  {key: '變形', label: t('appearance.checklist.defects[6]')},
+  {key: '週期章無打點', label: t('appearance.checklist.defects[7]')},
+  {key: '檢具NG', label: t('appearance.checklist.defects[8]')},
+  {key: '油汙、手套痕', label: t('appearance.checklist.defects[9]')},
+  {key: '模具黏模', label: t('appearance.checklist.defects[10]')},
 ]
 
 //pack checkbox defects
@@ -227,7 +227,7 @@ const submitAppearance = async() => {
 
 .insp-table th {
   color: var(--sub);
-  font-weight: 800;
+  font-weight: 600;
   padding: 13px 14px;
   text-align: center;
   font-size: 20px;
