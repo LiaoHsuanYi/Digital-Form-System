@@ -9,7 +9,8 @@
             <input type="text" class="login-input" placeholder="帳號 Username">
             <input type="password" class="login-input" placeholder="密碼 Password">
 
-            <button class="login-btn" @click="router.push('/index')">登入</button>
+            <button class="login-btn" @click="router.push('/mbx')">登入</button>
+            <!--decided by department-->
         </div>
     </div>
 </template>

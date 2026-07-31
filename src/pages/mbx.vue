@@ -4,9 +4,9 @@
     
     <div class="lang-body">
         <div class="lang-card">
-            <div class="lang-card-title">系統預設是繁體中文，有需要請至右上角選擇其他語言</div>
-            <div class="lang-card-subth">ภาษาเริ่มต้นคือจีนตัวเต็ม เปลี่ยนภาษาได้ที่มุมขวาบน</div>
-            <div class="lang-card-subid">Bahasa bawaan adalah Mandarin Tradisional. Anda dapat mengubahnya di kanan atas.</div>
+            <div class="lang-card-title">系統預設是繁體中文，有需要請至左上角選擇其他語言</div>
+            <div class="lang-card-subth">ระบบเริ่มต้นเป็นจีนตัวเต็ม เปลี่ยนภาษาได้ที่มุมบนซ้าย</div>
+            <div class="lang-card-subid">Sistem berbahasa Mandarin Tradisional. Pilih bahasa lain di kiri atas jika perlu.</div>
         </div>
     </div>
 

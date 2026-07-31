@@ -1,21 +1,17 @@
 <template>
 
   <div class="topbar">
-      <div class="topbar-left" @click="router.push('/index')">
-        <svg width="31.2" height="31.2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 8l-4 4 4 4M16 12H8"/>
-        </svg>
-      </div>
-      <img src="@/assets/logo.jpg" class="topbar-logo">
-
+    <div class="topbar-left">
+      <select class="topbar-lang" :value="locale" @change="changeLang">
+          <option value="zh" selected>繁體中文</option>
+          <option value="th">ภาษาไทย</option>
+          <option value="id">Bahasa Indonesia</option>
+      </select>
+    </div>
+    <img src="@/assets/logo.jpg" class="topbar-logo">
       <div class="topbar-right">
-          <select class="topbar-lang" :value="locale" @change="changeLang">
-              <option value="zh" selected>繁體中文</option>
-              <option value="th">ภาษาไทย</option>
-              <option value="id">Bahasa Indonesia</option>
-          </select>
-      </div>
+      <button class="logout-btn" @click="router.push('/')">登出</button>
+    </div>
   </div>
 
   <div class="subnav">
@@ -89,9 +85,20 @@ function changeLang(e) {
   top: 20px;
 }
 
-.topbar-left:hover {
-  border-color: var(--green-hover);
-  color: var(--green-hover);
+.logout-btn {
+  border: 1px solid #FF2E2E;
+  background: #fff;
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FF2E2E;
+  white-space: nowrap;
+}
+
+.logout-btn:hover {
+  background-color: #FF2E2E;
+  color: white;
 }
 
 .topbar-right {
