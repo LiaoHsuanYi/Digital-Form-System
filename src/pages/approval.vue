@@ -13,7 +13,7 @@
         <div class="table-wrap">
             <table>
                 <thead>
-                    <th>編號</th>
+                    <th>表單編號</th>
                     <th>表單種類</th>
                     <th>提交人</th>
                     <th>處理時間</th>
@@ -62,7 +62,7 @@ const barData = [
   },
   {
     id: '3',
-    formType: '壓鑄作業日報表',
+    formType: '壓鑄工作日報表',
     submitter: 'Mark',
     dateTime: '2026-07-29 4:30',
   }

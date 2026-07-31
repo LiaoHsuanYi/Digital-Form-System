@@ -205,9 +205,10 @@ const fileError = ref('');
 //main form
 const form = reactive({
   ...(parsedDraft || {
+    formType: '自主巡檢表-設備檢查', 
     machineNo: '',
-    machineType: '',
     batchNo: '',
+    machineType: '',
     moldId: '',
     material: 'ADC12',
     n2Press: '',

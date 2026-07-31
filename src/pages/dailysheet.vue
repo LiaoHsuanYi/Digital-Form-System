@@ -197,6 +197,7 @@ const parsedDraft = savedDraft ? JSON.parse(savedDraft) : null
 //main form
 const form = reactive({
   ...(parsedDraft || {
+    formType: '壓鑄工作日報表', 
     machineNo: '',
     firstShot: '',
     lastShot: '',

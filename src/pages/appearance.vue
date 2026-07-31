@@ -104,9 +104,10 @@ const checkRequired = ref();
 //main form
 const form = reactive({
   ...(parsedDraft || {
+    formType: '自主巡檢表-外觀檢視', 
     machineNo: '',
-    machineType: '',
     batchNo: '',
+    machineType: '',
     moldId: '',
     defects: []
   }),
@@ -151,17 +152,17 @@ const defectType = [
 ]
 
 //pack checkbox defects
-const isChecked = (item, type) => {
-  return form.defects.some(x => x.item === item && x.type === type);
+const isChecked = (item, defectType) => {
+  return form.defects.some(x => x.item === item && x.defectType === defectType);
 }
-const packDefect = (item, type, checked) => {
+const packDefect = (item, defectType, checked) => {
   const index = form.defects.findIndex(
-    x => x.item === item && x.type === type
+    x => x.item === item && x.defectType === defectType
   );
 
   if (checked && index === -1) 
   {
-    form.defects.push({ item, type });
+    form.defects.push({ item, defectType });
   }
 
   if (!checked && index !== -1) 
