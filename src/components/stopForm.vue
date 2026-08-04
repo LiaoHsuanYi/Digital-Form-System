@@ -22,7 +22,7 @@
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stopForm.labels[1]') }}<span class="required">*</span></label>
-                <input v-model="local.machineType" type="text" class="form-input" :class="{ error: errors.machineType }">
+                <input v-model="local.machineType" type="text" class="form-input" placeholder="ex: 444-EC" :class="{ error: errors.machineType }">
                 <span v-if="errors.machineType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
@@ -32,8 +32,35 @@
             </div>
           </div>
 
-          <div class="section-group">
-            <p class="group-label">Machine Info</p>
+          <div class="section-group">        
+            <p class="group-label">Downtime Info
+              <span class="tooltip-wrapper" ref="TooltipRef">
+                <IconInfoCircle
+                  class="tooltip-icon"
+                  @click.stop="openStopPreview"
+                />
+              </span>
+              <Teleport to="body">
+                <div
+                  v-if="showStopImage"
+                  class="image-preview-overlay"
+                  @click="closeStopPreview"
+                >
+                  <button
+                    type="button"
+                    class="image-preview-close"
+                    @click.stop="closeStopPreview"
+                  >
+                    ✕
+                  </button>
+                  <img
+                    src="@/assets/stopIssue.jpg"
+                    class="image-preview"
+                    @click.stop
+                  />
+                </div>
+              </Teleport>
+            </p>
             <div class="form-row">
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stopForm.labels[3]') }}<span class="required">*</span></label>
@@ -45,175 +72,80 @@
                 <input :value="computedTotal" type="number" class="form-input" readonly>
               </div>
             </div>
-          </div>
-
-          <div class="section-group">
-            <p class="group-label">Quantity Info
-              <span class="tooltip-wrapper" ref="TooltipRef">
-                <IconInfoCircle
-                  class="tooltip-icon"
-                  @click.stop="openProPreview"
-                />
-              </span>
-              <Teleport to="body">
-                <div
-                  v-if="showProImage"
-                  class="image-preview-overlay"
-                  @click="closeProPreview"
-                >
-                  <button
-                    type="button"
-                    class="image-preview-close"
-                    @click.stop="closeProPreview"
-                  >
-                    ✕
-                  </button>
-                  <img
-                    src="@/assets/productIssue.jpg"
-                    class="image-preview"
-                    @click.stop
-                  />
+            <div class="row-group" v-for="(item, index) in local.stopReason" :key="index">
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[5]') }}<span class="required">*</span></label> 
+                  <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
+                    <option value="">{{ $t('dailysheet.select') }}</option>
+                    <optgroup :label="$t('dailysheet.stopForm.optgroups[0]')">
+                      <option value="試模">1</option>
+                      <option value="烤模">2</option>
+                      <option value="模具上模">3</option>
+                      <option value="模具下模">4</option>
+                      <option value="模具維修">5</option>
+                      <option value="模具保養">6</option>
+                      <option value="模具檢查">7</option>
+                      <option value="導柱斷裂">8</option>
+                      <option value="油壓缸異常">9</option>
+                      <option value="剪邊模故障">10</option>
+                      <option value="模具模面清理">11</option>
+                    </optgroup>
+                    <optgroup :label="$t('dailysheet.stopForm.optgroups[1]')">
+                      <option value="換柱塞">12</option>
+                      <option value="換料管">13</option>
+                      <option value="湯溫不足">14</option>
+                      <option value="油管漏油">15</option>
+                      <option value="設備保養">16</option>
+                      <option value="調整合模力">17</option>
+                      <option value="添加液壓油">18</option>
+                      <option value="壓鑄機故障">19</option>
+                      <option value="給湯機故障">20</option>
+                      <option value="取出機故障">21</option>
+                      <option value="真空機故障">22</option>
+                      <option value="噴霧機故障">23</option>
+                      <option value="除氣干涉生產">24</option>
+                      <option value="機台機構異常">25</option>
+                      <option value="料管卡鋁屑處理">26</option>
+                    </optgroup>
+                    <optgroup :label="$t('dailysheet.stopForm.optgroups[2]')">
+                      <option value="調整噴霧">27</option>
+                      <option value="整理清潔">28</option>
+                      <option value="教育集會">29</option>
+                      <option value="支援外單位">30</option>
+                      <option value="其他">31</option>
+                    </optgroup>
+                  </select>
                 </div>
-              </Teleport>
-            </p>
-            <div class="form-row">
-              <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stopForm.labels[5]') }}<span class="required">*</span></label>
-                <select class="form-input" v-model="local.productIssue" :class="{ error: errors.productIssue }">
-                  <option value="">{{ $t('dailysheet.stopForm.select') }}</option>
-                  <option value="黏膜">A</option>
-                  <option value="燒附">B</option>
-                  <option value="拉模">C</option>
-                  <option value="模崩">D</option>
-                  <option value="模裂">E</option>
-                  <option value="壓傷">F</option>
-                  <option value="沖蝕">G</option>
-                  <option value="缺肉">H</option>
-                  <option value="多肉">I</option>
-                  <option value="顆粒">J</option>
-                  <option value="斷差">K</option>
-                  <option value="洩料">L</option>
-                  <option value="水路異常">M</option>
-                  <option value="Pin問題">N</option>
-                  <option value="頂針問題">O</option>
-                  <option value="其他">P</option>
-                </select>
-                <span v-if="errors.productIssue" class="error-msg">{{ $t('dailysheet.required') }}</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stopForm.labels[6]') }}<span class="required">*</span></label>
-                <input v-model.number="local.stopNgQty" :class="{ error: errors.stopNgQty }" type="number" min="0" class="form-input">  
-                <span v-if="errors.stopNgQty" class="error-msg">{{ $t('dailysheet.required') }}</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stopForm.labels[7]') }}</label>
-                <input v-model.number="local.coldQty" type="number" min="0" class="form-input">  
-              </div>
-            </div>
-          </div>
-
-          <p class="group-label">Downtime Info
-            <span class="tooltip-wrapper" ref="TooltipRef">
-              <IconInfoCircle
-                class="tooltip-icon"
-                @click.stop="openStopPreview"
-              />
-            </span>
-            <Teleport to="body">
-              <div
-                v-if="showStopImage"
-                class="image-preview-overlay"
-                @click="closeStopPreview"
-              >
-                <button
-                  type="button"
-                  class="image-preview-close"
-                  @click.stop="closeStopPreview"
-                >
-                  ✕
+                <div class="form-field">
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[6]') }}<span class="required">*</span></label>
+                  <input v-model.number="item.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
+                </div>
+                <button type="button"
+                  v-if="index === 0" 
+                  class="action-btn stop-add-btn" 
+                  @click="addstopReason"
+                  >
+                  <span class="stop-btn-icon">+</span>
                 </button>
-                <img
-                  src="@/assets/stopIssue.jpg"
-                  class="image-preview"
-                  @click.stop
-                />
-              </div>
-            </Teleport>
-          </p>
-          <div v-for="(item, index) in local.stopReason" :key="index" class="section-group">
-            <div class="form-row">
-              <div class="form-field">
-                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[8]') }}<span class="required">*</span></label> 
-                <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
 
-                  <option value="">{{ $t('dailysheet.stopForm.select') }}</option>
-                  <optgroup :label="$t('dailysheet.stopForm.optgroups[0]')">
-                    <option value="試模">1</option>
-                    <option value="烤模">2</option>
-                    <option value="模具上模">3</option>
-                    <option value="模具下模">4</option>
-                    <option value="模具維修">5</option>
-                    <option value="模具保養">6</option>
-                    <option value="模具檢查">7</option>
-                    <option value="導柱斷裂">8</option>
-                    <option value="油壓缸異常">9</option>
-                    <option value="剪邊模故障">10</option>
-                    <option value="模具模面清理">11</option>
-                  </optgroup>
-                  <optgroup :label="$t('dailysheet.stopForm.optgroups[1]')">
-                    <option value="換柱塞">12</option>
-                    <option value="換料管">13</option>
-                    <option value="湯溫不足">14</option>
-                    <option value="油管漏油">15</option>
-                    <option value="設備保養">16</option>
-                    <option value="調整合模力">17</option>
-                    <option value="添加液壓油">18</option>
-                    <option value="壓鑄機故障">19</option>
-                    <option value="給湯機故障">20</option>
-                    <option value="取出機故障">21</option>
-                    <option value="真空機故障">22</option>
-                    <option value="噴霧機故障">23</option>
-                    <option value="除氣干涉生產">24</option>
-                    <option value="機台機構異常">25</option>
-                    <option value="料管卡鋁屑處理">26</option>
-                  </optgroup>
-                  <optgroup :label="$t('dailysheet.stopForm.optgroups[2]')">
-                    <option value="調整噴霧">27</option>
-                    <option value="整理清潔">28</option>
-                    <option value="教育集會">29</option>
-                    <option value="支援外單位">30</option>
-                    <option value="其他">31</option>
-                  </optgroup>
-                </select>
+                <button type="button" 
+                  v-else
+                  class="action-btn stop-remove-btn" 
+                  @click="removestopReason(index)"
+                  >
+                  <span class="stop-btn-icon">-</span>
+                </button>
               </div>
-              <div class="form-field">
-                <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[9]') }}<span class="required">*</span></label>
-                <input v-model.number="item.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
+              <div class="error-row" v-if="index === 0 && (errors.stopIssue === true || errors.stopTime === true)">
+                <div class="error-left" :style="{ visibility: errors.stopIssue ? 'visible' : 'hidden' }">
+                  {{ $t('dailysheet.required') }}
+                </div>
+                <div class="error-right" :style="{ visibility: errors.stopTime ? 'visible' : 'hidden' }">
+                  {{ $t('dailysheet.required') }}
+                </div>
+                <div class="ghost-spacer"></div>
               </div>
-              <button type="button"
-                v-if="index === 0" 
-                class="action-btn stop-add-btn" 
-                @click="addstopReason"
-                >
-                <span class="stop-btn-icon">+</span>
-              </button>
-
-              <button type="button" 
-                v-else
-                class="action-btn stop-remove-btn" 
-                @click="removestopReason(index)"
-                >
-                <span class="person-btn-icon">-</span>
-              </button>
-            </div>
-            <div class="error-row" v-if="index === 0 && (errors.stopIssue == true || errors.stopTime == true)">
-              <div class="error-left" :style="{ visibility: errors.stopIssue ? 'visible' : 'hidden' }">
-                {{ $t('dailysheet.required') }}
-              </div>
-              <div class="error-right" :style="{ visibility: errors.stopTime ? 'visible' : 'hidden' }">
-                {{ $t('dailysheet.required') }}
-              </div>
-              <div class="ghost-spacer"></div>
             </div>
           </div>
         </div>
@@ -229,8 +161,8 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue'
-import { IconInfoCircle, IconX } from "@tabler/icons-vue";
+import { ref, reactive, computed } from 'vue'
+import { IconInfoCircle } from "@tabler/icons-vue";
 
 const props = defineProps({
   editData: { type: Object, default: null },
@@ -245,9 +177,6 @@ const createEmpty = () => ({
   moldId: '',
   shotCount: '',
   totalTime: '',
-  productIssue: '',
-  stopNgQty: '',
-  coldQty: '',
   stopReason: [
     {
       stopIssue: '',
@@ -279,19 +208,12 @@ function removestopReason(index)
 }
 
 //lightbox - image preview
-const showProImage = ref(false);
 const showStopImage = ref(false);
 
-const openProPreview = () => {
-  showProImage.value = true;
-}
 const openStopPreview = () => {
   showStopImage.value = true;
 }
 
-const closeProPreview = () => {
-  showProImage.value = false;
-}
 const closeStopPreview = () => {
   showStopImage.value = false;
 }
@@ -303,8 +225,6 @@ const errors = reactive({
   batchNo: false,
   machineType: false,
   shotCount: false,
-  productIssue: false,
-  stopNgQty: false,
   stopIssue: false,
   stopTime: false
 })
@@ -316,7 +236,7 @@ const computedTotal = computed(() => {
   }, 0);
 })
 
-const requiredFields = ['batchNo', 'machineType', 'shotCount', 'productIssue', 'stopNgQty']
+const requiredFields = ['batchNo', 'machineType', 'shotCount']
 
 const validate = () => {
   let valid = true
@@ -340,19 +260,8 @@ const validate = () => {
 
 const handleSave = () => {
   if (!validate()) return
-  local.moldId = String(local.moldId).padStart(3, '#0');
-  emit('save', { ...local })
+  emit('save', { ...local, totalTime: computedTotal.value })
 }
-
-watch(
-  () => local.stopReason, (newIssue) => {
-      local.totalTime = newIssue.reduce((total, item) => {
-      return total + (Number(item.stopTime) || 0);
-    }, 0);
-  },
-  {deep: true}
-)
-
 </script>
 
 <style scoped>
@@ -443,6 +352,12 @@ watch(
   padding-left: 8px;
   border-left: 2.5px solid #1daa7a;
   margin: 0;
+}
+
+.row-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .form-row {

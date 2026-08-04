@@ -6,6 +6,7 @@
     "batchNo": "批號",
     "machineType": "機種",
     "moldId": "模號",
+    "select": "請選擇",
     "checklist": {
         "title": "項目 / 抽檢序號",
         "items": ["第一顆", "第二顆", "第三顆", "第四顆"],

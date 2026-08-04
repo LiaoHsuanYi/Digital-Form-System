@@ -1,84 +1,100 @@
 <template>
 <Navbar />
 <div class="form-bg">
-    <div class="form-body">
-        <form ref="checkRequired" @submit.prevent="submitAppearance">
-            <div class="form-title">
-                {{ $t('appearance.title') }}
-            </div>
-            
-            <section>           
-                <div class="sec-head">
-                    <div class="sec-bar"></div>
-                    <div class="sec-lbl">{{  $t('appearance.labels[0]') }}</div>
-                </div>
-                <div class="field-grid">
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.date') }}</label>
-                        <input type="datetime-local" class="field-input" v-model="form.date" readonly>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.machineNo') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineNo" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.batchNo') }}</label>
-                        <input type="text" class="field-input" v-model="form.batchNo" @blur="returnMoldId" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.machineType') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineType"required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('appearance.moldId') }}</label>
-                        <input type="text" class="field-input" v-model="form.moldId" readonly>
-                    </div>
-                </div>
-            </section>
+  <div class="form-body">
+    <form ref="checkRequired" @submit.prevent="submitAppearance">
+      <div class="form-title">
+          {{ $t('appearance.title') }}
+      </div>
+      
+      <section>           
+        <div class="sec-head">
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">{{  $t('appearance.labels[0]') }}</div>
+        </div>
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label">{{ $t('appearance.date') }}</label>
+            <input type="datetime-local" class="field-input" v-model="form.date" readonly>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('appearance.machineNo') }}</label> 
+            <select class="field-input" v-model="form.machineNo" required>
+              <option value="" selected>{{ $t('appearance.select') }}</option>
+              <option value="DIE-003">DIE-003</option>
+              <option value="DIE-004">DIE-004</option>
+              <option value="DIE-005">DIE-005</option>
+              <option value="DIE-006">DIE-006</option>
+              <option value="DIE-008">DIE-008</option>
+              <option value="DIE-009">DIE-009</option>
+              <option value="DIE-010">DIE-010</option>
+              <option value="DIE-011">DIE-011</option>
+              <option value="DIE-012">DIE-012</option>
+              <option value="DIE-013">DIE-013</option>
+              <option value="DIE-014">DIE-014</option>
+              <option value="DIE-015">DIE-015</option>
+              <option value="DIE-016">DIE-016</option>
+              <option value="DIE-017">DIE-017</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('appearance.batchNo') }}</label>
+            <input type="text" class="field-input" v-model="form.batchNo" @blur="returnMoldId" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('appearance.machineType') }}</label> 
+            <input type="text" class="field-input" v-model="form.machineType" placeholder="ex: 444-EC" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('appearance.moldId') }}</label>
+            <input type="text" class="field-input" v-model="form.moldId" readonly>
+          </div>
+        </div>
+      </section>
 
-            <section>
-                <div class="sec-head">
-                    <div class="sec-bar"></div>
-                    <div class="sec-lbl">{{  $t('appearance.labels[1]') }}</div>
-                </div>
+      <section>
+        <div class="sec-head">
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">{{  $t('appearance.labels[1]') }}</div>
+        </div>
 
-                <div class="insp-wrap">
-                    <table class="insp-table">
-                        <thead>
-                        <tr>
-                            <th>{{ $t('appearance.checklist.title') }}</th>
-                            <th>{{ $t('appearance.checklist.items[0]') }}</th>
-                            <th>{{ $t('appearance.checklist.items[1]') }}</th>
-                            <th>{{ $t('appearance.checklist.items[2]') }}</th>
-                            <th>{{ $t('appearance.checklist.items[3]') }}</th>
-                        </tr>
-                        </thead>
+        <div class="insp-wrap">
+          <table class="insp-table">
+            <thead>
+            <tr>
+              <th>{{ $t('appearance.checklist.title') }}</th>
+              <th>{{ $t('appearance.checklist.items[0]') }}</th>
+              <th>{{ $t('appearance.checklist.items[1]') }}</th>
+              <th>{{ $t('appearance.checklist.items[2]') }}</th>
+              <th>{{ $t('appearance.checklist.items[3]') }}</th>
+            </tr>
+            </thead>
 
-                        <tbody>
-                        <tr v-for="defect in defectType" :key="defect.key">
-                            <td>{{ defect.label }}</td>
+            <tbody>
+            <tr v-for="defect in defectType" :key="defect.key">
+              <td>{{ defect.label }}</td>
 
-                            <td v-for="item in items" :key="item" class="check-td">
-                                <label class="insp-check-cell">
-                                    <input
-                                    type="checkbox"
-                                    :checked="isChecked(item, defect.key)"
-                                    @change="packDefect(item, defect.key, $event.target.checked)"
-                                    >
-                                </label>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+              <td v-for="item in items" :key="item" class="check-td">
+                  <label class="insp-check-cell">
+                      <input
+                      type="checkbox"
+                      :checked="isChecked(item, defect.key)"
+                      @change="packDefect(item, defect.key, $event.target.checked)"
+                      >
+                  </label>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-            <div class="submit-wrap">
-                <button type="submit" class="submit-btn">Submit</button>
-            </div>
+      <div class="submit-wrap">
+          <button type="submit" class="submit-btn">Submit</button>
+      </div>
 
-        </form>
-    </div>
+    </form>
+  </div>
 </div>
 
 <Footer />
@@ -88,7 +104,7 @@
 <script setup>
 import Navbar from '@/components/navbar.vue'
 import Footer from '@/components/footer.vue'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, computed } from 'vue'
 import { formatNow } from '@/utils/date.js'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
@@ -137,7 +153,7 @@ const resetform = () => {
 
 //value assignment
 const items = [1, 2, 3, 4]
-const defectType = [
+const defectType = computed(() => [
   {key: '拉模、裂紋', label: t('appearance.checklist.defects[0]')},
   {key: '缺肉、多肉', label: t('appearance.checklist.defects[1]')},
   {key: '燒付', label: t('appearance.checklist.defects[2]')},
@@ -149,7 +165,7 @@ const defectType = [
   {key: '檢具NG', label: t('appearance.checklist.defects[8]')},
   {key: '油汙、手套痕', label: t('appearance.checklist.defects[9]')},
   {key: '模具黏模', label: t('appearance.checklist.defects[10]')},
-]
+])
 
 //pack checkbox defects
 const isChecked = (item, defectType) => {
@@ -194,8 +210,6 @@ const checkLook = () => {
 const submitAppearance = async() => {
   if(!checkLook())
       return;
-
-  form.moldId = String(form.moldId).padStart(3, '#0');
 
   //console.log(form);
   resetform();

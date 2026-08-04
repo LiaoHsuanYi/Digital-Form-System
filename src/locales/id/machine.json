@@ -7,6 +7,7 @@
     "batchNo": "No. Lot",
     "machineType": "Tipe Mesin",
     "moldId": "No. Dies",
+    "select": "Pilih",
     "setting": {
         "labels":["Bahan Campuran", "Tekanan Nitrogen", "Waktu Buka (detik)", 
                   "Waktu Boost (detik)", "Suhu kaldu aluminium", "Waktu semprot(detik)", 

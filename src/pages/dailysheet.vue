@@ -20,7 +20,23 @@
           </div>
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.machineNo') }}</label>
-              <input type="text" class="field-input" v-model="form.machineNo" required>
+              <select class="field-input" v-model="form.machineNo" required>
+                  <option value="" selected>{{ $t('dailysheet.select') }}</option>
+                  <option value="DIE-003">DIE-003</option>
+                  <option value="DIE-004">DIE-004</option>
+                  <option value="DIE-005">DIE-005</option>
+                  <option value="DIE-006">DIE-006</option>
+                  <option value="DIE-008">DIE-008</option>
+                  <option value="DIE-009">DIE-009</option>
+                  <option value="DIE-010">DIE-010</option>
+                  <option value="DIE-011">DIE-011</option>
+                  <option value="DIE-012">DIE-012</option>
+                  <option value="DIE-013">DIE-013</option>
+                  <option value="DIE-014">DIE-014</option>
+                  <option value="DIE-015">DIE-015</option>
+                  <option value="DIE-016">DIE-016</option>
+                  <option value="DIE-017">DIE-017</option>
+              </select>
           </div>
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.firstShot') }}</label>
@@ -44,8 +60,9 @@
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.shift') }}</label> 
               <select class="field-input" v-model="form.shift" required>
-                  <option value="">{{ $t('dailysheet.shiftOption[0]') }}</option>
-                  <option value="早班">{{ $t('dailysheet.shiftOption[1]') }}</option>
+                  <option value="" selected>{{ $t('dailysheet.select') }}</option>
+                  <option value="早班">{{ $t('dailysheet.shiftOption[0]') }}</option>
+                  <option value="中班">{{ $t('dailysheet.shiftOption[1]') }}</option>
                   <option value="晚班">{{ $t('dailysheet.shiftOption[2]') }}</option>
               </select>
           </div>    
@@ -58,8 +75,14 @@
               <input type="text" class="field-input" v-model="form.employeeNo2">
           </div>
           <div class="field-group">
-              <label class="field-label">{{ $t('dailysheet.workHours') }}</label> 
-              <input type="number" class="field-input" v-model="form.workHours" placeholder=" ? hrs" required>
+              <label class="field-label">{{ $t('dailysheet.workTime') }}</label> 
+              <select v-if="form.shift === '早班'" class="field-input" v-model="form.workTime" required>
+                <option value="570">570</option>
+                <option value="720" selected>720</option>
+              </select>
+              <input v-else-if="form.shift === '中班'" class="field-input" v-model="form.workTime" readonly>
+              <input v-else-if="form.shift === '晚班'" class="field-input" v-model="form.workTime" readonly>
+              <input v-else class="field-input" readonly>
           </div>
         </div>
       </section>
@@ -127,11 +150,6 @@
             </div>
   
             <div class="card-meta">
-              <div class="meta-item">
-                <p class="meta-label">{{ $t('dailysheet.stopQty') }}</p>
-                <div class="meta-val">{{ item.stopNgQty }}</div>
-              </div>
-              <div class="divider"></div>
               <div class="meta-item">
                 <p class="meta-label">{{ $t('dailysheet.stopTime') }}</p>
                 <div class="meta-val">{{ item.totalTime }}</div>
@@ -204,7 +222,7 @@ const form = reactive({
     shift: '',
     employeeNo1: '',
     employeeNo2: '',
-    workHours: '',
+    workTime: '',
     productItems: [],
     stopItems: []
   }),
@@ -224,6 +242,12 @@ const checkShots = () => {
   }
 }
 
+//auto switch workTime
+watch(() => form.shift, (shift) => {
+  if (shift === '中班') form.workTime = 480
+  else if (shift === '晚班') form.workTime = 740
+  else if (shift !== '早班') form.workTime = ''
+})
 
 //data actively save to localStorage
 watch(form, () => {
@@ -323,11 +347,11 @@ const submitDailysheet = () => {
   }
   /*localStorage.clear()
   sessionStorage.clear()
-  console.log(form);*/
-
+  */
+  console.log(form);
   // API
 
-  resetform()
+  //resetform()
 }
 </script>
 

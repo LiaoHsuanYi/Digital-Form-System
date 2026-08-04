@@ -6,6 +6,7 @@
     "batchNo": "No. Lot",
     "machineType": "Tipe Mesin",
     "moldId": "No. Dies",
+    "select": "Pilih",
     "checklist": {
         "title": "Item / No. Sampel",
         "items": ["Yang pertama", "Yang kedua", "Yang ketiga", "Yang keempat"],

@@ -6,8 +6,8 @@
     "shift": "Shift",
     "employeeNo1": "NIK 1",
     "employeeNo2": "NIK 2",
-    "workHours": "Jam Absen",
-    "shiftOption": ["Pilih", "Shift Pagi", "Shift Malam"],
+    "workTime": "Jam Absen",
+    "shiftOption": ["Shift Pagi", "Shift Sore", "Shift Malam"],
     "proQty": "Jumlah Produksi", 
     "proTime": "Waktu Produksi",
     "addProduct": "Tambah Item Produksi",
@@ -21,17 +21,17 @@
     "editStop": "Edit Item Downtime",
     "reminder": "Semua Wajib Diisi",
     "required": "Wajib Diisi",
+    "select": "Pilih",
     "productForm": {
         "labels": ["Jenis Pekerjaan", "No. Lot", "Tipe Mesin", "No. Dies", "Minggu Ke-",
-                   "Jumlah OK", "Jumlah NG", "Total Jumlah", "Waktu Run"],
-        "worktype": ["Pilih", "Produksi Normal", "Trial Dies"]
+                   "Total OK", "Total NG", "Total Jumlah", "Waktu Run",
+                   "Penyebab NG", "Jumlah NG"],
+        "worktype": ["Produksi Normal", "Trial Dies"]
     },
     "stopForm": {
         "labels": ["No. Lot", "Tipe Mesin", "No. Dies", "Shot Saat Stop Mesin",
-                   "Total Downtime", "Masalah", "NG Downtime", "Cold Mold Qty",
-                   "Penyebab Downtime", "Waktu Downtime"],
-        "optgroups": ["Pekerjaan Dies", "Masalah Mesin", "Lain-lain"],
-        "select": "Pilih"
+                   "Total Downtime", "Penyebab Downtime", "Waktu Downtime"],
+        "optgroups": ["Pekerjaan Dies", "Masalah Mesin", "Lain-lain"]
     },
     "productItem": "Mohon tambah minimal satu item produksi",
     "stopItem": "Mohon tambah minimal satu item downtime"

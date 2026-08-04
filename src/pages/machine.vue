@@ -1,183 +1,198 @@
 <template>
 <Navbar />
 <div class="form-bg">
-    <div class="form-body">
-        <form ref="checkRequired" @submit.prevent="submitMachine">
-            <div class="form-title">
-                {{ $t('machine.title') }}
+  <div class="form-body">
+    <form ref="checkRequired" @submit.prevent="submitMachine">
+      <div class="form-title">
+          {{ $t('machine.title') }}
+      </div>
+      
+      <section>
+        <div class="sec-head">
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">{{  $t('machine.labels[0]') }}</div>
+        </div>
+        <div class="field-grid">
+          <div class="field-group">
+            <label class="field-label">{{ $t('machine.date') }}</label>
+            <input type="datetime-local" class="field-input" v-model="form.date" readonly>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('machine.machineNo') }}</label> 
+            <select class="field-input" v-model="form.machineNo" @click="identifyParams" required>
+              <option value="" selected>{{ $t('machine.select') }}</option>
+              <option value="DIE-003">DIE-003</option>
+              <option value="DIE-004">DIE-004</option>
+              <option value="DIE-005">DIE-005</option>
+              <option value="DIE-006">DIE-006</option>
+              <option value="DIE-008">DIE-008</option>
+              <option value="DIE-009">DIE-009</option>
+              <option value="DIE-010">DIE-010</option>
+              <option value="DIE-011">DIE-011</option>
+              <option value="DIE-012">DIE-012</option>
+              <option value="DIE-013">DIE-013</option>
+              <option value="DIE-014">DIE-014</option>
+              <option value="DIE-015">DIE-015</option>
+              <option value="DIE-016">DIE-016</option>
+              <option value="DIE-017">DIE-017</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('machine.batchNo') }}</label>
+            <input type="text" class="field-input" v-model="form.batchNo" @blur="returnMoldId" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('machine.machineType') }}</label> 
+            <input type="text" class="field-input" v-model="form.machineType" placeholder="ex: 444-EC" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label">{{ $t('machine.moldId') }}</label>
+            <input type="text" class="field-input" v-model="form.moldId" readonly>
+          </div>
+        </div>
+      </section>
+
+      <section v-if="checkParams"> 
+        <div class="sec-head">
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">{{ $t('machine.labels[1]') }}</div>
+        </div>
+
+        <div class="params-panel">
+          <div class="param-grid">
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[0]') }}</span>
+              <div class="radio-group">
+                <input type="radio" id="adc12" checked>
+                <label for="adc12">ADC12</label>
+              </div>
             </div>
-            
-            <section>
-                <div class="sec-head">
-                    <div class="sec-bar"></div>
-                    <div class="sec-lbl">{{  $t('machine.labels[0]') }}</div>
-                </div>
-                <div class="field-grid">
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('machine.date') }}</label>
-                        <input type="datetime-local" class="field-input" v-model="form.date" readonly>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('machine.machineNo') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineNo" @blur="identifyParams" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('machine.batchNo') }}</label>
-                        <input type="text" class="field-input" v-model="form.batchNo" @blur="returnMoldId" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('machine.machineType') }}</label> 
-                        <input type="text" class="field-input" v-model="form.machineType" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="field-label">{{ $t('machine.moldId') }}</label>
-                        <input type="text" class="field-input" v-model="form.moldId" readonly>
-                    </div>
-                </div>
-            </section>
-
-            <section v-if="checkParams"> 
-                <div class="sec-head">
-                    <div class="sec-bar"></div>
-                    <div class="sec-lbl">{{ $t('machine.labels[1]') }}</div>
-                </div>
-
-                <div class="params-panel">
-                    <div class="param-grid">
-
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[0]') }}</span>
-                            <div class="radio-group">
-                                <input type="radio" id="adc12" checked>
-                                <label for="adc12">ADC12</label>
-                            </div>
-                        </div>
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[1]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.n2Press" required>
-                            </div>
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[2]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.openTime" required>
-                        </div>
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[3]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.pressTime" required>
-                        </div>
-
-                        <div class="param-subcard">
-                            <div class="param-subcard-title">{{ $t('machine.setting.labels[4]') }}</div>
-                            <div class="sub-grid">
-                                <div class="param-group">
-                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[0]') }}</span>
-                                    <input class="param-input" type="number" step="any" v-model.number="form.setTemp" required>
-                                </div>
-                                <div class="param-group">
-                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[1]') }}</span>
-                                    <input class="param-input" type="number" step="any" v-model.number="form.realTemp" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="param-subcard">
-                            <div class="param-subcard-title">{{ $t('machine.setting.labels[5]') }}</div>
-                            <div class="sub-grid">
-                                <div class="param-group">
-                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[2]') }}</span>
-                                    <input class="param-input" type="number" step="any" v-model.number="form.fixRelTime" required>
-                                </div>
-                                <div class="param-group">
-                                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[3]') }}</span>
-                                    <input class="param-input" type="number" step="any" v-model.number="form.movRelTime" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[6]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.lowSpeed" required>
-                        </div>
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[7]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.highSpeed" required>
-                        </div>
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[8]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.position" required>
-                        </div>
-                        <div class="param-group">
-                            <span class="param-label">{{ $t('machine.setting.labels[9]') }}</span>
-                            <input class="param-input" type="number" step="any" v-model.number="form.injectPress">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section> 
-                <div class="sec-head">
-                    <div class="sec-bar"></div>
-                    <div class="sec-lbl">{{  $t('machine.labels[3]') }}</div>
-                </div>
-                <div class="check-panel">
-                    <div class="check-grid">
-                        <label 
-                        class="check-item mb-1" 
-                        v-for="issue in issueType" 
-                        :key="issue.key"
-                        >
-                            <input 
-                                type="checkbox" 
-                                class="form-check-input" 
-                                v-model="form.issues" 
-                                :value="issue.key" 
-                            />
-                            <span>{{ issue.label }}</span>
-                        </label>
-                    </div>
-                </div>
-            </section>
-
-            <section> 
-                <div class="sec-head">
-                    <div class="sec-bar"></div>
-                    <label class="sec-lbl">{{  $t('machine.labels[4]') }}</label>
-                </div>
-                <div class="upload-zone" @click="triggerUpload">
-                    <div class="upload-content">
-                        <div class="upload-icon">📁</div>
-                        <div class="upload-text">
-                            <!--when fileError != '', then output-->
-                            <span v-if="fileError" class="file-error">
-                                {{ fileError }}
-                            </span>
-                            <div v-else-if="form.files.length" class="file-selected">
-                                <div v-for="(file, index) in form.files" :key="index">
-                                    {{ file.name }}
-                                </div>
-                            </div>
-                            <span v-else>
-                                {{ $t('machine.fileUpload') }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <input 
-                        type="file" 
-                        multiple
-                        ref="fileInput" 
-                        style="display: none" 
-                        @change="handleFileChange" 
-                        accept=".jpg, .png"
-                    />
-                </div>
-            </section>
-
-
-            <div class="submit-wrap">
-                <button type="submit" class="submit-btn">Submit</button>
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[1]') }}</span>
+              <input class="param-input" type="number" step="any" v-model.number="form.n2Press" required>
+              </div>
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[2]') }}</span>
+              <input class="param-input" type="number" step="any" v-model.number="form.openTime" required>
             </div>
-            
-        </form>
-    </div>
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[3]') }}</span>
+              <input class="param-input" type="number" step="any" v-model.number="form.pressTime" required>
+            </div>
+
+            <div class="param-subcard">
+              <div class="param-subcard-title">{{ $t('machine.setting.labels[4]') }}</div>
+              <div class="sub-grid">
+                <div class="param-group">
+                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[0]') }}</span>
+                    <input class="param-input" type="number" step="any" v-model.number="form.setTemp" required>
+                </div>
+                <div class="param-group">
+                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[1]') }}</span>
+                    <input class="param-input" type="number" step="any" v-model.number="form.realTemp" required>
+                </div>
+              </div>
+            </div>
+            <div class="param-subcard">
+              <div class="param-subcard-title">{{ $t('machine.setting.labels[5]') }}</div>
+              <div class="sub-grid">
+                <div class="param-group">
+                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[2]') }}</span>
+                    <input class="param-input" type="number" step="any" v-model.number="form.fixRelTime" required>
+                </div>
+                <div class="param-group">
+                    <span class="param-sublabel">{{ $t('machine.setting.sublabels[3]') }}</span>
+                    <input class="param-input" type="number" step="any" v-model.number="form.movRelTime" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[6]') }}</span>
+              <input class="param-input" type="number" step="any" v-model.number="form.lowSpeed" required>
+            </div>
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[7]') }}</span>
+              <input class="param-input" type="number" step="any" v-model.number="form.highSpeed" required>
+            </div>
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[8]') }}</span>
+              <input class="param-input" type="number" step="any" v-model.number="form.position" required>
+            </div>
+            <div class="param-group">
+              <span class="param-label">{{ $t('machine.setting.labels[9]') }}</span>
+              <input class="param-input" type="number" step="any" v-model.number="form.injectPress">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section> 
+        <div class="sec-head">
+          <div class="sec-bar"></div>
+          <div class="sec-lbl">{{  $t('machine.labels[3]') }}</div>
+        </div>
+        <div class="check-panel">
+          <div class="check-grid">
+            <label 
+            class="check-item mb-1" 
+            v-for="issue in issueType" 
+            :key="issue.key"
+            >
+              <input 
+                type="checkbox" 
+                class="form-check-input" 
+                v-model="form.issues" 
+                :value="issue.key" 
+              />
+              <span>{{ issue.label }}</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section> 
+        <div class="sec-head">
+          <div class="sec-bar"></div>
+          <label class="sec-lbl">{{  $t('machine.labels[4]') }}</label>
+        </div>
+        <div class="upload-zone" @click="triggerUpload">
+          <div class="upload-content">
+            <div class="upload-icon">📁</div>
+            <div class="upload-text">
+              <!--when fileError != '', then output-->
+              <span v-if="fileError" class="file-error">
+                {{ fileError }}
+              </span>
+              <div v-else-if="form.files.length" class="file-selected">
+                <div v-for="(file, index) in form.files" :key="index">
+                  {{ file.name }}
+                </div>
+              </div>
+              <span v-else>
+                {{ $t('machine.fileUpload') }}
+              </span>
+            </div>
+          </div>
+
+          <input 
+            type="file" 
+            multiple
+            ref="fileInput" 
+            style="display: none" 
+            @change="handleFileChange" 
+            accept=".jpg, .png"
+          />
+        </div>
+      </section>
+
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn">Submit</button>
+      </div>
+        
+    </form>
+  </div>
 </div>
 <Footer />
 
@@ -204,34 +219,34 @@ const fileInput = ref('');
 const fileError = ref('');
 //main form
 const form = reactive({
-  ...(parsedDraft || {
-    formType: '自主巡檢表-設備檢查', 
-    machineNo: '',
-    batchNo: '',
-    machineType: '',
-    moldId: '',
-    material: 'ADC12',
-    n2Press: '',
-    openTime: '',
-    pressTime: '',
-    setTemp: '',
-    realTemp: '',
-    fixRelTime: '',
-    movRelTime: '',
-    lowSpeed: '',
-    highSpeed: '',
-    position: '',
-    injectPress: '',
-    issues: [],
-    files: []
+...(parsedDraft || {
+  formType: '自主巡檢表-設備檢查', 
+  machineNo: '',
+  batchNo: '',
+  machineType: '',
+  moldId: '',
+  material: 'ADC12',
+  n2Press: '',
+  openTime: '',
+  pressTime: '',
+  setTemp: '',
+  realTemp: '',
+  fixRelTime: '',
+  movRelTime: '',
+  lowSpeed: '',
+  highSpeed: '',
+  position: '',
+  injectPress: '',
+  issues: [],
+  files: []
   }),
   date: formatNow('minute')   
 })
 
 //automatically show moldId
 const returnMoldId = () => {
-    form.moldId = form.batchNo.split('-')[1] || '';
-    form.moldId = String(form.moldId).padStart(3, '#0');
+  form.moldId = form.batchNo.split('-')[1] || '';
+  form.moldId = String(form.moldId).padStart(3, '#0');
 }
 
 //data actively save to localStorage
@@ -256,15 +271,15 @@ const resetform = () => {
 
 //value assignment
 const issueType = computed(() => [
-    { key: '鑄塞漏水', label: t('machine.checklist[0]') },
-    { key: '料管漏水', label: t('machine.checklist[1]') },
-    { key: '模具漏水', label: t('machine.checklist[2]') },
-    { key: '離型劑過多', label: t('machine.checklist[3]') },
-    { key: '排氣閥阻塞', label: t('machine.checklist[4]') },
-    { key: '離型劑噴頭漏水', label: t('machine.checklist[5]') },
-    { key: '料管沒潤滑', label: t('machine.checklist[6]') },
-    { key: '輸送機風扇沒運轉', label: t('machine.checklist[7]') },
-    { key: '模具循環水沒開啟', label: t('machine.checklist[8]') }
+  { key: '鑄塞漏水', label: t('machine.checklist[0]') },
+  { key: '料管漏水', label: t('machine.checklist[1]') },
+  { key: '模具漏水', label: t('machine.checklist[2]') },
+  { key: '離型劑過多', label: t('machine.checklist[3]') },
+  { key: '排氣閥阻塞', label: t('machine.checklist[4]') },
+  { key: '離型劑噴頭漏水', label: t('machine.checklist[5]') },
+  { key: '料管沒潤滑', label: t('machine.checklist[6]') },
+  { key: '輸送機風扇沒運轉', label: t('machine.checklist[7]') },
+  { key: '模具循環水沒開啟', label: t('machine.checklist[8]') }
 ])
 
 //setting parameters block display or not
@@ -279,66 +294,64 @@ const allowMachine = [
 
 function identifyParams()
 {
-    checkParams.value = !allowMachine.includes(form.machineNo)
+  checkParams.value = !allowMachine.includes(form.machineNo)
 }
 
 //file processing
 const triggerUpload = () => {
-    fileInput.value.click();
+  fileInput.value.click();
 };
 
 const handleFileChange = (event) => {
 
-    const selectedFiles = Array.from(event.target.files);
-    fileError.value = '';
+  const selectedFiles = Array.from(event.target.files);
+  fileError.value = '';
 
-    if (selectedFiles.length === 0) return;
+  if (selectedFiles.length === 0) return;
 
-    for (const file of selectedFiles) {
-        if (file.size > 5 * 1024 * 1024) {
-            fileError.value = t('machine.fileLimit');
-            event.target.value = '';
-            return;
-        }
+  for (const file of selectedFiles) {
+    if (file.size > 5 * 1024 * 1024) {
+      fileError.value = t('machine.fileLimit');
+      event.target.value = '';
+      return;
     }
-    form.files = selectedFiles;
+  }
+  form.files = selectedFiles;
 };
 
 //validation
 const checkSet = () => {
-    if (!checkRequired.value.checkValidity()) 
-    {
-        checkRequired.value.reportValidity();
-        return false;
-    }
+  if (!checkRequired.value.checkValidity()) 
+  {
+    checkRequired.value.reportValidity();
+    return false;
+  }
 
-    fileError.value = '';
+  fileError.value = '';
 
-    if (form.issues.length === 0) 
-    {
-        return confirm(t('machine.setOK'));
-    }
+  if (form.issues.length === 0) 
+  {
+    return confirm(t('machine.setOK'));
+  }
 
-    if (form.files.length === 0) 
-    {
-        fileError.value = t('machine.fileNG');
-        return false;
-    }
-    
-    return true;
+  if (form.files.length === 0) 
+  {
+    fileError.value = t('machine.fileNG');
+    return false;
+  }
+  
+  return true;
 };
 
 //form submit
 const submitMachine = async() => {
-    if(!checkSet())
-        return;
+  if(!checkSet())
+      return;
+ 
+  //console.log(form);
+  resetform();
 
-    form.moldId = String(form.moldId).padStart(3, '#0');
-    
-    //console.log(form);
-    resetform();
-
-    //API
+  //API
 }
 
 </script>

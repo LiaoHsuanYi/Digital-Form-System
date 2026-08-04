@@ -18,9 +18,9 @@
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[0]') }}<span class="required">*</span></label>
                 <select class="form-input" v-model="local.jobType" :class="{ error: errors.jobType }">
-                  <option value="">{{ $t('dailysheet.productForm.worktype[0]') }}</option>
-                  <option value="有標工作">{{ $t('dailysheet.productForm.worktype[1]') }}</option>
-                  <option value="試模">{{ $t('dailysheet.productForm.worktype[2]') }}</option>
+                  <option value="">{{ $t('dailysheet.select') }}</option>
+                  <option value="有標工作">{{ $t('dailysheet.productForm.worktype[0]') }}</option>
+                  <option value="試模">{{ $t('dailysheet.productForm.worktype[1]') }}</option>
                 </select>
                 <span v-if="errors.jobType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
@@ -33,11 +33,11 @@
             <div class="form-row">
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[2]') }}<span class="required">*</span></label>
-                <input v-model="local.machineType" type="text" class="form-input" :class="{ error: errors.machineType }">
+                <input v-model="local.machineType" type="text" class="form-input" placeholder="ex: 444-EC" :class="{ error: errors.machineType }">
                 <span v-if="errors.machineType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[3]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[3]') }}</label>
                 <input v-model="local.moldId" type="text" class="form-input" readonly>
               </div>
               <div class="form-field">
@@ -49,7 +49,34 @@
           </div>
 
           <div class="section-group">
-            <p class="group-label">Item Info</p>
+            <p class="group-label">Item Info
+              <span class="tooltip-wrapper" ref="TooltipRef">
+                <IconInfoCircle
+                  class="tooltip-icon"
+                  @click.stop="openProPreview"
+                />
+              </span>
+              <Teleport to="body">
+                <div
+                  v-if="showProImage"
+                  class="image-preview-overlay"
+                  @click="closeProPreview"
+                >
+                  <button
+                    type="button"
+                    class="image-preview-close"
+                    @click.stop="closeProPreview"
+                  >
+                    ✕
+                  </button>
+                  <img
+                    src="@/assets/productIssue.jpg"
+                    class="image-preview"
+                    @click.stop
+                  />
+                </div>
+              </Teleport>
+            </p>
             <div class="form-row">
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[5]') }}<span class="required">*</span></label>
@@ -57,9 +84,8 @@
                 <span v-if="errors.okQty" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[6]') }}<span class="required">*</span></label>
-                <input v-model.number="local.ngQty" type="number" min="0" class="form-input" :class="{ error: errors.ngQty }">
-                <span v-if="errors.ngQty" class="error-msg">{{ $t('dailysheet.required') }}</span>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[6]') }}</label>
+                <input :value="computedNgTotal" type="number" class="form-input" readonly>
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[7]') }}</label>
@@ -69,6 +95,61 @@
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[8]') }}<span class="required">*</span></label>
                 <input v-model="local.runTime" type="text" class="form-input" :class="{ error: errors.runTime }" placeholder="? mins">
                 <span v-if="errors.runTime" class="error-msg">{{ $t('dailysheet.required') }}</span>
+              </div>
+            </div>
+            <div class="row-group"  v-for="(item, index) in local.ngReason" :key="index">
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[9]') }}<span class="required">*</span></label> 
+                  <select class="form-input" v-model="item.ngIssue" :class="{ error: errors.ngIssue }">
+                    <option value="">{{ $t('dailysheet.select') }}</option>
+                    <option value="冷模">A</option>
+                    <option value="黏模">B</option>
+                    <option value="燒附">C</option>
+                    <option value="拉模">D</option>
+                    <option value="模崩">E</option>
+                    <option value="模裂">F</option>
+                    <option value="壓傷">G</option>
+                    <option value="沖蝕">H</option>
+                    <option value="缺肉">I</option>
+                    <option value="多肉">J</option>
+                    <option value="顆粒">K</option>
+                    <option value="斷差">L</option>
+                    <option value="洩料">M</option>
+                    <option value="水路異常">N</option>
+                    <option value="Pin問題">O</option>
+                    <option value="頂針問題">P</option>
+                    <option value="其他">Q</option>
+                  </select> 
+                </div>
+                <div class="form-field">
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[10]') }}<span class="required">*</span></label>
+                  <input v-model.number="item.ngQty" type="number" min="0" class="form-input" :class="{ error: errors.ngQty }">
+                </div>
+                <button type="button"
+                  v-if="index === 0" 
+                  class="action-btn ng-add-btn" 
+                  @click="addngReason"
+                  >
+                  <span class="ng-btn-icon">+</span>
+                </button>
+
+                <button type="button" 
+                  v-else
+                  class="action-btn ng-remove-btn" 
+                  @click="removengReason(index)"
+                  >
+                  <span class="ng-btn-icon">-</span>
+                </button>
+              </div>
+              <div class="error-row" v-if="index === 0 && (errors.ngIssue === true || errors.ngQty === true)">
+                <div class="error-left" :style="{ visibility: errors.ngIssue ? 'visible' : 'hidden' }">
+                  {{ $t('dailysheet.required') }}
+                </div>
+                <div class="error-right" :style="{ visibility: errors.ngQty ? 'visible' : 'hidden' }">
+                  {{ $t('dailysheet.required') }}
+                </div>
+                <div class="ghost-spacer"></div>
               </div>
             </div>
           </div>
@@ -85,7 +166,8 @@
 </template>
 
 <script setup>
-import { reactive, computed, watch } from 'vue'
+import { ref, reactive, computed } from 'vue'
+import { IconInfoCircle } from "@tabler/icons-vue";
 
 const props = defineProps({
   editData: { type: Object, default: null },
@@ -101,15 +183,47 @@ const createEmpty = () => ({
   moldId: '',
   weekNo: '',
   okQty: '',
-  ngQty: '',
+  totalNgQty: '',
   totalQty: '',
-  runTime: ''
+  runTime: '',
+  ngReason: [
+    {
+      ngIssue: '',
+      ngQty: ''
+    }
+  ]
 })
 
 //automatically show moldId
 const returnMoldId = () => {
     local.moldId = local.batchNo.split('-')[1] || '';
     local.moldId = String(local.moldId).padStart(3, '#0');
+}
+
+function addngReason() 
+{
+  local.ngReason.push({
+    ngIssue: '',
+    ngQty: ''
+  })
+}
+
+function removengReason(index) 
+{
+  if (local.ngReason.length <= 1) 
+    return;
+
+  local.ngReason.splice(index, 1);
+}
+
+// lightbox - image preview
+const showProImage = ref(false);
+
+const openProPreview = () => {
+  showProImage.value = true;
+}
+const closeProPreview = () => {
+  showProImage.value = false;
 }
 
 // If editData has value, then edit. If not, then create
@@ -121,15 +235,23 @@ const errors = reactive({
   machineType: false,
   weekNo: false,
   okQty: false,
-  ngQty: false,
-  runTime: false
+  runTime: false,
+  ngIssue: false,
+  ngQty: false
 })
 
-const computedTotal = computed(() =>
-  (Number(local.okQty) || 0) + (Number(local.ngQty) || 0)
-)
+const computedNgTotal = computed(() => {
+  return local.ngReason.reduce((total, item) => {
+    const qty = parseInt(item.ngQty) || 0;
+    return total + qty;
+  }, 0);
+})
 
-const requiredFields = ['jobType', 'batchNo', 'machineType', 'weekNo', 'okQty', 'ngQty', 'runTime']
+const computedTotal = computed(() => {
+  return (Number(local.okQty) || 0) + computedNgTotal.value;
+})
+
+const requiredFields = ['jobType', 'batchNo', 'machineType', 'weekNo', 'okQty', 'runTime']
 
 const validate = () => {
   let valid = true
@@ -137,23 +259,23 @@ const validate = () => {
     errors[key] = local[key] === '' || local[key] === null || local[key] === undefined
     if (errors[key]) valid = false
   })
+
+  //validate ngReason array independently
+  const firstNg = local.ngReason[0];
+  errors.ngIssue = !firstNg.ngIssue;
+  errors.ngQty = !firstNg.ngQty;
+
+  if (errors.ngQty || errors.ngIssue ) 
+  {
+    valid = false
+  }
   return valid;
 }
 
 const handleSave = () => {
   if (!validate()) return
-  local.moldId = String(local.moldId).padStart(3, '#0');
-  emit('save', { ...local, totalQty: computedTotal.value })
+  emit('save', { ...local, totalNgQty: computedNgTotal.value, totalQty: computedTotal.value })
 }
-
-
-watch(
-  [() => local.okQty, () => local.ngQty], 
-  ([newOK, newNG]) => {
-    local.totalQty = (Number(newOK) || 0) + (Number(newNG) || 0);
-  },
-  {immediate: true}
-)
 
 </script>
 
@@ -247,6 +369,12 @@ watch(
   margin: 0;
 }
 
+.row-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .form-row {
   display: flex;
   gap: 10px;
@@ -305,12 +433,70 @@ watch(
   text-align: center;
 }
 
+.error-row {
+  display: flex;
+}
+
+.error-left {
+  flex: 1;
+  font-size: 16px;
+  color: #DF4E4E;
+  text-align: center;
+}
+
+.error-right {
+  flex: 1;
+  font-size: 16px;
+  color: #DF4E4E;
+  text-align: center;
+}
+
+.ghost-spacer {
+  width: 44px; 
+  flex-shrink: 0; 
+  visibility: hidden; 
+  pointer-events: none;
+}
+
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 15px;
   padding: 12px 18px;
   border-top: 1px solid #ebebeb;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1.5px solid;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+  align-self: end;
+}
+.ng-btn-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+.ng-add-btn {
+  border-color: #3ab87a;
+  color: #3ab87a;
+}
+.ng-add-btn:hover { background: #e1f5ee; }
+.ng-remove-btn {
+  border-color: #ccc;
+  color: #999;
+}
+.ng-remove-btn:hover {
+  border-color: #e57373;
+  color: #e57373;
+  background: #fff5f5;
 }
 
 .btn-cancel {
@@ -340,4 +526,75 @@ watch(
   transition: background 0.15s;
 }
 .btn-save:hover { background: #179268; }
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  top: -1px;
+}
+
+.tooltip-icon {
+  font-size: 15px;
+  color: #999;
+  cursor: pointer;
+}
+
+.tooltip-icon:hover {
+  color: var(--green);
+}
+
+.tooltip-popover {
+  position: absolute;
+  top: 130%;
+  left: 0;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: 20;
+}
+
+.tooltip-image {
+  width: 100%;
+  border-radius: 4px;
+  display: block;
+}
+
+.image-preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-preview {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+}
+.image-preview-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 3000;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.image-preview-close:hover {
+  background: #fff;
+}
 </style>

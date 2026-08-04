@@ -6,8 +6,8 @@
     "shift": "班別",
     "employeeNo1": "工號 1",
     "employeeNo2": "工號 2", 
-    "workHours": "出勤時間",
-    "shiftOption": ["請選擇", "早班", "晚班"],
+    "workTime": "出勤時間",
+    "shiftOption": ["早班", "中班", "晚班"],
     "proQty": "生產數量", 
     "proTime": "生產時間",
     "addProduct": "新增生產項目",
@@ -21,16 +21,17 @@
     "editStop": "編輯停機項目",
     "reminder": "全部必填 (All  required)",
     "required": "必填",
+    "select": "請選擇",
     "productForm": {
         "labels": ["工作類型", "批號", "機種", "模號", "週次",
-                   "OK數量", "NG數量", "總數量", "運行時間"],
-        "worktype": ["請選擇", "有標工作", "試模"]
+                   "OK總數", "NG總數", "總數量", "運行時間",
+                   "NG原因", "NG數量"],
+        "worktype": ["有標工作", "試模"]
     },
     "stopForm": {
-        "labels": ["批號", "機種", "模號", "停機射次","停機總時間", 
-                   "異常問題", "停機NG數", "冷模數量", "停機原因", "停機時間"],
-        "optgroups": ["模具作業", "機台問題", "其他"],
-        "select": "請選擇"
+        "labels": ["批號", "機種", "模號", "停機射次",
+                   "停機總時間", "停機原因", "停機時間"],
+        "optgroups": ["模具作業", "機台問題", "其他"]
     },
     "productItem": "請至少新增一筆生產項目",
     "stopItem": "請至少新增一筆停機項目"
