@@ -6,6 +6,7 @@ import Machine from '@/pages/machine.vue'
 import Appearance from '@/pages/appearance.vue'
 import DailySheet from '@/pages/dailysheet.vue'
 import Approval from '@/pages/approval.vue'
+import Rework from '@/pages/rework.vue'
 
 const routes = [
   { path: '/', component: Login },
@@ -13,7 +14,8 @@ const routes = [
   { path: '/machine', component: Machine },
   { path: '/appearance', component: Appearance },
   { path: '/dailysheet', component: DailySheet },
-  { path: '/approval', component: Approval}
+  { path: '/approval', component: Approval},  
+  { path: '/rework', component: Rework }
 ]
 
 const router = createRouter({

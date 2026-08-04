@@ -99,7 +99,9 @@
             :key="index"
             class="prod-card"
           >
-            <div class="card-index">{{ index + 1 }}</div>
+            <div class="card-index" :class="item.jobType === '試模' ? 'card-index-trial' : 'card-index-production'">
+              {{ index + 1 }}
+            </div>
   
             <div class="card-main">
               <div class="card-title">{{ item.machineType }}</div>
@@ -107,6 +109,12 @@
             </div>
   
             <div class="card-meta">
+              
+                <span class="badge" :class="item.jobType === '試模' ? 'badge-trial' : 'badge-production'">
+                  {{ changeBadge(item.jobType) }}
+                </span>
+              
+              <div class="divider"></div>
               <div class="meta-item">
                 <p class="meta-label">{{ $t('dailysheet.proQty') }}</p>
                 <div class="meta-val">{{ item.totalQty }}</div>
@@ -142,14 +150,14 @@
             :key="index"
             class="prod-card"
           >
-            <div class="card-index">{{ index + 1 }}</div>
+            <div class="card-index card-index-trial">{{ index + 1 }}</div>
   
             <div class="card-main">
               <div class="card-title">{{ item.machineType }}</div>
               <div class="card-sub">{{ item.batchNo }}</div>
             </div>
   
-            <div class="card-meta">
+            <div class="card-meta card-meta-single">
               <div class="meta-item">
                 <p class="meta-label">{{ $t('dailysheet.stopTime') }}</p>
                 <div class="meta-val">{{ item.totalTime }}</div>
@@ -244,10 +252,19 @@ const checkShots = () => {
 
 //auto switch workTime
 watch(() => form.shift, (shift) => {
-  if (shift === '中班') form.workTime = 480
-  else if (shift === '晚班') form.workTime = 740
-  else if (shift !== '早班') form.workTime = ''
+  if (shift === '早班') form.workTime = 720;
+  else if(shift === '中班') form.workTime = 480;
+  else if (shift === '晚班') form.workTime = 740;
+  else {};
 })
+
+//change language for jobType badge
+const changeBadge = (jobType) => {
+  if (jobType === '有標工作') return t('dailysheet.productForm.worktype[0]');
+  if (jobType === '試模') return t('dailysheet.productForm.worktype[1]');
+  return jobType;
+}
+
 
 //data actively save to localStorage
 watch(form, () => {
@@ -345,13 +362,14 @@ const submitDailysheet = () => {
     alert(t('dailysheet.stopItem'));
     return;
   }
-  /*localStorage.clear()
-  sessionStorage.clear()
-  */
-  console.log(form);
+
+  /*localStorage.clear();
+  sessionStorage.clear();
+  console.log(form);*/
+  
   // API
 
-  //resetform()
+  resetform()
 }
 </script>
 
@@ -403,8 +421,6 @@ const submitDailysheet = () => {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #e1f5ee;
-  color: #0f6e56;
   font-size: 13px;
   font-weight: 500;
   display: flex;
@@ -413,6 +429,9 @@ const submitDailysheet = () => {
   flex-shrink: 0;
   margin: 10px;
 }
+.card-index-production { background: #e1f5ee; color: #0f6e56; }
+.card-index-trial { background: #fadeda; color: #a31f0e; }
+
 .card-main { flex: 1; min-width: 0; }
 .card-title {
   font-size: 18px;
@@ -429,7 +448,12 @@ const submitDailysheet = () => {
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+}
+.card-meta-single {
+  justify-content: flex-start;
+  min-width: 104px;  
 }
 .meta-item { text-align: center; }
 .meta-label {
@@ -450,12 +474,18 @@ const submitDailysheet = () => {
 .badge {
   font-size: 15px;
   font-weight: 500;
-  padding: 8px 13px;
+  align-self: center;
+  align-items: center;
+  padding: 10px 13px;
+  justify-content: center;  
+  min-width: 90px;  
   border-radius: 20px;
   white-space: nowrap;
+  display: flex;
 }
-.badge-complete   { background: #e1f5ee; color: #0f6e56; }
-.badge-incomplete { background: #faeeda; color: #854f0b; }
+.badge-production   { background: #e1f5ee; color: #0f6e56; }
+.badge-trial { background: #fadeda; color: #a31f0e; }
+
 .card-actions { display: flex; gap: 6px; flex-shrink: 0; margin-left: 20px;}
 .btn-icon {
   width: 40px;

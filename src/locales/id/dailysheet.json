@@ -23,13 +23,13 @@
     "required": "Wajib Diisi",
     "select": "Pilih",
     "productForm": {
-        "labels": ["Jenis Pekerjaan", "No. Lot", "Tipe Mesin", "No. Dies", "Minggu Ke-",
-                   "Total OK", "Total NG", "Total Jumlah", "Waktu Run",
-                   "Penyebab NG", "Jumlah NG"],
+        "labels": ["Jenis Pekerjaan", "No. Lot", "Kode Bahan", "Tipe Mesin", 
+                   "No. Dies", "Minggu Ke-", "Total OK", "Total NG", 
+                   "Total Jumlah", "Waktu Run", "Penyebab NG", "Jumlah NG"],
         "worktype": ["Produksi Normal", "Trial Dies"]
     },
     "stopForm": {
-        "labels": ["No. Lot", "Tipe Mesin", "No. Dies", "Shot Saat Stop Mesin",
+        "labels": ["No. Lot", "Kode Bahan", "Tipe Mesin", "No. Dies", "Shot Saat Stop Mesin", 
                    "Total Downtime", "Penyebab Downtime", "Waktu Downtime"],
         "optgroups": ["Pekerjaan Dies", "Masalah Mesin", "Lain-lain"]
     },

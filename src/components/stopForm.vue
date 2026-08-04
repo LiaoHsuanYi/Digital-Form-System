@@ -22,11 +22,16 @@
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stopForm.labels[1]') }}<span class="required">*</span></label>
+                <input v-model="local.materialNo" type="text" class="form-input" :class="{ error: errors.materialNo }">
+                <span v-if="errors.materialNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
+              </div>
+              <div class="form-field">
+                <label class="form-label">{{ $t('dailysheet.stopForm.labels[2]') }}<span class="required">*</span></label>
                 <input v-model="local.machineType" type="text" class="form-input" placeholder="ex: 444-EC" :class="{ error: errors.machineType }">
                 <span v-if="errors.machineType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stopForm.labels[2]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.stopForm.labels[3]') }}<span class="required">*</span></label>
                 <input v-model="local.moldId" type="text" class="form-input" readonly>
               </div>
             </div>
@@ -63,19 +68,19 @@
             </p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stopForm.labels[3]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.stopForm.labels[4]') }}<span class="required">*</span></label>
                 <input v-model.number="local.shotCount" type="number" min="0" class="form-input" :class="{ error: errors.shotCount }">
                 <span v-if="errors.shotCount" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.stopForm.labels[4]') }}</label>
+                <label class="form-label">{{ $t('dailysheet.stopForm.labels[5]') }}</label>
                 <input :value="computedTotal" type="number" class="form-input" readonly>
               </div>
             </div>
             <div class="row-group" v-for="(item, index) in local.stopReason" :key="index">
               <div class="form-row">
                 <div class="form-field">
-                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[5]') }}<span class="required">*</span></label> 
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[6]') }}<span class="required">*</span></label> 
                   <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
                     <option value="">{{ $t('dailysheet.select') }}</option>
                     <optgroup :label="$t('dailysheet.stopForm.optgroups[0]')">
@@ -118,7 +123,7 @@
                   </select>
                 </div>
                 <div class="form-field">
-                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[6]') }}<span class="required">*</span></label>
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.stopForm.labels[7]') }}<span class="required">*</span></label>
                   <input v-model.number="item.stopTime" type="number" min="0" class="form-input" :class="{ error: errors.stopTime }" placeholder="? mins">
                 </div>
                 <button type="button"
@@ -173,6 +178,7 @@ const emit = defineEmits(['save', 'close'])
 
 const createEmpty = () => ({
   batchNo: '',
+  materialNo: '',
   machineType: '',
   moldId: '',
   shotCount: '',
@@ -223,6 +229,7 @@ const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 
 const errors = reactive({
   batchNo: false,
+  materialNo: false,
   machineType: false,
   shotCount: false,
   stopIssue: false,
@@ -236,7 +243,7 @@ const computedTotal = computed(() => {
   }, 0);
 })
 
-const requiredFields = ['batchNo', 'machineType', 'shotCount']
+const requiredFields = ['batchNo', 'materialNo', 'machineType', 'shotCount']
 
 const validate = () => {
   let valid = true

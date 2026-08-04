@@ -29,19 +29,24 @@
                 <input v-model="local.batchNo" type="text" class="form-input" @blur="returnMoldId" :class="{ error: errors.batchNo }">
                 <span v-if="errors.batchNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
+               <div class="form-field">
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[2]') }}<span class="required">*</span></label>
+                <input v-model="local.materialNo" type="text" class="form-input" :class="{ error: errors.materialNo }">
+                <span v-if="errors.materialNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
+              </div>
             </div>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[2]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[3]') }}<span class="required">*</span></label>
                 <input v-model="local.machineType" type="text" class="form-input" placeholder="ex: 444-EC" :class="{ error: errors.machineType }">
                 <span v-if="errors.machineType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[3]') }}</label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[4]') }}</label>
                 <input v-model="local.moldId" type="text" class="form-input" readonly>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[4]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[5]') }}<span class="required">*</span></label>
                 <input v-model="local.weekNo" type="text" class="form-input" :class="{ error: errors.weekNo }">
                 <span v-if="errors.weekNo" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
@@ -79,20 +84,20 @@
             </p>
             <div class="form-row">
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[5]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[6]') }}<span class="required">*</span></label>
                 <input v-model.number="local.okQty" type="number" min="0" class="form-input" :class="{ error: errors.okQty }">
                 <span v-if="errors.okQty" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[6]') }}</label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[7]') }}</label>
                 <input :value="computedNgTotal" type="number" class="form-input" readonly>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[7]') }}</label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[8]') }}</label>
                 <input :value="computedTotal" type="number" class="form-input" readonly>
               </div>
               <div class="form-field">
-                <label class="form-label">{{ $t('dailysheet.productForm.labels[8]') }}<span class="required">*</span></label>
+                <label class="form-label">{{ $t('dailysheet.productForm.labels[9]') }}<span class="required">*</span></label>
                 <input v-model="local.runTime" type="text" class="form-input" :class="{ error: errors.runTime }" placeholder="? mins">
                 <span v-if="errors.runTime" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
@@ -100,7 +105,7 @@
             <div class="row-group"  v-for="(item, index) in local.ngReason" :key="index">
               <div class="form-row">
                 <div class="form-field">
-                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[9]') }}<span class="required">*</span></label> 
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[10]') }}<span class="required">*</span></label> 
                   <select class="form-input" v-model="item.ngIssue" :class="{ error: errors.ngIssue }">
                     <option value="">{{ $t('dailysheet.select') }}</option>
                     <option value="冷模">A</option>
@@ -123,7 +128,7 @@
                   </select> 
                 </div>
                 <div class="form-field">
-                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[10]') }}<span class="required">*</span></label>
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[11]') }}<span class="required">*</span></label>
                   <input v-model.number="item.ngQty" type="number" min="0" class="form-input" :class="{ error: errors.ngQty }">
                 </div>
                 <button type="button"
@@ -179,6 +184,7 @@ const emit = defineEmits(['save', 'close'])
 const createEmpty = () => ({
   jobType: '',
   batchNo: '',
+  materialNo: '',
   machineType: '',
   moldId: '',
   weekNo: '',
@@ -232,6 +238,7 @@ const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 const errors = reactive({
   jobType: false,
   batchNo: false,
+  materialNo: false,
   machineType: false,
   weekNo: false,
   okQty: false,
@@ -251,7 +258,7 @@ const computedTotal = computed(() => {
   return (Number(local.okQty) || 0) + computedNgTotal.value;
 })
 
-const requiredFields = ['jobType', 'batchNo', 'machineType', 'weekNo', 'okQty', 'runTime']
+const requiredFields = ['jobType', 'batchNo', 'materialNo', 'machineType', 'weekNo', 'okQty', 'runTime']
 
 const validate = () => {
   let valid = true
