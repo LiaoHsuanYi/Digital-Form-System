@@ -1,5 +1,5 @@
 {
-    "title": "Laporan Harian Produksi Die Casting",
+    "title": "Laporan Harian Produksi Die Casting - Surat Perintah Kerja",
     "labels": ["Data Mesin", "Data Personel", "Item Produksi", "Item Downtime", "Daftar Masalah Downtime"],
     "date": "Tanggal",
     "machineNo": "Nomor Mesin",

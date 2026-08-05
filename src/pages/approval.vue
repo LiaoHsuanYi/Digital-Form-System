@@ -30,7 +30,7 @@
                         <input class="remark-input">
                     </td>
                     <td>
-                        <button class="confirm-btn">確認</button>
+                        <button class="confirm-btn">送出</button>
                     </td>
                   </tr>
                 </tbody>
@@ -145,7 +145,7 @@ td {
 }
 
 tr:hover{
-  background-color: var(--green-light);
+  background-color: #FFF0F2;
 }
 
 .remark-input {
@@ -165,18 +165,18 @@ tr:hover{
 }
 
 .confirm-btn {
-  border: 1px solid #15803D;
+  border: 1px solid #E30613;
   background: #fff;
   padding: 6px 14px;
   border-radius: 7px;
   font-size: 16px;
   font-weight: 600;
-  color: #15803D;
+  color: #E30613;
   white-space: nowrap;
 }
 
 .confirm-btn:hover {
-  background: #15803D;
+  background: #E30613;
   color: #fff;
 }
 </style>

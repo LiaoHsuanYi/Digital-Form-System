@@ -435,7 +435,7 @@ const submitDailysheet = () => {
 .card-main { flex: 1; min-width: 0; }
 .card-title {
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--title);
   margin: 0 0 2px;
 }
