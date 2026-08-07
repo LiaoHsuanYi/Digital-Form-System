@@ -182,7 +182,7 @@ const createEmpty = () => ({
   machineType: '',
   moldId: '',
   shotCount: '',
-  totalTime: '',
+  totalStopTime: '',
   stopReason: [
     {
       stopIssue: '',
@@ -267,7 +267,7 @@ const validate = () => {
 
 const handleSave = () => {
   if (!validate()) return
-  emit('save', { ...local, totalTime: computedTotal.value })
+  emit('save', { ...local, totalStopTime: computedTotal.value })
 }
 </script>
 

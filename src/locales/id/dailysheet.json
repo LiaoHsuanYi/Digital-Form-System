@@ -1,5 +1,5 @@
 {
-    "title": "Laporan Harian Produksi Die Casting - Surat Perintah Kerja",
+    "title": "Laporan Harian Produksi Die Casting",
     "labels": ["Data Mesin", "Data Personel", "Item Produksi", "Item Downtime", "Daftar Masalah Downtime"],
     "date": "Tanggal",
     "machineNo": "Nomor Mesin",
@@ -26,7 +26,7 @@
         "labels": ["Jenis Pekerjaan", "No. Lot", "Kode Bahan", "Tipe Mesin", 
                    "No. Dies", "Minggu Ke-", "Total OK", "Total NG", 
                    "Total Jumlah", "Waktu Run", "Penyebab NG", "Jumlah NG"],
-        "worktype": ["Produksi Normal", "Trial Dies"]
+        "worktype": ["Produksi Normal", "Trial Dies", "Rework"]
     },
     "stopForm": {
         "labels": ["No. Lot", "Kode Bahan", "Tipe Mesin", "No. Dies", "Shot Saat Stop Mesin", 
@@ -34,5 +34,6 @@
         "optgroups": ["Pekerjaan Dies", "Masalah Mesin", "Lain-lain"]
     },
     "productItem": "Mohon tambah minimal satu item produksi",
-    "stopItem": "Mohon tambah minimal satu item downtime"
+    "stopItem": "Mohon tambah minimal satu item downtime",
+    "timeAlert": "Hitungan waktu produksi dan downtime salah, tolong cek lagi"
 }

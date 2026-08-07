@@ -1,6 +1,5 @@
 {
     "title": ["Produksi", "Checklist Patroli Mandiri", "Laporan Harian Produksi Die Casting"],
-    "subtitles": ["1. Pemeriksaan Peralatan", "2. Inspeksi Visual", 
-                  "Surat Perintah Kerja", "Form Rework"],
+    "subtitles": ["1. Pemeriksaan Peralatan", "2. Inspeksi Visual"],
     "logOut": "Keluar"
 }

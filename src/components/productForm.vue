@@ -21,6 +21,7 @@
                   <option value="">{{ $t('dailysheet.select') }}</option>
                   <option value="有標工作">{{ $t('dailysheet.productForm.worktype[0]') }}</option>
                   <option value="試模">{{ $t('dailysheet.productForm.worktype[1]') }}</option>
+                  <option value="重修">{{ $t('dailysheet.productForm.worktype[2]') }}</option>
                 </select>
                 <span v-if="errors.jobType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>

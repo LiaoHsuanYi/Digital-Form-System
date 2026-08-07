@@ -32,18 +32,9 @@
         </div>
       </div>
       <div class="subnav-dropdown">
-        <a class="subnav-link" :class="{ on: isDailyRoute }" @click.stop="toggleDrop('daily')">
+        <router-link to="/dailysheet" class="subnav-link" :class="{ on: isDailyRoute }">
           {{ t('navbar.title[2]') }}
-          <span class="chevron" :class="{ rotate: openDrop === 'daily' }">▾</span>
-        </a>
-        <div v-show="openDrop === 'daily'" class="subnav-dropdown-menu">
-          <router-link to="/dailysheet" class="subnav-dropdown-item" @click="closeAll">
-            {{ t('navbar.subtitles[2]') }}
-          </router-link>
-          <router-link to="/rework" class="subnav-dropdown-item" @click="closeAll">
-            {{ t('navbar.subtitles[3]') }}
-          </router-link>
-        </div>
+        </router-link>
       </div>
  
     </div>
@@ -74,21 +65,21 @@ const isCheckRoute = computed(() =>
   ['/machine', '/appearance'].includes(route.path)
 )
 const isDailyRoute = computed(() =>
-  ['/dailysheet', '/rework'].includes(route.path)
+  route.path === '/dailysheet'
 )
 
 const toggleDrop = (name) => {
-  openDrop.value = openDrop.value === name ? null : name
+  openDrop.value = openDrop.value === name ? null : name;
 }
  
 const toggleMenu = () => {
-  menuOpen.value = !menuOpen.value
-  if (!menuOpen.value) openDrop.value = null
+  menuOpen.value = !menuOpen.value;
+  if (!menuOpen.value) openDrop.value = null;
 }
 
 const closeAll = () => {
-  menuOpen.value = false
-  openDrop.value = null
+  menuOpen.value = false;
+  openDrop.value = null;
 }
 
 function changeLang(e) {

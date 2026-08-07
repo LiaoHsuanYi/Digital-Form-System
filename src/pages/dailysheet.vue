@@ -99,7 +99,7 @@
             :key="index"
             class="prod-card"
           >
-            <div class="card-index" :class="item.jobType === '試模' ? 'card-index-trial' : 'card-index-production'">
+            <div class=" card-index card-index-production">
               {{ index + 1 }}
             </div>
   
@@ -110,7 +110,7 @@
   
             <div class="card-meta">
               
-                <span class="badge" :class="item.jobType === '試模' ? 'badge-trial' : 'badge-production'">
+                <span class="badge" :class="getBadgeClass(item.jobType)">
                   {{ changeBadge(item.jobType) }}
                 </span>
               
@@ -160,7 +160,7 @@
             <div class="card-meta card-meta-single">
               <div class="meta-item">
                 <p class="meta-label">{{ $t('dailysheet.stopTime') }}</p>
-                <div class="meta-val">{{ item.totalTime }}</div>
+                <div class="meta-val">{{ item.totalStopTime }}</div>
               </div>
             </div>
   
@@ -190,6 +190,7 @@
         @close="closeProductModal"
       />
 
+      <!-- stopForm -->
       <stopForm
         v-if="showStopModal"
         :edit-data="stopEditData"
@@ -197,7 +198,7 @@
         @save="handleStopSave"
         @close="closeStopModal"
       />
- 
+
     </form>
   </div>
 </div>
@@ -261,10 +262,18 @@ watch(() => form.shift, (shift) => {
 //change language for jobType badge
 const changeBadge = (jobType) => {
   if (jobType === '有標工作') return t('dailysheet.productForm.worktype[0]');
-  if (jobType === '試模') return t('dailysheet.productForm.worktype[1]');
+  else if (jobType === '試模') return t('dailysheet.productForm.worktype[1]');
+  else if (jobType === '重修') return t('dailysheet.productForm.worktype[2]');
   return jobType;
 }
 
+//change badge class for jobType
+const getBadgeClass = (jobType) => {
+  if (jobType === '有標工作') return 'badge-production';
+  else if (jobType === '試模') return 'badge-trial';
+  else if (jobType === '重修') return 'badge-rework';
+  return '';
+}
 
 //data actively save to localStorage
 watch(form, () => {
@@ -314,7 +323,7 @@ const closeProductModal = () => {
   productEditIndex.value = null;
   productEditData.value  = null;
 }
- 
+
 //stopForm modal control
 const showStopModal = ref(false);
 const stopEditIndex = ref(null);
@@ -349,20 +358,50 @@ const closeStopModal = () => {
   stopEditData.value  = null;
 }
 
-//form submit
-const submitDailysheet = () => {
-
+//form validation
+const checkDailysheet = () => {
   if(form.productItems.length === 0) 
   {
     alert(t('dailysheet.productItem'));
-    return;
+    return false;
   }
   if(form.stopItems.length === 0) 
   {
     alert(t('dailysheet.stopItem'));
-    return;
+    return false;
   }
 
+  //totalTime validation
+  let totalProTime = 0;
+  let totalStopTime = 0;
+  for (const item of form.productItems) 
+  {  
+    if (item.jobType !== '重修') 
+    {
+      totalProTime += Number(item.runTime) || 0;
+    } 
+  }
+  for (const item of form.stopItems) 
+  {
+    totalStopTime += Number(item.totalStopTime) || 0;
+  }
+
+  let totalTime = totalProTime + totalStopTime;
+  if (totalTime !== form.workTime) 
+  {
+    alert(t('dailysheet.timeAlert'));
+    return false;
+  }
+  
+  return true;
+}
+
+//form submit
+const submitDailysheet = () => {
+
+  if (!checkDailysheet()) 
+    return;
+  
   /*localStorage.clear();
   sessionStorage.clear();
   console.log(form);*/
@@ -485,6 +524,7 @@ const submitDailysheet = () => {
 }
 .badge-production   { background: #e1f5ee; color: #0f6e56; }
 .badge-trial { background: #fadeda; color: #a31f0e; }
+.badge-rework { background: #FCE4BA; color: #D15100; }
 
 .card-actions { display: flex; gap: 6px; flex-shrink: 0; margin-left: 20px;}
 .btn-icon {

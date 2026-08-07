@@ -204,6 +204,8 @@ const checkLook = () => {
     {
         return confirm(t('appearance.lookNG', { count: count }));
     }
+
+    return true;
 }
 
 //submit
