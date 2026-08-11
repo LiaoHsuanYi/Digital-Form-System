@@ -15,7 +15,7 @@
   </div>
 
   <div class="subnav">
-    <router-link to="/mbx" class="subnav-brand">{{ t('navbar.title[0]') }}</router-link>
+    <router-link to="/manufacturing" class="subnav-brand">{{ t('navbar.title[0]') }}</router-link>
     <div class="subnav-links" :class="{ open: menuOpen }">
       <div class="subnav-dropdown">
         <a class="subnav-link" :class="{ on: isCheckRoute }" @click.stop="toggleDrop('check')">
