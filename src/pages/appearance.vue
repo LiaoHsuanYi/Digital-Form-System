@@ -136,7 +136,7 @@ const returnMoldId = () => {
     form.moldId = String(form.moldId).padStart(3, '#0');
 }
 
-//data actively save to localStorage
+//data save to localStorage
 watch(form, () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
 }, { deep: true })
@@ -167,7 +167,7 @@ const defectType = computed(() => [
   {key: '模具黏模', label: t('appearance.checklist.defects[10]')},
 ])
 
-//pack checkbox defects
+//pack matrix grid defects
 const isChecked = (item, defectType) => {
   return form.defects.some(x => x.item === item && x.defectType === defectType);
 }
@@ -187,7 +187,7 @@ const packDefect = (item, defectType, checked) => {
   }
 }
 
-//validation
+//form validation
 const checkLook = () => {
     if (!checkRequired.value.checkValidity()) //check required
     {
@@ -208,7 +208,7 @@ const checkLook = () => {
     return true;
 }
 
-//submit
+//form submit
 const submitAppearance = async() => {
   if(!checkLook())
       return;

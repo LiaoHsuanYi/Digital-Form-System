@@ -36,7 +36,6 @@
           {{ t('navbar.title[2]') }}
         </router-link>
       </div>
- 
     </div>
 
     <!--hamburger btn for mobile -->
@@ -60,7 +59,7 @@ const { t, locale } = useI18n()
 const menuOpen = ref(false)
 const openDrop = ref(null)
 
-// determine active route for navbar highlighting
+//determine page route for navbar highlighting
 const isCheckRoute = computed(() =>
   ['/machine', '/appearance'].includes(route.path)
 )
@@ -68,6 +67,7 @@ const isDailyRoute = computed(() =>
   route.path === '/dailysheet'
 )
 
+//dropdown control
 const toggleDrop = (name) => {
   openDrop.value = openDrop.value === name ? null : name;
 }
@@ -82,6 +82,7 @@ const closeAll = () => {
   openDrop.value = null;
 }
 
+//change language
 function changeLang(e) {
   const newLocale = e.target.value;
   locale.value = newLocale;           
@@ -90,7 +91,6 @@ function changeLang(e) {
 </script>
 
 <style scoped>
-/* components/navbar.vue */
 .topbar {
   background: var(--card);
   border-bottom: 1px solid var(--border);

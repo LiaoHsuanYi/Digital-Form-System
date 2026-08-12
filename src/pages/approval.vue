@@ -47,6 +47,7 @@
 <script setup>
 import Footer from '@/components/footer.vue';
 
+//virtual data -> need to display the specified form data
 const barData = [
   {
     id: '1',

@@ -169,6 +169,7 @@
 import { ref, reactive, computed } from 'vue'
 import { IconInfoCircle } from "@tabler/icons-vue";
 
+//determine edit
 const props = defineProps({
   editData: { type: Object, default: null },
   isEdit:   { type: Boolean, default: false }
@@ -176,6 +177,7 @@ const props = defineProps({
 
 const emit = defineEmits(['save', 'close'])
 
+//form 
 const createEmpty = () => ({
   batchNo: '',
   materialNo: '',
@@ -197,6 +199,7 @@ const returnMoldId = () => {
     local.moldId = String(local.moldId).padStart(3, '#0');
 }
 
+//push & remove stopReason data to array
 function addstopReason() 
 {
   local.stopReason.push({
@@ -227,6 +230,15 @@ const closeStopPreview = () => {
 // If editData has value, then edit. If not, then create
 const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 
+//compute totalStopTime
+const computedTotal = computed(() => {
+  return local.stopReason.reduce((total, item) => {
+    const time = parseInt(item.stopTime) || 0;
+    return total + time;
+  }, 0);
+})
+
+//validation
 const errors = reactive({
   batchNo: false,
   materialNo: false,
@@ -234,13 +246,6 @@ const errors = reactive({
   shotCount: false,
   stopIssue: false,
   stopTime: false
-})
-
-const computedTotal = computed(() => {
-  return local.stopReason.reduce((total, item) => {
-    const time = parseInt(item.stopTime) || 0;
-    return total + time;
-  }, 0);
 })
 
 const requiredFields = ['batchNo', 'materialNo', 'machineType', 'shotCount']
@@ -265,6 +270,7 @@ const validate = () => {
   return valid;
 }
 
+//save to dailysheet
 const handleSave = () => {
   if (!validate()) return
   emit('save', { ...local, totalStopTime: computedTotal.value })

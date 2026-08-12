@@ -249,7 +249,7 @@ const returnMoldId = () => {
   form.moldId = String(form.moldId).padStart(3, '#0');
 }
 
-//data actively save to localStorage
+//data save to localStorage
 watch(form, () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(form))
 }, { deep: true })
@@ -319,7 +319,7 @@ const handleFileChange = (event) => {
   form.files = selectedFiles;
 };
 
-//validation
+//form validation
 const checkSet = () => {
   if (!checkRequired.value.checkValidity()) 
   {

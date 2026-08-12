@@ -175,6 +175,7 @@
 import { ref, reactive, computed } from 'vue'
 import { IconInfoCircle } from "@tabler/icons-vue";
 
+//determine edit
 const props = defineProps({
   editData: { type: Object, default: null },
   isEdit:   { type: Boolean, default: false }
@@ -182,6 +183,7 @@ const props = defineProps({
 
 const emit = defineEmits(['save', 'close'])
 
+//form
 const createEmpty = () => ({
   jobType: '',
   batchNo: '',
@@ -207,6 +209,7 @@ const returnMoldId = () => {
     local.moldId = String(local.moldId).padStart(3, '#0');
 }
 
+//push & remove ngReason data to array
 function addngReason() 
 {
   local.ngReason.push({
@@ -236,6 +239,19 @@ const closeProPreview = () => {
 // If editData has value, then edit. If not, then create
 const local = reactive(props.editData ? { ...props.editData } : createEmpty())
 
+//compute totalNgQty & totalQty
+const computedNgTotal = computed(() => {
+  return local.ngReason.reduce((total, item) => {
+    const qty = parseInt(item.ngQty) || 0;
+    return total + qty;
+  }, 0);
+})
+
+const computedTotal = computed(() => {
+  return (Number(local.okQty) || 0) + computedNgTotal.value;
+})
+
+//validation
 const errors = reactive({
   jobType: false,
   batchNo: false,
@@ -246,17 +262,6 @@ const errors = reactive({
   runTime: false,
   ngIssue: false,
   ngQty: false
-})
-
-const computedNgTotal = computed(() => {
-  return local.ngReason.reduce((total, item) => {
-    const qty = parseInt(item.ngQty) || 0;
-    return total + qty;
-  }, 0);
-})
-
-const computedTotal = computed(() => {
-  return (Number(local.okQty) || 0) + computedNgTotal.value;
 })
 
 const requiredFields = ['jobType', 'batchNo', 'materialNo', 'machineType', 'weekNo', 'okQty', 'runTime']
@@ -280,6 +285,7 @@ const validate = () => {
   return valid;
 }
 
+//save to dailysheet
 const handleSave = () => {
   if (!validate()) return
   emit('save', { ...local, totalNgQty: computedNgTotal.value, totalQty: computedTotal.value })
