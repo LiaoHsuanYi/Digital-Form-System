@@ -225,7 +225,7 @@ const form = reactive({
   batchNo: '',
   machineType: '',
   moldId: '',
-  material: 'ADC12',
+  materialSrc: 'ADC12',
   n2Press: '',
   openTime: '',
   pressTime: '',
@@ -262,7 +262,7 @@ const resetform = () => {
     else form[key] = '';
   })
     form.date = formatNow('minute');
-    form.material = 'ADC12';
+    form.materialSrc = 'ADC12';
 
     fileInput.value.value = '';
     fileError.value = '';
