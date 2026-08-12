@@ -106,7 +106,7 @@
             <div class="row-group"  v-for="(item, index) in local.ngReason" :key="index">
               <div class="form-row">
                 <div class="form-field">
-                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[10]') }}<span class="required">*</span></label> 
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[10]') }}</label> 
                   <select class="form-input" v-model="item.ngIssue" :class="{ error: errors.ngIssue }">
                     <option value="">{{ $t('dailysheet.select') }}</option>
                     <option value="冷模">A</option>
@@ -129,7 +129,7 @@
                   </select> 
                 </div>
                 <div class="form-field">
-                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[11]') }}<span class="required">*</span></label>
+                  <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[11]') }}</label>
                   <input v-model.number="item.ngQty" type="number" min="0" class="form-input" :class="{ error: errors.ngQty }">
                 </div>
                 <button type="button"
@@ -260,8 +260,6 @@ const errors = reactive({
   weekNo: false,
   okQty: false,
   runTime: false,
-  ngIssue: false,
-  ngQty: false
 })
 
 const requiredFields = ['jobType', 'batchNo', 'materialNo', 'machineType', 'weekNo', 'okQty', 'runTime']
@@ -272,16 +270,6 @@ const validate = () => {
     errors[key] = local[key] === '' || local[key] === null || local[key] === undefined
     if (errors[key]) valid = false
   })
-
-  //validate ngReason array independently
-  const firstNg = local.ngReason[0];
-  errors.ngIssue = !firstNg.ngIssue;
-  errors.ngQty = !firstNg.ngQty;
-
-  if (errors.ngQty || errors.ngIssue ) 
-  {
-    valid = false
-  }
   return valid;
 }
 
