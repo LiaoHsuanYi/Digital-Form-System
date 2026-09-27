@@ -25,17 +25,15 @@ A Vue-based internal manufacturing management system designed to digitise shop-f
 * Prompts users to confirm their inspection results before submission.
 
 ### Daily Sheet
+- Records machine working hours and production types, including:
+  - Normal production
+  - Rework
+  - Trial production
 
-* Records machine working hours and production types, including:
-
-  * Normal production
-  * Rework
-  * Trial production
-
-* **Product Form**: records production quantities and processing time.
-* **Stop Form**: records downtime, duration, and related issues.
-* Provides issue reference information through a full-screen image preview.
-* Validates that the total recorded production and downtime matches the operator's attendance hours before submission.
+- **Product Form**: records production quantities and processing time.
+- **Stop Form**: records downtime, duration, and related issues.
+- Both forms provide issue reference images through an information icon.
+- Validates that the total recorded production and downtime matches the operator's attendance hours before submission.
 
 ## Tech Stack
 
