@@ -1,25 +1,52 @@
-# system_vue
+# Digital-Form-System
 
-This template should help get you started developing with Vue 3 in Vite.
+A Vue-based internal manufacturing management system designed to digitise shop-floor inspection and daily production records.
 
-## Recommended IDE Setup
+## Features
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Login
 
-## Recommended Browser Setup
+* Simple login interface for system access.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### Manufacturing
 
-## Customize configuration
+* Manufacturing department homepage.
+* Provides basic instructions and supports language switching.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Machine Inspection
+
+* Records equipment inspection information.
+* Requires image uploads before submission.
+* Displays an alert when required files are missing.
+
+### Appearance Inspection
+
+* Records product appearance inspection results.
+* Prompts users to confirm their inspection results before submission.
+
+### Daily Sheet
+
+* Records machine working hours and production types, including:
+
+  * Normal production
+  * Rework
+  * Trial production
+
+* **Product Form**: records production quantities and processing time.
+* **Stop Form**: records downtime, duration, and related issues.
+* Provides issue reference information through a full-screen image preview.
+* Validates that the total recorded production and downtime matches the operator's attendance hours before submission.
+
+## Tech Stack
+
+* Vue.js
+* JavaScript
+* HTML
+* CSS
 
 ## Project Setup
+
+Install dependencies:
 
 ```sh
 npm install
@@ -36,3 +63,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## Notes
+
+This repository is a portfolio version of an internal manufacturing system. Company-specific information, production data, and business-related details have been removed or replaced with demonstration data.

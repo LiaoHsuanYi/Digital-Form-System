@@ -21,21 +21,12 @@
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.machineNo') }}</label>
               <select class="field-input" v-model="form.machineNo" required>
-                  <option value="" selected>{{ $t('dailysheet.select') }}</option>
-                  <option value="DIE-003">DIE-003</option>
-                  <option value="DIE-004">DIE-004</option>
-                  <option value="DIE-005">DIE-005</option>
-                  <option value="DIE-006">DIE-006</option>
-                  <option value="DIE-008">DIE-008</option>
-                  <option value="DIE-009">DIE-009</option>
-                  <option value="DIE-010">DIE-010</option>
-                  <option value="DIE-011">DIE-011</option>
-                  <option value="DIE-012">DIE-012</option>
-                  <option value="DIE-013">DIE-013</option>
-                  <option value="DIE-014">DIE-014</option>
-                  <option value="DIE-015">DIE-015</option>
-                  <option value="DIE-016">DIE-016</option>
-                  <option value="DIE-017">DIE-017</option>
+                <option value="" selected>{{ $t('dailysheet.select') }}</option>
+                <option value="M001">Machine 001</option>
+                <option value="M002">Machine 002</option>
+                <option value="M003">Machine 003</option>
+                <option value="M004">Machine 004</option>
+                <option value="M005">Machine 005</option>
               </select>
           </div>
           <div class="field-group">
@@ -61,27 +52,23 @@
               <label class="field-label">{{ $t('dailysheet.shift') }}</label> 
               <select class="field-input" v-model="form.shift" required>
                   <option value="" selected>{{ $t('dailysheet.select') }}</option>
-                  <option value="早班">{{ $t('dailysheet.shiftOption[0]') }}</option>
-                  <option value="中班">{{ $t('dailysheet.shiftOption[1]') }}</option>
-                  <option value="晚班">{{ $t('dailysheet.shiftOption[2]') }}</option>
+                  <option value="Day Shift">{{ $t('dailysheet.shiftOption[0]') }}</option>
+                  <option value="Middle Shift">{{ $t('dailysheet.shiftOption[1]') }}</option>
+                  <option value="Night Shift">{{ $t('dailysheet.shiftOption[2]') }}</option>
               </select>
           </div>    
           <div class="field-group">
-              <label class="field-label">{{ $t('dailysheet.employeeNo1') }}</label> 
-              <input type="text" class="field-input" v-model="form.employeeNo1" required>
-          </div>
-          <div class="field-group">
-              <label class="field-label">{{ $t('dailysheet.employeeNo2') }}</label>
-              <input type="text" class="field-input" v-model="form.employeeNo2">
+              <label class="field-label">{{ $t('dailysheet.employeeNo') }}</label> 
+              <input type="text" class="field-input" v-model="form.employeeNo" required>
           </div>
           <div class="field-group">
               <label class="field-label">{{ $t('dailysheet.workTime') }}</label> 
-              <select v-if="form.shift === '早班'" class="field-input" v-model="form.workTime" required>
-                <option value="570">570</option>
-                <option value="720" selected>720</option>
+              <select v-if="form.shift === 'Day Shift'" class="field-input" v-model="form.workTime" required>
+                <option value="450">450</option>
+                <option value="550" selected>550</option>
               </select>
-              <input v-else-if="form.shift === '中班'" class="field-input" v-model="form.workTime" readonly>
-              <input v-else-if="form.shift === '晚班'" class="field-input" v-model="form.workTime" readonly>
+              <input v-else-if="form.shift === 'Middle Shift'" class="field-input" v-model="form.workTime" readonly>
+              <input v-else-if="form.shift === 'Night Shift'" class="field-input" v-model="form.workTime" readonly>
               <input v-else class="field-input" readonly>
           </div>
         </div>
@@ -224,13 +211,12 @@ const parsedDraft = savedDraft ? JSON.parse(savedDraft) : null
 //main form
 const form = reactive({
   ...(parsedDraft || {
-    formType: '壓鑄工作日報表', 
+    formType: 'Daily Production Report', 
     machineNo: '',
     firstShot: '',
     lastShot: '',
     shift: '',
-    employeeNo1: '',
-    employeeNo2: '',
+    employeeNo: '',
     workTime: '',
     productItems: [],
     stopItems: []
@@ -253,25 +239,25 @@ const checkShots = () => {
 
 //auto switch workTime
 watch(() => form.shift, (shift) => {
-  if (shift === '早班') form.workTime = 720;
-  else if(shift === '中班') form.workTime = 480;
-  else if (shift === '晚班') form.workTime = 740;
+  if (shift === 'Day Shift') form.workTime = 550;
+  else if(shift === 'Middle Shift') form.workTime = 400;
+  else if (shift === 'Night Shift') form.workTime = 650;
   else {};
 })
 
 //change language for jobType badge
 const changeBadge = (jobType) => {
-  if (jobType === '有標工作') return t('dailysheet.productForm.worktype[0]');
-  else if (jobType === '試模') return t('dailysheet.productForm.worktype[1]');
-  else if (jobType === '重修') return t('dailysheet.productForm.worktype[2]');
+  if (jobType === 'Standard Production') return t('dailysheet.productForm.worktype[0]');
+  else if (jobType === 'Mold Trial') return t('dailysheet.productForm.worktype[1]');
+  else if (jobType === 'Rework') return t('dailysheet.productForm.worktype[2]');
   return jobType;
 }
 
 //change badge class for jobType
 const getBadgeClass = (jobType) => {
-  if (jobType === '有標工作') return 'badge-production';
-  else if (jobType === '試模') return 'badge-trial';
-  else if (jobType === '重修') return 'badge-rework';
+  if (jobType === 'Standard Production') return 'badge-production';
+  else if (jobType === 'Mold Trial') return 'badge-trial';
+  else if (jobType === 'Rework') return 'badge-rework';
   return '';
 }
 
@@ -376,7 +362,7 @@ const checkDailysheet = () => {
   let totalStopTime = 0;
   for (const item of form.productItems) 
   {  
-    if (item.jobType !== '重修') 
+    if (item.jobType !== 'Rework') 
     {
       totalProTime += Number(item.runTime) || 0;
     } 
@@ -398,14 +384,10 @@ const checkDailysheet = () => {
 
 //form submit
 const submitDailysheet = () => {
-
   if (!checkDailysheet()) 
     return;
-
-  //console.log(form);
   
   // API
-
   resetform()
 }
 </script>
@@ -430,7 +412,7 @@ const submitDailysheet = () => {
 /* employee */
 .person-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: end;
   gap: 10px;
   margin: 15px 0;

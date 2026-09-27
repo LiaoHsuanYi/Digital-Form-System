@@ -3,12 +3,11 @@
   <div class="topbar">
     <div class="topbar-left">
       <select class="topbar-lang" :value="locale" @change="changeLang">
-          <option value="zh" selected>繁體中文</option>
-          <option value="th">ภาษาไทย</option>
-          <option value="id">Bahasa Indonesia</option>
+          <option value="en" selected>English</option>
+          <option value="zh">繁體中文</option>
       </select>
     </div>
-    <img src="@/assets/logo.jpg" class="topbar-logo">
+    <img src="@/assets/logo.png" class="topbar-logo" alt="My logo">
       <div class="topbar-right">
       <button class="logout-btn" @click="router.push('/')">{{ t('navbar.logOut') }}</button>
     </div>

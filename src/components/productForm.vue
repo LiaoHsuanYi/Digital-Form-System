@@ -19,9 +19,9 @@
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[0]') }}<span class="required">*</span></label>
                 <select class="form-input" v-model="local.jobType" :class="{ error: errors.jobType }">
                   <option value="">{{ $t('dailysheet.select') }}</option>
-                  <option value="有標工作">{{ $t('dailysheet.productForm.worktype[0]') }}</option>
-                  <option value="試模">{{ $t('dailysheet.productForm.worktype[1]') }}</option>
-                  <option value="重修">{{ $t('dailysheet.productForm.worktype[2]') }}</option>
+                  <option value="Standard Production">{{ $t('dailysheet.productForm.worktype[0]') }}</option>
+                  <option value="Mold Trial">{{ $t('dailysheet.productForm.worktype[1]') }}</option>
+                  <option value="Rework">{{ $t('dailysheet.productForm.worktype[2]') }}</option>
                 </select>
                 <span v-if="errors.jobType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
@@ -39,7 +39,7 @@
             <div class="form-row">
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.productForm.labels[3]') }}<span class="required">*</span></label>
-                <input v-model="local.machineType" type="text" class="form-input" placeholder="ex: 444-EC" :class="{ error: errors.machineType }">
+                <input v-model="local.machineType" type="text" class="form-input" :class="{ error: errors.machineType }">
                 <span v-if="errors.machineType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
@@ -76,7 +76,7 @@
                     ✕
                   </button>
                   <img
-                    src="@/assets/productIssue.jpg"
+                    src="@/assets/productIssue.png"
                     class="image-preview"
                     @click.stop
                   />
@@ -109,23 +109,12 @@
                   <label class="form-label" v-if="index === 0">{{ $t('dailysheet.productForm.labels[10]') }}</label> 
                   <select class="form-input" v-model="item.ngIssue" :class="{ error: errors.ngIssue }">
                     <option value="">{{ $t('dailysheet.select') }}</option>
-                    <option value="冷模">A</option>
-                    <option value="黏模">B</option>
-                    <option value="燒附">C</option>
-                    <option value="拉模">D</option>
-                    <option value="模崩">E</option>
-                    <option value="模裂">F</option>
-                    <option value="壓傷">G</option>
-                    <option value="沖蝕">H</option>
-                    <option value="缺肉">I</option>
-                    <option value="多肉">J</option>
-                    <option value="顆粒">K</option>
-                    <option value="斷差">L</option>
-                    <option value="洩料">M</option>
-                    <option value="水路異常">N</option>
-                    <option value="Pin問題">O</option>
-                    <option value="頂針問題">P</option>
-                    <option value="其他">Q</option>
+                    <option value="Cold Mold">A</option>
+                    <option value="Surface Defect">B</option>
+                    <option value="Adhesion Issue">C</option>
+                    <option value="Mold Damage">D</option>
+                    <option value="Crack Issue">E</option>
+                    <option value="Deformation">F</option>
                   </select> 
                 </div>
                 <div class="form-field">

@@ -21,20 +21,11 @@
             <label class="field-label">{{ $t('appearance.machineNo') }}</label> 
             <select class="field-input" v-model="form.machineNo" required>
               <option value="" selected>{{ $t('appearance.select') }}</option>
-              <option value="DIE-003">DIE-003</option>
-              <option value="DIE-004">DIE-004</option>
-              <option value="DIE-005">DIE-005</option>
-              <option value="DIE-006">DIE-006</option>
-              <option value="DIE-008">DIE-008</option>
-              <option value="DIE-009">DIE-009</option>
-              <option value="DIE-010">DIE-010</option>
-              <option value="DIE-011">DIE-011</option>
-              <option value="DIE-012">DIE-012</option>
-              <option value="DIE-013">DIE-013</option>
-              <option value="DIE-014">DIE-014</option>
-              <option value="DIE-015">DIE-015</option>
-              <option value="DIE-016">DIE-016</option>
-              <option value="DIE-017">DIE-017</option>
+              <option value="M001">Machine 001</option>
+              <option value="M002">Machine 002</option>
+              <option value="M003">Machine 003</option>
+              <option value="M004">Machine 004</option>
+              <option value="M005">Machine 005</option>
             </select>
           </div>
           <div class="field-group">
@@ -43,7 +34,7 @@
           </div>
           <div class="field-group">
             <label class="field-label">{{ $t('appearance.machineType') }}</label> 
-            <input type="text" class="field-input" v-model="form.machineType" placeholder="ex: 444-EC" required>
+            <input type="text" class="field-input" v-model="form.machineType" required>
           </div>
           <div class="field-group">
             <label class="field-label">{{ $t('appearance.moldId') }}</label>
@@ -120,7 +111,7 @@ const checkRequired = ref();
 //main form
 const form = reactive({
   ...(parsedDraft || {
-    formType: '自主巡檢表-外觀檢視', 
+    formType: 'Visual Inspection', 
     machineNo: '',
     batchNo: '',
     machineType: '',
@@ -154,17 +145,13 @@ const resetform = () => {
 //value assignment
 const items = [1, 2, 3, 4]
 const defectType = computed(() => [
-  {key: '拉模、裂紋', label: t('appearance.checklist.defects[0]')},
-  {key: '缺肉、多肉', label: t('appearance.checklist.defects[1]')},
-  {key: '燒付', label: t('appearance.checklist.defects[2]')},
-  {key: '模銷斷、歪斜', label: t('appearance.checklist.defects[3]')},
-  {key: '流紋', label: t('appearance.checklist.defects[4]')},
-  {key: '起泡、凹陷', label: t('appearance.checklist.defects[5]')},
-  {key: '變形', label: t('appearance.checklist.defects[6]')},
-  {key: '週期章無打點', label: t('appearance.checklist.defects[7]')},
-  {key: '檢具NG', label: t('appearance.checklist.defects[8]')},
-  {key: '油汙、手套痕', label: t('appearance.checklist.defects[9]')},
-  {key: '模具黏模', label: t('appearance.checklist.defects[10]')},
+  {key: 'Scratches', label: t('appearance.checklist.defects[0]')},
+  {key: 'Short Shot', label: t('appearance.checklist.defects[1]')},
+  {key: 'Surface Burn', label: t('appearance.checklist.defects[2]')},
+  {key: 'Pin Misalignment', label: t('appearance.checklist.defects[3]')},
+  {key: 'Flow Marks', label: t('appearance.checklist.defects[4]')},
+  {key: 'Bubbles', label: t('appearance.checklist.defects[5]')},
+  {key: 'Deformation', label: t('appearance.checklist.defects[6]')}
 ])
 
 //pack matrix grid defects
@@ -213,10 +200,8 @@ const submitAppearance = async() => {
   if(!checkLook())
       return;
 
-  //console.log(form);
-  resetform();
-
   //API
+  resetform();
 }
 
 </script>

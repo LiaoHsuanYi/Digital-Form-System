@@ -1,0 +1,38 @@
+{
+    "title": "Daily Production Report",
+    "labels": ["Machine Info", "Personal Info", "Production Items", "Downtime Items"],
+    "date": "Date",
+    "machineNo": "Machine No.",
+    "shift": "Shift",
+    "employeeNo": "Employee ID",
+    "workTime": "Attendance Hours",
+    "shiftOption": ["Day Shift", "Middle Shift", "Night Shift"],
+    "proQty": "Production Quantity", 
+    "proTime": "Production Time",
+    "addProduct": "Add Production Item",
+    "editProduct": "Edit Production Item",
+    "firstShot": "Initial Shot Count",
+    "lastShot": "Final Shot Count",
+    "stopQty": "Downtime NG Quantity", 
+    "stopTime": "Downtime Duration",
+    "shotError": "Final Shot Count > Initial Shot Count",
+    "addStop": "Add Downtime Item",
+    "editStop": "Edit Downtime Item",
+    "reminder": "All fields required",
+    "required": "Required",
+    "select": "Please Select",
+    "productForm": {
+        "labels": ["Work Type", "Batch No.", "Material No.", "Machine Type", "Mold ID", 
+                "Week No.", "Total OK", "Total NG", "Total Qty", 
+                "Run Time", "NG Reason", "NG Quantity"],
+        "worktype": ["Standard Production", "Mold Trial", "Rework"]
+    },
+    "stopForm": {
+        "labels": ["Batch No.", "Material No.", "Machine", "Mold ID", "Downtime Shot Count",
+                "Total Downtime Duration", "Downtime Reason", "Downtime Duration"],
+        "optgroups": ["Mold Operations", "Machine Issues", "Others"]
+    },
+    "productItem": "Please add at least one production item",
+    "stopItem": "Please add at least one downtime item", 
+    "timeAlert": "Production time and downtime calculations are incorrect. Please double-check."
+}

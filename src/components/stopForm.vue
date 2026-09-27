@@ -27,7 +27,7 @@
               </div>
               <div class="form-field">
                 <label class="form-label">{{ $t('dailysheet.stopForm.labels[2]') }}<span class="required">*</span></label>
-                <input v-model="local.machineType" type="text" class="form-input" placeholder="ex: 444-EC" :class="{ error: errors.machineType }">
+                <input v-model="local.machineType" type="text" class="form-input" :class="{ error: errors.machineType }">
                 <span v-if="errors.machineType" class="error-msg">{{ $t('dailysheet.required') }}</span>
               </div>
               <div class="form-field">
@@ -59,7 +59,7 @@
                     ✕
                   </button>
                   <img
-                    src="@/assets/stopIssue.jpg"
+                    src="@/assets/stopIssue.png"
                     class="image-preview"
                     @click.stop
                   />
@@ -84,41 +84,22 @@
                   <select class="form-input" v-model="item.stopIssue" :class="{ error: errors.stopIssue }">
                     <option value="">{{ $t('dailysheet.select') }}</option>
                     <optgroup :label="$t('dailysheet.stopForm.optgroups[0]')">
-                      <option value="試模">1</option>
-                      <option value="烤模">2</option>
-                      <option value="模具上模">3</option>
-                      <option value="模具下模">4</option>
-                      <option value="模具維修">5</option>
-                      <option value="模具保養">6</option>
-                      <option value="模具檢查">7</option>
-                      <option value="導柱斷裂">8</option>
-                      <option value="油壓缸異常">9</option>
-                      <option value="剪邊模故障">10</option>
-                      <option value="模具模面清理">11</option>
+                      <option value="Mold Trial">1</option>
+                      <option value="Upper Die">2</option>
+                      <option value="Lower Die">3</option>
+                      <option value="Mold Repair">4</option>
                     </optgroup>
                     <optgroup :label="$t('dailysheet.stopForm.optgroups[1]')">
-                      <option value="換柱塞">12</option>
-                      <option value="換料管">13</option>
-                      <option value="湯溫不足">14</option>
-                      <option value="油管漏油">15</option>
-                      <option value="設備保養">16</option>
-                      <option value="調整合模力">17</option>
-                      <option value="添加液壓油">18</option>
-                      <option value="壓鑄機故障">19</option>
-                      <option value="給湯機故障">20</option>
-                      <option value="取出機故障">21</option>
-                      <option value="真空機故障">22</option>
-                      <option value="噴霧機故障">23</option>
-                      <option value="除氣干涉生產">24</option>
-                      <option value="機台機構異常">25</option>
-                      <option value="料管卡鋁屑處理">26</option>
+                      <option value="Equipment Failure">5</option>
+                      <option value="Machine Adjustment">6</option>
+                      <option value="Insufficient Temperature">7</option>
+                      <option value="Equipment Maintenance">8</option>
                     </optgroup>
                     <optgroup :label="$t('dailysheet.stopForm.optgroups[2]')">
-                      <option value="調整噴霧">27</option>
-                      <option value="整理清潔">28</option>
-                      <option value="教育集會">29</option>
-                      <option value="支援外單位">30</option>
-                      <option value="其他">31</option>
+                      <option value="Cleaning">9</option>
+                      <option value="Training">10</option>
+                      <option value="External Support">11</option>
+                      <option value="Others">12</option>
                     </optgroup>
                   </select>
                 </div>

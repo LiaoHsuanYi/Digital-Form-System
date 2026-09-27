@@ -1,0 +1,25 @@
+{
+    "title": "Operation Inspection Checklist - Equipment Inspection",
+    "labels": ["Machine Info", "Machine Parameters", "Picture Upload"],
+    "date": "Date & Time",
+    "machineNo": "Machine No.",
+    "batchNo": "Batch No.",
+    "machineType": "Machine Type",
+    "moldId": "Mold ID",
+    "select": "Please Select",
+    "setting": {
+        "labels": [
+        "Material Type",
+        "Pressure Setting",
+        "Mold Opening Time (sec)",
+        "Holding Time (sec)",
+        "Processing Temp",
+        "Cooling Time (sec)"
+        ],
+        "sublabels": ["Target Temp", "Actual Temp", "Stationary Side", "Movable Side"]
+    },
+    "fileUpload": "Click here to upload photo",
+    "fileNG": "Please upload a photo",
+    "fileLimit": "File size too large. Please try again.",
+    "alert": "Inspection complete. Equipment status normal."
+}

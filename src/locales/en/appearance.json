@@ -1,0 +1,25 @@
+{
+    "title": "Operation Inspection Checklist – Visual Inspection",
+    "labels": ["Machine Info", "Visual Checklist"],
+    "date": "Date & Time",
+    "machineNo": "Machine No.",
+    "batchNo": "Batch No.",
+    "machineType": "Machine Type",
+    "moldId": "Mold No.",
+    "select": "Please Select",
+    "checklist": {
+        "title": "Inspection Item / Sample No.",
+        "items": ["Sample 1", "Sample 2", "Sample 3", "Sample 4"],
+        "defects": [
+            "Scratches, Cracks",
+            "Short Shot, Flash",
+            "Surface Burn, Discoloration",
+            "Structural / Ejector Pin Misalignment",
+            "Flow Marks",
+            "Bubbles, Sink Marks",
+            "Deformation"
+        ]
+    },
+    "lookOK": "No abnormalities detected. Confirm data accuracy before submitting.",
+    "lookNG": "{count} issue(s) detected. Confirm data accuracy before submitting."
+}

@@ -1,15 +1,14 @@
 <template>
     <div class="login-bg d-flex justify-content-center align-items-center vh-100">
         <div class="login-card">
-            <img src="@/assets/logo.jpg" alt="Taigene Logo" class="login-logo">
-            <span class="lglabel-main">使用者登入</span>
-            <span class="lglabel-sub">User Login</span>
+            <img src="@/assets/logo.png" alt="My logo" class="login-logo">
+            <span class="lglabel-main">User Portal</span>
             <div class="login-divider"></div>
 
-            <input type="text" class="login-input" placeholder="帳號 Username">
-            <input type="password" class="login-input" placeholder="密碼 Password">
+            <input type="text" class="login-input" placeholder="Username">
+            <input type="password" class="login-input" placeholder="Password">
 
-            <button class="login-btn" @click="router.push('/manufacturing')">登入</button>
+            <button class="login-btn" @click="router.push('/manufacturing')">Login</button>
             <!--decided by department-->
         </div>
     </div>
@@ -41,7 +40,7 @@ const router = useRouter()
 }
 
 .login-logo {
-  width: 280px;
+  width: 150px;
   height: auto;
   margin: 0 auto 22px;
   display: block;
@@ -54,14 +53,6 @@ const router = useRouter()
   color: var(--title);
   margin-bottom: 3px;
   letter-spacing: 0.5px;
-}
-
-.lglabel-sub {
-  display: block;
-  font-size: 18px;
-  color: var(--text);
-  margin-bottom: 8px;
-  letter-spacing: 0.3px;
 }
 
 .login-divider {

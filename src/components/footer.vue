@@ -1,7 +1,6 @@
 <template>
     <footer class="pg-footer">
-        Copyright &copy; 2026 Taigene All Rights Reserved.
-        <strong>Developer- Hsuan Yi Liao</strong>
+        Copyright &copy; 2026 Hsuan-Yi Liao All Rights Reserved.
     </footer>      
 </template>
 <style scoped>
@@ -12,10 +11,5 @@
   padding: 15px;
   border-top: 1px solid #f0f0f0;
   background: var(--card);
-}
-
-.pg-footer strong {
-  color: black;
-  font-weight: bolder;
 }
 </style>

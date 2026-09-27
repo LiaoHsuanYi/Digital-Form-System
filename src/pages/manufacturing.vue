@@ -4,9 +4,8 @@
     
     <div class="lang-body">
         <div class="lang-card">
-            <div class="lang-card-title">系統預設是繁體中文，有需要請至左上角選擇其他語言</div>
-            <div class="lang-card-subth">ระบบเริ่มต้นเป็นจีนตัวเต็ม เปลี่ยนภาษาได้ที่มุมบนซ้าย</div>
-            <div class="lang-card-subid">Sistem berbahasa Mandarin Tradisional. Pilih bahasa lain di kiri atas jika perlu.</div>
+            <div class="lang-card-title">Default: English. Select another language in the top-left.</div>
+            <div class="lang-card-subzh">系統預設是英文，有需要請至左上角選擇其他語言</div>
         </div>
     </div>
 
@@ -41,22 +40,15 @@ import Navbar from '@/components/navbar.vue'
 }
 
 .lang-card-title {
-  font-size: 32px;                           
+  font-size: 28px;                           
   font-weight: 700;
   color: var(--title);
   margin-bottom: 20px;                     
 }
-
-.lang-card-subth {
-  font-size: 24px;                           
-  font-weight: 400;
-  color: var(--text);   
-  margin-bottom: 20px;                     
-}
-.lang-card-subid {
+.lang-card-subzh {
   font-size: 22px;                           
   font-weight: 400;
-  color: var(--text);                    
+  color: var(--text);                   
 }
 
 .lang-btns {

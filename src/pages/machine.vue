@@ -21,20 +21,11 @@
             <label class="field-label">{{ $t('machine.machineNo') }}</label> 
             <select class="field-input" v-model="form.machineNo" @click="identifyParams" required>
               <option value="" selected>{{ $t('machine.select') }}</option>
-              <option value="DIE-003">DIE-003</option>
-              <option value="DIE-004">DIE-004</option>
-              <option value="DIE-005">DIE-005</option>
-              <option value="DIE-006">DIE-006</option>
-              <option value="DIE-008">DIE-008</option>
-              <option value="DIE-009">DIE-009</option>
-              <option value="DIE-010">DIE-010</option>
-              <option value="DIE-011">DIE-011</option>
-              <option value="DIE-012">DIE-012</option>
-              <option value="DIE-013">DIE-013</option>
-              <option value="DIE-014">DIE-014</option>
-              <option value="DIE-015">DIE-015</option>
-              <option value="DIE-016">DIE-016</option>
-              <option value="DIE-017">DIE-017</option>
+              <option value="M001">Machine 001</option>
+              <option value="M002">Machine 002</option>
+              <option value="M003">Machine 003</option>
+              <option value="M004">Machine 004</option>
+              <option value="M005">Machine 005</option>
             </select>
           </div>
           <div class="field-group">
@@ -43,7 +34,7 @@
           </div>
           <div class="field-group">
             <label class="field-label">{{ $t('machine.machineType') }}</label> 
-            <input type="text" class="field-input" v-model="form.machineType" placeholder="ex: 444-EC" required>
+            <input type="text" class="field-input" v-model="form.machineType" required>
           </div>
           <div class="field-group">
             <label class="field-label">{{ $t('machine.moldId') }}</label>
@@ -106,23 +97,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="param-group">
-              <span class="param-label">{{ $t('machine.setting.labels[6]') }}</span>
-              <input class="param-input" type="number" step="any" v-model.number="form.lowSpeed" required>
-            </div>
-            <div class="param-group">
-              <span class="param-label">{{ $t('machine.setting.labels[7]') }}</span>
-              <input class="param-input" type="number" step="any" v-model.number="form.highSpeed" required>
-            </div>
-            <div class="param-group">
-              <span class="param-label">{{ $t('machine.setting.labels[8]') }}</span>
-              <input class="param-input" type="number" step="any" v-model.number="form.position" required>
-            </div>
-            <div class="param-group">
-              <span class="param-label">{{ $t('machine.setting.labels[9]') }}</span>
-              <input class="param-input" type="number" step="any" v-model.number="form.injectPress">
-            </div>
           </div>
         </div>
       </section>
@@ -130,31 +104,7 @@
       <section> 
         <div class="sec-head">
           <div class="sec-bar"></div>
-          <div class="sec-lbl">{{  $t('machine.labels[3]') }}</div>
-        </div>
-        <div class="check-panel">
-          <div class="check-grid">
-            <label 
-            class="check-item mb-1" 
-            v-for="issue in issueType" 
-            :key="issue.key"
-            >
-              <input 
-                type="checkbox" 
-                class="form-check-input" 
-                v-model="form.issues" 
-                :value="issue.key" 
-              />
-              <span>{{ issue.label }}</span>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <section> 
-        <div class="sec-head">
-          <div class="sec-bar"></div>
-          <label class="sec-lbl">{{  $t('machine.labels[4]') }}</label>
+          <label class="sec-lbl">{{  $t('machine.labels[2]') }}</label>
         </div>
         <div class="upload-zone" @click="triggerUpload">
           <div class="upload-content">
@@ -220,7 +170,7 @@ const fileError = ref('');
 //main form
 const form = reactive({
 ...(parsedDraft || {
-  formType: '自主巡檢表-設備檢查', 
+  formType: 'Equipment Inspection', 
   machineNo: '',
   batchNo: '',
   machineType: '',
@@ -233,11 +183,6 @@ const form = reactive({
   realTemp: '',
   fixRelTime: '',
   movRelTime: '',
-  lowSpeed: '',
-  highSpeed: '',
-  position: '',
-  injectPress: '',
-  issues: [],
   files: []
   }),
   date: formatNow('minute')   
@@ -269,27 +214,10 @@ const resetform = () => {
     checkParams.value = true;
 }
 
-//value assignment
-const issueType = computed(() => [
-  { key: '鑄塞漏水', label: t('machine.checklist[0]') },
-  { key: '料管漏水', label: t('machine.checklist[1]') },
-  { key: '模具漏水', label: t('machine.checklist[2]') },
-  { key: '離型劑過多', label: t('machine.checklist[3]') },
-  { key: '排氣閥阻塞', label: t('machine.checklist[4]') },
-  { key: '離型劑噴頭漏水', label: t('machine.checklist[5]') },
-  { key: '料管沒潤滑', label: t('machine.checklist[6]') },
-  { key: '輸送機風扇沒運轉', label: t('machine.checklist[7]') },
-  { key: '模具循環水沒開啟', label: t('machine.checklist[8]') }
-])
-
 //setting parameters block display or not
 const allowMachine = [
-  'DIE-011',
-  'DIE-012',
-  'DIE-014',
-  'DIE-015',
-  'DIE-016',
-  'DIE-017'
+  'M004',
+  'M005',
 ]
 
 function identifyParams()
@@ -310,7 +238,7 @@ const handleFileChange = (event) => {
   if (selectedFiles.length === 0) return;
 
   for (const file of selectedFiles) {
-    if (file.size > 5 * 1024 * 1024) {
+    if (file.size > 3 * 1024 * 1024) {
       fileError.value = t('machine.fileLimit');
       event.target.value = '';
       return;
@@ -329,17 +257,13 @@ const checkSet = () => {
 
   fileError.value = '';
 
-  if (form.issues.length === 0) 
-  {
-    return confirm(t('machine.setOK'));
-  }
-
   if (form.files.length === 0) 
   {
     fileError.value = t('machine.fileNG');
     return false;
   }
   
+  alert(t('machine.alert'));
   return true;
 };
 
@@ -347,11 +271,9 @@ const checkSet = () => {
 const submitMachine = async() => {
   if(!checkSet())
       return;
- 
-  //console.log(form);
-  resetform();
 
   //API
+  resetform();
 }
 
 </script>
